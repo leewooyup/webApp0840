@@ -6,15 +6,22 @@
 >
 <th:block th:replace="/head :: headFragment"></th:block>
 
-<body>
+<body class="h-[100vh]">
+<div class="flex flex-col h-[100%]">
     <!-- header fragment -->
-    <th:block th:replace="/header :: headerFragment"></th:block>
+    <div>
+        <th:block th:replace="/header :: headerFragment"></th:block>
+    </div>
 
     <!-- 기본 템플릿 안에 삽입될 내용 Start -->
-    <th:block layout:fragment="content"></th:block>
+    <div class="flex-grow">
+        <th:block layout:fragment="content"></th:block>
+    </div>
     <!-- 기본 템플릿 안에 삽입될 내용 End -->
 
     <!-- footer fragment -->
     <th:block th:replace="/footer :: footerFragment"></th:block>
+
+</div>
 </body>
 </html>
