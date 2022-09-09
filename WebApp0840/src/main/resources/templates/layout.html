@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html
+        lang="ko"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<th:block th:replace="/head :: headFragment"></th:block>
+
+<body>
+    <!-- header fragment -->
+    <th:block th:replace="/header :: headerFragment"></th:block>
+
+    <!-- 기본 템플릿 안에 삽입될 내용 Start -->
+    <th:block layout:fragment="content"></th:block>
+    <!-- 기본 템플릿 안에 삽입될 내용 End -->
+
+    <!-- footer fragment -->
+    <th:block th:replace="/footer :: footerFragment"></th:block>
+</body>
+</html>
