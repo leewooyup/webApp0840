@@ -2,16 +2,24 @@
         xmlns:th="http://thymeleaf.org"
 >
 <th:block th:replace="/head :: headFragment"></th:block>
-
-<div class="h-[10%] flex text-5xl font-bold text-white p-2 default-bgcolor-base">
-    <div class="w-[60px] text-4xl mt-2">
+<head>
+    <!-- tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.25.0/dist/full.css" rel="stylesheet" type="text/css"/>
+</head>
+<div class="h-[8%] flex text-3xl font-bold text-white p-2 default-bgcolor-base">
+    <div class="w-[60px] text-2xl mt-2">
         <i class="fa-solid fa-piggy-bank"></i>
     </div>
     <div class="flex-grow text-center mt-2">
         0840
     </div>
+    <div class="mt-2">
+        <a th:href="@{/user/login}" tabindex="-1" aria-disabled="true"><span class="text-base">로그인</span></a>
+    </div>
 </div>
-<div class="h-[90%]">
+<div class="h-[92%]">
     <div class="container mx-auto max-w-screen-lg mt-5 p-10 flex flex-col rounded-2xl shadow-lg">
         <form th:action="@{/user/login}" method="POST" class="flex flex-col w-[70%] mx-auto items-center">
             <div class="w-[90%] text-center text-2xl font-semibold mt-1 mb-10">
@@ -31,7 +39,8 @@
                     </div>
                 </div>
                 <div class="flex flex-col max-w-screen-md">
-                    <button type="submit" class="btn btn-outline btn-error btn-sm w-[100%] mx-auto">로그인 <span class="text-sm ml-2"><i class="fa-solid fa-piggy-bank"></i></span></button>
+                    <button type="submit" class="btn btn-outline btn-error btn-sm w-[100%] mx-auto">로그인 <span
+                            class="text-sm ml-2"><i class="fa-solid fa-piggy-bank"></i></span></button>
                     <a class="mt-2 text-right text-sm text-gray-400 font-light underline cursor-pointer">회원가입</a>
                 </div>
             </div>
