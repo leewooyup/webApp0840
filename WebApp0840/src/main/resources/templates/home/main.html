@@ -10,57 +10,39 @@
         .profileImg {
             border-radius: 50%;
         }
-
-
+        .side-hide {
+            display: none;
+        }
+        .show-btn {
+            cursor: pointer;
+            background-color: rgba(74, 202, 168, 0.7);
+        }
     </style>
 </head>
 <th:block layout:fragment="content">
     <div class="flex h-[100%]">
-        <div class="w-[18%] h-[100%] default-profile-bgcolor rounded-r-lg shadow-lg">
-            <div class="w-[100%] mt-6 border-b border-gray-300"></div>
-            <div class="w-[100%] mt-1 border-b border-gray-300"></div>
-            <div class="px-5 pt-5">
-                <img class="profileImg" src="https://picsum.photos/id/43/300/300">
-            </div>
-            <div class="w-[80%] mx-auto">
-                <ul class="mt-5">
-                    <li class="flex justify-between">
-                        <div class="text-sm text-white">계정상태</div>
-                        <div class="bg-green-500 py-1 px-2 rounded text-white text-sm">Active</div>
-                    </li>
-                    <li class="flex justify-between">
-                        <div class="text-sm pt-1 text-white">닉네임</div>
-                        <div class="text-sm pt-1">peter</div>
-                    </li>
-                    <li class="flex justify-between">
-                        <div class="text-sm pt-1 text-white">가입일자</div>
-                        <div class="text-xs pt-1">2022-09-15</div>
-                    </li>
-                    <li class="flex justify-between">
-                        <div class="text-sm pt-1 text-white">시급</div>
-                        <div class="text-sm pt-1">미정</div>
-                    </li>
-                    <li class="flex justify-between">
-                        <div class="text-sm pt-1 text-white">주 근무시간</div>
-                        <div class="text-sm pt-1">03:28</div>
-                    </li>
-                    <li class="flex justify-between">
-                        <div class="text-sm pt-1 text-white">누적 근무시간</div>
-                        <div class="text-sm pt-1">09:24</div>
-                    </li>
-                    <li class="flex justify-between">
-                        <div class="text-sm pt-1 text-white">연차</div>
-                        <div class="text-sm pt-1">0일</div>
-                    </li>
-                    <li class="flex justify-between">
-                        <div class="text-sm pt-1 text-white">월급일</div>
-                        <div class="text-sm pt-1">매월 5일</div>
-                    </li>
-                </ul>
-            </div>
-            <div class="w-[100%] mt-24 border-b border-gray-300"></div>
+        <div class="w-[18%] side-hide">
+            <th:block th:replace="/user/userInfo :: userInfoFragment" class="h-[100%]"></th:block>
         </div>
-        <div class="w-[82%] h-[100%] p-5">main section</div>
+        <button class="show-btn border-l border-gray-300 hover:bg-[#36BC9B] px-[1px]">
+            <i class="fa-solid fa-circle-right"></i>
+        </button>
+        <div class="w-[100%]">
+            <th:block th:replace="/wage/wage_form :: wageFormFragment"></th:block>
+        </div>
     </div>
+    <!-- JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $(".show-btn").click(function() {
+            console.log("Hi");
+            $(this).prev("div").toggleClass("side-hide");
+        });
+    });
+    </script>
 </th:block>
 </html>
+
+
+

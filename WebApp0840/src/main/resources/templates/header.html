@@ -8,8 +8,8 @@
 </head>
 <!-- 해당 부분을 fragment로 선언 -->
 <th:block th:fragment="headerFragment">
-    <nav class="navbar navbar-expand-xl navbar-light bg-light p-0">
-        <div class="container-fluid default-bgcolor-base pl-8">
+    <nav class="navbar navbar-expand-xl navbar-light bg-light p-0 h-[100%]">
+        <div class="container-fluid default-bgcolor-base pl-8 h-[100%]">
             <a class="navbar-brand text-white" th:href="@{/user/login}">0840</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarWithDropdown"
                     aria-controls="navbarWithDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,7 @@
                                aria-disabled="true">로그인</a>
                         </li>
                     </div>
-                    <div class="w-[150px]">
+                    <div class="w-[150px] mr-2">
                         <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
                             <a class="nav-link dropdown-toggle text-white text-center" href="#" id="navbarDropdownMenuLink"
                                role="button"
