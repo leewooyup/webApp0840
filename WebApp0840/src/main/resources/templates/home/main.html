@@ -4,8 +4,6 @@
         layout:decorate="~{layout}"
 >
 <head>
-    <!-- tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .profileImg {
             border-radius: 50%;
@@ -13,33 +11,42 @@
         .side-hide {
             display: none;
         }
-        .show-btn {
+        .toggle-btn {
             cursor: pointer;
             background-color: rgba(74, 202, 168, 0.7);
         }
+        #main-content {
+        }
+
     </style>
 </head>
 <th:block layout:fragment="content">
-    <div class="flex h-[100%]">
-        <div class="w-[18%] side-hide">
-            <th:block th:replace="/user/userInfo :: userInfoFragment" class="h-[100%]"></th:block>
+    <div class="flex h-full">
+        <div class="flex h-[100%]">
+            <div id="sidebar" class="w-[260px] h-full side-hide">
+                <th:block th:replace="/user/userInfo :: userInfoFragment" class="h-[100%]"></th:block>
+            </div>
+            <div class="toggle-btn border-l border-gray-300 hover:bg-[#36BC9B] rounded-br-lg">
+                <i class="fa-solid fa-circle-radiation"></i>
+            </div>
         </div>
-        <button class="show-btn border-l border-gray-300 hover:bg-[#36BC9B] px-[1px]">
-            <i class="fa-solid fa-circle-right"></i>
-        </button>
-        <div class="w-[100%]">
+        <div id="main-content" class="max-h-full flex-grow flex flex-col">
             <th:block th:replace="/wage/wage_form :: wageFormFragment"></th:block>
         </div>
     </div>
-    <!-- JQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-    $(document).ready(function() {
-        $(".show-btn").click(function() {
-            console.log("Hi");
-            $(this).prev("div").toggleClass("side-hide");
+        $('.toggle-btn').click(function() {
+            if($('#sidebar').is(':visible')) {
+                $('#sidebar').animate({'width': '0px'}, 'slow', function() {
+                    $('#sidebar').hide();
+                });
+                $('#main-content').animate({'width': '100%'}, 'slow');
+            } else {
+                $('#sidebar').show('slow');
+                $('#sidebar').animate({'width': '260px'}, 'slow');
+                $('#main-content').animate({'flex-grow': '1'}, 'slow');
+            }
         });
-    });
     </script>
 </th:block>
 </html>

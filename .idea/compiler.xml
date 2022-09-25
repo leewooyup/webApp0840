@@ -16,13 +16,13 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mysema.commons/mysema-commons-lang/0.2.4/d09c8489d54251a6c22fbce804bdd4a070557317/mysema-commons-lang-0.2.4.jar" />
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.jdt/ecj/3.26.0/4837be609a3368a0f7e7cf0dc1bdbc7fe94993de/ecj-3.26.0.jar" />
         </processorPath>
-        <module name="WebApp0840.WebApp0840.main" />
+        <module name="WebApp0840.WebApp0840.main~1" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="WebApp0840.WebApp0840.main~1" target="17" />
-      <module name="WebApp0840.WebApp0840.querydsl" target="17" />
-      <module name="WebApp0840.WebApp0840.test~1" target="17" />
+      <module name="WebApp0840.WebApp0840.main" target="17" />
+      <module name="WebApp0840.WebApp0840.querydsl~1" target="17" />
+      <module name="WebApp0840.WebApp0840.test" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>

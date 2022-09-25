@@ -2,15 +2,12 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
-<head>
-    <!-- tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
+
 <!-- 해당 부분을 fragment로 선언 -->
 <th:block th:fragment="headerFragment">
-    <nav class="navbar navbar-expand-xl navbar-light bg-light p-0 h-[100%]">
-        <div class="container-fluid default-bgcolor-base pl-8 h-[100%]">
-            <a class="navbar-brand text-white" th:href="@{/user/login}">0840</a>
+    <nav class="navbar navbar-expand-xl bg-white navbar-light bg-light p-0 h-[100%] h-[28px] mt-2 object-fit">
+        <div class="container-fluid pl-8 h-[100%]">
+            <a class="navbar-brand" th:href="@{/user/login}"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarWithDropdown"
                     aria-controls="navbarWithDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -19,18 +16,18 @@
                 <ul class="navbar-nav flex-grow flex">
                     <div class="flex-grow flex gap-5">
                         <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/}"><i class="fa-solid fa-house-user"></i><span class="ml-2">홈</span></a>
+                            <a class="nav-link active text-black" aria-current="page" th:href="@{/}"><i class="fa-solid fa-house-user"></i><span class="ml-2">홈</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="#"><i class="fa-solid fa-calculator"></i><span class="ml-2">급여계산기</span></a>
+                            <a class="nav-link text-black" href="#"><i class="fa-solid fa-calculator"></i><span class="ml-2">급여계산기</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="#"><i class="fa-solid fa-book"></i><span class="ml-2">가계부</span></a>
+                            <a class="nav-link text-black" href="#"><i class="fa-solid fa-book"></i><span class="ml-2">가계부</span></a>
                         </li>
                     </div>
                     <div class="w-[150px]">
                         <li class="nav-item" sec:authorize="isAnonymous()">
-                            <a class="nav-link text-white text-center" th:href="@{/user/login}" tabindex="-1"
+                            <a class="nav-link text-black text-center" th:href="@{/user/login}" tabindex="-1"
                                aria-disabled="true">로그인</a>
                         </li>
                     </div>

@@ -6,66 +6,60 @@
 
 <!-- 해당 부분을 fragment로 선언 -->
 <th:block th:fragment="wageFormFragment">
-    <head>
-        <!-- DaisyUI -->
-<!--        <link href="https://cdn.jsdelivr.net/npm/daisyui@2.28.0/dist/full.css" rel="stylesheet" type="text/css" />-->
-        <script src="https://cdn.tailwindcss.com"></script>
-    </head>
-    <img class="w-[100%] h-[32%] object-cover contrast-50" src="/images/piggy.jpg" alt="bg-wageForm"/>
+    <img class="w-[100%] h-[35%] object-cover contrast-50" src="/images/piggy.jpg" alt="bg-wageForm"/>
 
-    <div class="w-[100%] h-[68%]">
-        <div class="container max-w-screen-lg flex flex-col">
-            <div class="flex gap-5">
-                <div class="p-5 max-w-xs text-2xl mt-4">
-                    <i class="fa-solid fa-money-check-dollar"></i><span
-                        class="ml-2 text-3xl"><br>급여정보를<br>입력하세요.</span>
+    <div class="w-[100%] h-[65%]">
+        <div class="container mx-auto max-w-screen-md flex justify-around">
+            <div class="p-5 max-w-xs text-2xl mt-4">
+                <i class="fa-solid fa-money-check-dollar"></i><span
+                    class="ml-2 text-3xl"><br>급여정보를<br>입력하세요.</span>
+            </div>
+
+            <div class="p-5 max-w-screen-sm flex-grow flex flex-col mt-4">
+                <div class="card card-small card-post mb-4 flex rounded-2xl shadow-md p-5">
+                    <div class="flex gap-2">
+                        <span class="w-[100px] mt-2">시급</span>
+                        <div class="flex flex-grow justify-end mt-2">
+                            <div>
+                                &#8361; <input type="text" name="baseWage"
+                                               class="ml-auto ml-2 border form-control-sm w-[100px] text-right"
+                                               placeholder="9,160"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="w-[100px] mt-2">연차</span>
+                        <div class="flex flex-grow justify-end mt-2">
+                            <div>
+                                <input type="text" name="annual"
+                                       class="ml-auto ml-2 border form-control-sm w-[40px] text-right"
+                                       placeholder="0"/>
+                                <span class="ml-1">일</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="w-[100px] mt-2">월급일</span>
+                        <div class="flex flex-grow justify-end mt-2">
+                            <div>
+                                <span>매달</span>
+                                <input type="text" name="baseWage"
+                                       class="ml-auto ml-2 border form-control-sm w-[40px] text-right"/>
+                                <span class="ml-1">일</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="w-[100px] mt-2">근무 시작일</span>
+                        <div class="flex flex-grow justify-end mt-2">
+                            <div class="text-2xl">
+                                <i class="fa-regular fa-calendar-days"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="p-5 max-w-screen-sm flex-grow flex flex-col mt-4">
-                    <div class="card card-small card-post mb-4 flex rounded-2xl shadow-md p-5">
-                        <div class="flex gap-2">
-                            <span class="w-[100px] mt-2">시급</span>
-                            <div class="flex flex-grow justify-end mt-2">
-                                <div>
-                                    &#8361; <input type="text" name="baseWage"
-                                                   class="ml-auto ml-2 border form-control-sm w-[100px] text-right"
-                                                   placeholder="9,160"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex gap-2">
-                            <span class="w-[100px] mt-2">연차</span>
-                            <div class="flex flex-grow justify-end mt-2">
-                                <div>
-                                    <input type="text" name="annual"
-                                           class="ml-auto ml-2 border form-control-sm w-[40px] text-right"/>
-                                    <span class="ml-1">일</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex gap-2">
-                            <span class="w-[100px] mt-2">월급일</span>
-                            <div class="flex flex-grow justify-end mt-2">
-                                <div>
-                                    <span>매달</span>
-                                    <input type="text" name="baseWage"
-                                           class="ml-auto ml-2 border form-control-sm w-[40px] text-right"/>
-                                    <span class="ml-1">일</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex gap-2">
-                            <span class="w-[100px] mt-2">근무 시작일</span>
-                            <div class="flex flex-grow justify-end mt-2">
-                                <div class="text-2xl">
-                                    <i class="fa-regular fa-calendar-days"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex justify-end">
-                        <button class="btn btn-outline btn-sm btn-error w-[80px]">다음</button>
-                    </div>
+                <div class="flex justify-end">
+                    <button class="btn btn-outline btn-sm btn-error w-[80px]">다음</button>
                 </div>
             </div>
         </div>
