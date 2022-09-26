@@ -7,6 +7,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -21,4 +22,7 @@ public class WageBaseForm {
     @Min(1)
     @Max(31)
     private Integer payday;
+
+    @NotEmpty(message="근무시작일은 필수 항목입니다.")
+    private String workStartDate;
 }

@@ -6,6 +6,8 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -45,4 +47,7 @@ public class SiteUser {
 
     @Column
     private Integer payday;
+
+    @Column
+    private Date workStartDate;
 }

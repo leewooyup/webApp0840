@@ -25,31 +25,34 @@
 
                     <div class="p-5 max-w-screen-sm flex-grow flex flex-col mt-4">
                         <div class="card card-small card-post mb-2 flex rounded-2xl shadow-md p-5">
-                            <form th:action method="POST">
+                            <form th:action="@{/wage/working-time}" th:object="${workingTimeForm}" method="POST">
+                                <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
+                                    <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+                                </div>
                                 <div class="flex gap-2">
                                     <label class="w-[100px] mt-2">근무날짜</label>
                                     <div class="flex gap-2 ml-auto">
                                         <i class="fa-regular fa-calendar-days text-2xl"></i>
-                                        <input type="text" class="datepicker border w-[120px] text-right">
+                                        <input type="text" th:field="*{workingDate}" class="datepicker border w-[120px] text-right">
                                     </div>
                                 </div>
                                 <div class="flex gap-2">
                                     <label class="w-[100px] mt-2">근무시간</label>
                                     <div class="flex flex-grow justify-end mt-2">
-                                        <input type="text" name="hour"
-                                               class="ml-auto border mr-2 form-control-sm w-[40px]"/><span
-                                            class="mr-2">시</span>
-                                        <input type="text" name="minute"
+                                        <input type="text" th:field="*{workingHours}"
+                                               class="ml-auto border mr-2 form-control-sm w-[40px]"/>
+                                        <span class="mr-2">시</span>
+                                        <input type="text" th:field="*{workingMinutes}"
                                                class="border mr-2 form-control-sm w-[40px]"/><span>분</span>
                                     </div>
                                 </div>
                                 <div class="flex gap-2">
                                     <span class="w-[100px] mt-2">연장 근무시간</span>
                                     <div class="flex flex-grow justify-end mt-2">
-                                        <input type="text" name="hour"
-                                               class="ml-auto mr-2 border form-control-sm w-[40px]"/><span
-                                            class="mr-2">시</span>
-                                        <input type="text" name="minute"
+                                        <input type="text" th:field="*{extendedHours}"
+                                               class="ml-auto mr-2 border form-control-sm w-[40px]"/>
+                                        <span class="mr-2">시</span>
+                                        <input type="text" th:field="*{extendedMinutes}"
                                                class="border mr-2 form-control-sm w-[40px]"/><span>분</span>
                                     </div>
                                 </div>
