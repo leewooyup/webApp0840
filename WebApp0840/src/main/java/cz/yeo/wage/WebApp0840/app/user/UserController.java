@@ -1,7 +1,6 @@
-package cz.yeo.wage.WebApp0840.app.user.controller;
+package cz.yeo.wage.WebApp0840.app.user;
 
 import cz.yeo.wage.WebApp0840.app.user.form.UserCreateForm;
-import cz.yeo.wage.WebApp0840.app.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -21,23 +20,23 @@ public class UserController {
         return "user/login";
     }
 
-    @GetMapping("/signup")
-    public String user_signup_form(UserCreateForm userCreateForm) {
-        return "user/signup";
+    @GetMapping("/join")
+    public String showJoin(UserCreateForm userCreateForm) {
+        return "user/join";
     }
-    @PostMapping("/signup")
-    public String user_signup(@Valid UserCreateForm userCreateForm, BindingResult bindingResult) {
+    @PostMapping("/join")
+    public String join(@Valid UserCreateForm userCreateForm, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
-            return "user/signup";
+            return "user/join";
         }
 
-        if(!userCreateForm.getLoginPw().equals(userCreateForm.getLoginPwCheck())) {
+        if(!userCreateForm.getPassword().equals(userCreateForm.getPasswordCheck())) {
             bindingResult.rejectValue("loginPw", "passwordIncorrect",
                     "패스워드가 일치하지 않습니다.");
-            return "user/signup";
+            return "user/join";
         }
-        userService.create(userCreateForm.getLoginId(), userCreateForm.getLoginPw(),
-                            userCreateForm.getNickname(), userCreateForm.getEmail(), userCreateForm.getUserImg());
+        userService.join(userCreateForm.getUsername(), userCreateForm.getPassword(),
+                            userCreateForm.getNickname(), userCreateForm.getEmail());
         return "redirect:/user/login";
     }
 }

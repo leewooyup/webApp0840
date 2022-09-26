@@ -1,7 +1,8 @@
-package cz.yeo.wage.WebApp0840.app.user;
+package cz.yeo.wage.WebApp0840.app.user.security;
 
+import cz.yeo.wage.WebApp0840.app.user.UserRepository;
+import cz.yeo.wage.WebApp0840.app.user.UserRole;
 import cz.yeo.wage.WebApp0840.app.user.entity.SiteUser;
-import cz.yeo.wage.WebApp0840.app.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,7 +25,7 @@ public class UserSecurityService implements UserDetailsService {
     // 그 username에 해당하는 회원정보를 얻는 수단
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        SiteUser siteUser = userRepository.findByLoginId(username).orElseThrow(() ->
+        SiteUser siteUser = userRepository.findByUsername(username).orElseThrow(() ->
                 new UsernameNotFoundException("사용자를 찾을수 없습니다.")
         );
 
@@ -37,6 +38,6 @@ public class UserSecurityService implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(UserRole.USER.getValue()));
         }
 
-        return new User(siteUser.getLoginId(), siteUser.getLoginPw(), authorities);
+        return new User(siteUser.getUsername(), siteUser.getPassword(), authorities);
     }
 }

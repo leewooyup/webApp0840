@@ -11,13 +11,13 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 public class UserCreateForm {
     @NotEmpty(message = "사용자ID는 필수항목입니다.")
-    private String loginId;
+    private String username;
 
     @NotEmpty(message = "비밀번호는 필수항목입니다.")
-    private String loginPw;
+    private String password;
 
     @NotEmpty(message = "비밀번호 확인은 필수항목입니다.")
-    private String loginPwCheck;
+    private String passwordCheck;
 
     @NotEmpty(message = "닉네임은 필수항목입니다.")
     private String nickname;
@@ -25,6 +25,4 @@ public class UserCreateForm {
     @NotEmpty(message = "닉네임은 필수항목입니다.")
     @Email(message = "이메일 형식이 아닙니다.")
     private String email;
-
-    private MultipartFile userImg;
 }

@@ -1,6 +1,6 @@
 package cz.yeo.wage.WebApp0840.app.base;
 
-import cz.yeo.wage.WebApp0840.app.user.UserSecurityService;
+import cz.yeo.wage.WebApp0840.app.user.security.UserSecurityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -20,28 +19,28 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
     private final UserSecurityService userSecurityService;
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // # 모든 권한을 풀어준다, 로그인 안해도 됨
-        http.authorizeRequests()
-                .antMatchers("/**") // 모든 경로에 대한
-                .permitAll() // 접속을 허용한다
-                .and()
-                .headers().addHeaderWriter(new XFrameOptionsHeaderWriter(
-                        XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN))
-                .and()
-                .formLogin()
-                .loginPage("/user/login")
-                .defaultSuccessUrl("/")
-                .failureUrl("/user/login?error")
-                .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-                .logoutSuccessUrl("/user/login")
-                .invalidateHttpSession(true);
-
+        http
+                .csrf(
+                        csrf -> csrf.disable()
+                )
+                .authorizeRequests(
+                        authorizeRequests -> authorizeRequests
+                                .antMatchers("/**")
+                                .permitAll()
+                )
+                .formLogin(
+                        formLogin -> formLogin
+                                .loginPage("/user/login")
+                                .loginProcessingUrl("/user/login")
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/user/logout")
+                );
         return http.build();
     }
 

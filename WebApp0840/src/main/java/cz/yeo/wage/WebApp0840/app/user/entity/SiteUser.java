@@ -21,10 +21,10 @@ public class SiteUser {
     private Integer id;
 
     @Column(length = 20, nullable = false, unique = true)
-    private String loginId;
+    private String username;
 
-    @Column(length = 255, nullable = true)
-    private String loginPw;
+    @Column(length = 255, nullable = false)
+    private String password;
 
     @Column(nullable = false)
     private String nickname;
@@ -32,6 +32,17 @@ public class SiteUser {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
-    private String userImgPath;
+    @Column
+    private String userImgRelPath;
+
+    @Column
+    @ColumnDefault("9160")
+    private Double baseWage;
+
+    @Column
+    @ColumnDefault("0")
+    private Integer annual;
+
+    @Column
+    private Integer payday;
 }
