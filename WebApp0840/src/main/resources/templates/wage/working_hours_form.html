@@ -1,1 +1,70 @@
-<h1>근무시간을 입력해주세요</h1>
+<html
+        xmlns:th="http://thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}"
+>
+
+<th:block layout:fragment="content">
+    <div class="flex h-full">
+        <div class="flex h-[100%]">
+            <div id="sidebar" class="w-[260px] h-full side-hide">
+                <th:block th:replace="/user/userInfo :: userInfoFragment" class="h-[100%]"></th:block>
+            </div>
+            <div class="toggle-btn border-l border-gray-300 hover:bg-[#36BC9B] rounded-br-lg">
+                <i class="fa-solid fa-circle-radiation"></i>
+            </div>
+        </div>
+        <div id="main-content" class="max-h-full flex-grow flex flex-col">
+            <img class="w-[100%] h-[35%] object-cover contrast-50" src="/images/piggy.jpg" alt="bg-wageForm"/>
+            <div class="w-[100%] h-[65%]">
+                <div class="container mx-auto max-w-screen-md flex justify-around">
+                    <div class="p-4 max-w-xs text-2xl mt-14">
+                        <i class="fa-solid fa-clock"></i>
+                        <span class="ml-2 text-3xl"><br>근무 날짜/시간을<br>입력하세요.</span>
+                    </div>
+
+                    <div class="p-5 max-w-screen-sm flex-grow flex flex-col mt-4">
+                        <div class="card card-small card-post mb-2 flex rounded-2xl shadow-md p-5">
+                            <form th:action method="POST">
+                                <div class="flex gap-2">
+                                    <label class="w-[100px] mt-2">근무날짜</label>
+                                    <div class="flex gap-2 ml-auto">
+                                        <i class="fa-regular fa-calendar-days text-2xl"></i>
+                                        <input type="text" class="datepicker border w-[120px] text-right">
+                                    </div>
+                                </div>
+                                <div class="flex gap-2">
+                                    <label class="w-[100px] mt-2">근무시간</label>
+                                    <div class="flex flex-grow justify-end mt-2">
+                                        <input type="text" name="hour"
+                                               class="ml-auto border mr-2 form-control-sm w-[40px]"/><span
+                                            class="mr-2">시</span>
+                                        <input type="text" name="minute"
+                                               class="border mr-2 form-control-sm w-[40px]"/><span>분</span>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2">
+                                    <span class="w-[100px] mt-2">연장 근무시간</span>
+                                    <div class="flex flex-grow justify-end mt-2">
+                                        <input type="text" name="hour"
+                                               class="ml-auto mr-2 border form-control-sm w-[40px]"/><span
+                                            class="mr-2">시</span>
+                                        <input type="text" name="minute"
+                                               class="border mr-2 form-control-sm w-[40px]"/><span>분</span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-end">
+                                    <button type="submit" class="border-2 border-[#3c424d] text-[#3c424d] bg-white hover:shadow-md px-4 pt-1 mt-3">
+                                        다음
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</th:block>
+</html>

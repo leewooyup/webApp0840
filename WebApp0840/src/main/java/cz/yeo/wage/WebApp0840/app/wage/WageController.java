@@ -38,6 +38,12 @@ public class WageController {
             siteUser.setPayday(wageBaseForm.getPayday());
             userRepository.save(siteUser);
         }
+        return "redirect:/wage/working-hours";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/working-hours")
+    public String showWorkingHours() {
         return "wage/working_hours_form";
     }
 }

@@ -3,18 +3,7 @@
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="~{layout}"
 >
-<head>
-    <style>
-        .profileImg {
-            border-radius: 50%;
-        }
-        .toggle-btn {
-            cursor: pointer;
-            background-color: rgba(74, 202, 168, 0.7);
-        }
 
-    </style>
-</head>
 <th:block layout:fragment="content">
     <div class="flex h-full">
         <div class="flex h-[100%]">
@@ -29,7 +18,7 @@
             <img class="w-[100%] h-[35%] object-cover contrast-50" src="/images/piggy.jpg" alt="bg-wageForm"/>
             <div class="w-[100%] h-[65%]">
                 <div class="container mx-auto max-w-screen-md flex justify-around">
-                    <div class="p-5 max-w-xs text-2xl mt-4">
+                    <div class="p-4 max-w-xs text-2xl mt-14">
                         <i class="fa-solid fa-money-check-dollar"></i>
                         <span class="ml-2 text-3xl"><br>급여정보를<br>입력하세요.</span>
                     </div>
@@ -69,14 +58,13 @@
                                 </div>
                                 <div class="flex gap-2">
                                     <label class="w-[100px] mt-2">근무 시작일</label>
-                                    <div class="flex flex-grow justify-end mt-2">
-                                        <div class="text-2xl">
-                                            <i class="fa-regular fa-calendar-days"></i>
-                                        </div>
+                                    <div class="flex gap-2 ml-auto mt-2">
+                                        <i class="fa-regular fa-calendar-days text-2xl"></i>
+                                        <input type="text" class="datepicker border w-[120px] text-right">
                                     </div>
                                 </div>
                                 <div class="flex justify-end">
-                                    <button type="submit">
+                                    <button type="submit" class="border-2 border-[#3c424d] text-[#3c424d] bg-white hover:shadow-md px-4 pt-1 mt-3">
                                         다음
                                     </button>
                                 </div>
@@ -86,21 +74,6 @@
                 </div>
             </div>
         </div>
-        <script>
-        $('.toggle-btn').click(function() {
-            if($('#sidebar').is(':visible')) {
-                $('#sidebar').animate({'width': '0px'}, 'slow', function() {
-                    $('#sidebar').hide();
-                });
-                $('#main-content').animate({'width': '100%'}, 'slow');
-            } else {
-                $('#sidebar').show('slow');
-                $('#sidebar').animate({'width': '260px'}, 'slow');
-                $('#main-content').animate({'flex-grow': '1'}, 'slow');
-            }
-        });
-
-        </script>
     </div>
 </th:block>
 </html>
