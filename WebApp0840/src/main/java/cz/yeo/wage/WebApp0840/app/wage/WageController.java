@@ -1,6 +1,7 @@
 package cz.yeo.wage.WebApp0840.app.wage;
 
 import cz.yeo.wage.WebApp0840.app.user.UserRepository;
+import cz.yeo.wage.WebApp0840.app.user.UserService;
 import cz.yeo.wage.WebApp0840.app.user.entity.SiteUser;
 import cz.yeo.wage.WebApp0840.app.user.work.WorkService;
 import cz.yeo.wage.WebApp0840.app.user.work.entity.Work;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -20,6 +22,7 @@ import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -28,6 +31,7 @@ import java.util.Optional;
 public class WageController {
     private final UserRepository userRepository;
     private final WorkService workService;
+    private final UserService userService;
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/base")
@@ -70,6 +74,68 @@ public class WageController {
             Work work = workService.create(siteUser, workingTimeForm.getWorkingDate(), workingTimeForm.getWorkingHours(),
                     workingTimeForm.getWorkingMinutes(), workingTimeForm.getExtendedHours(), workingTimeForm.getExtendedMinutes());
         }
+        return "redirect:/wage/result";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/result")
+    public String showResult(Principal principal, Model model) {
+        SiteUser siteUser = userService.findByUsername(principal.getName());
+        List<Work> works = workService.findBySiteUser(siteUser);
+        double sumBasePay = 0;
+        int sumMinutes = 0;
+        double sumHours = 0;
+        for (Work work : works) {
+            double workingHours = work.getWorkingHours();
+            double workingMinutes = work.getWorkingMinutes();
+            sumMinutes += workingMinutes;
+            sumHours += workingHours;
+        }
+        System.out.println("before sumHours: " + sumHours);
+        System.out.println("before sumMinutes: " + sumMinutes);
+
+        while (sumMinutes >= 60) {
+            System.out.println("60");
+            sumHours += 1;
+            sumMinutes -= 60;
+        }
+
+        while (sumMinutes >= 30) {
+            System.out.println("30");
+            sumHours += 0.5;
+            sumMinutes -= 30;
+        }
+
+        while (sumMinutes >= 10) {
+            System.out.println("10");
+            sumHours += 0.17;
+            sumMinutes -= 10;
+        }
+
+
+        switch (sumMinutes) {
+            case 9:
+                sumHours += 0.15;
+                break;
+            case 8:
+                sumHours += 0.1333;
+                break;
+            case 7:
+                sumHours += 0.1166;
+                break;
+            case 6:
+                sumHours += 0.1;
+                break;
+            case 5:
+                sumMinutes += 0.0833;
+                break;
+        }
+
+
+        sumBasePay = sumHours * siteUser.getBaseWage();
+        System.out.println("sumHours: " + sumHours);
+        System.out.println("sumMinutes: " + sumMinutes);
+        model.addAttribute("sumBasePay", sumBasePay);
         return "wage/wage_result";
     }
 }

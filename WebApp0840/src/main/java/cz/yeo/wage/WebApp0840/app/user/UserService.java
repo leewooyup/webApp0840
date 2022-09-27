@@ -38,4 +38,8 @@ public class UserService {
           }
         }
     }
+
+    public SiteUser findByUsername(String name) {
+        return userRepository.findByUsername(name).orElse(null);
+    }
 }

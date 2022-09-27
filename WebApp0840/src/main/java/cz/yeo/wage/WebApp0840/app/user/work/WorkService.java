@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -35,5 +36,9 @@ public class WorkService {
     }
     public Work findById(Integer id) {
         return workRepository.findById(id).orElse(null);
+    }
+
+    public List<Work> findBySiteUser(SiteUser siteUser) {
+        return workRepository.findBySiteUser(siteUser);
     }
 }
