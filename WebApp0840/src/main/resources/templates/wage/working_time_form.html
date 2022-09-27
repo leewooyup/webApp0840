@@ -10,20 +10,20 @@
             <div id="sidebar" class="w-[260px] h-full side-hide">
                 <th:block th:replace="/user/userInfo :: userInfoFragment" class="h-[100%]"></th:block>
             </div>
-            <div class="toggle-btn border-l border-gray-300 hover:bg-[#36BC9B] rounded-br-lg">
-                <i class="fa-solid fa-circle-radiation"></i>
+            <div class="toggle-btn border-l border-gray-300 hover:bg-[#36BC9B] rounded-br-lg shadow-md flex items-center">
+                <i class="fa-solid fa-angles-right"></i>
             </div>
         </div>
         <div id="main-content" class="max-h-full flex-grow flex flex-col">
             <img class="w-[100%] h-[35%] object-cover contrast-50" src="/images/piggy.jpg" alt="bg-wageForm"/>
             <div class="w-[100%] h-[65%]">
                 <div class="container mx-auto max-w-screen-md flex justify-around">
-                    <div class="p-4 max-w-xs text-2xl mt-14">
+                    <div class="p-4 max-w-xs text-2xl mt-8">
                         <i class="fa-solid fa-clock"></i>
                         <span class="ml-2 text-3xl"><br>근무 날짜/시간을<br>입력하세요.</span>
                     </div>
 
-                    <div class="p-5 max-w-screen-sm flex-grow flex flex-col mt-4">
+                    <div class="p-5 max-w-screen-sm flex-grow flex flex-col mt-1">
                         <div class="card card-small card-post mb-2 flex rounded-2xl shadow-md p-5">
                             <form th:action="@{/wage/working-time}" th:object="${workingTimeForm}" method="POST">
                                 <div class="flex gap-2">

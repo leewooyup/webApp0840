@@ -5,7 +5,28 @@
 >
 
 <th:block layout:fragment="content">
-
+    <div class="flex flex-col h-full">
+        <div class="h-[9%] pt-3">
+            <div class="w-[400px] flex mx-auto h-[30px]">
+                <input type="text" id="kw" name="kw" class="form-control-sm border border-gray-50 w-full">
+                <span class="border border-gray-50 text-center p-1 w-[30px]"><button class="text-black cursor-pointer"><i class="fa-solid fa-hand-pointer"></i></button></span>
+            </div>
+        </div>
+        <div class="bg-[#3c424d] h-[45%] p-10 flex justify-around px-20 bg-opacity-95">
+            <div class="pt-10">
+                <label><span class="text-4xl text-center font-bold text-white">내가 일한만큼 받는걸까?</span></label>
+                <div class="text-center mt-7">
+                    <a th:href="@{/wage/base}" class="border-2 border-[#4acaa8] text-black font-bold bg-[#4acaa8] no-underline rounded hover:text-white hover:shadow-md w-[100%] mx-auto p-3 text-base cursor-pointer">확인해보기</a>
+                </div>
+            </div>
+            <div>
+                <span class="text-white"><i class="fa-solid fa-coins fa-10x pt-2"></i></span>
+            </div>
+        </div>
+        <div>
+            공지사항 etc
+        </div>
+    </div>
 </th:block>
 
 </html>

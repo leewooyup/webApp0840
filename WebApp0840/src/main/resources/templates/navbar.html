@@ -5,7 +5,14 @@
 
 <!-- 해당 부분을 fragment로 선언 -->
 <th:block th:fragment="navbarFragment">
-    <nav class="navbar navbar-expand-xl bg-white navbar-light bg-light p-0 h-[100%] h-[28px] mt-2 object-fit">
+    <div class="h-[28%] bg-concrete flex justify-end px-2">
+        <label class="mr-5"><a href="#" class="no-underline text-xs text-gray-500 hover:text-gray-500">자주 묻는 질문</a></label>
+        <label class="mr-5"> | </label>
+        <label class="mr-5"><a href="#" class="no-underline text-xs text-gray-500 hover:text-gray-500">공지사항</a></label>
+        <label class="mr-5"> | </label>
+        <label class="mr-5"><a href="#" class="no-underline text-xs text-gray-500 hover:text-gray-500">가이드</a></label>
+    </div>
+    <nav class="navbar navbar-expand-xl navbar-fixed-top bg-white navbar-light bg-light p-0 h-[100%] h-[48px] mt-2 object-fit shadow-md">
         <div class="container-fluid pl-8 h-[100%]">
             <a class="navbar-brand" th:href="@{/user/login}"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarWithDropdown"
