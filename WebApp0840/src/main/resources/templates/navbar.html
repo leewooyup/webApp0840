@@ -27,13 +27,13 @@
                     </div>
                     <div class="w-[150px]">
                         <li class="nav-item" sec:authorize="isAnonymous()">
-                            <a class="nav-link text-black text-center" th:href="@{/user/login}" tabindex="-1"
+                            <a class="nav-link text-center" th:href="@{/user/login}" tabindex="-1"
                                aria-disabled="true">로그인</a>
                         </li>
                     </div>
                     <div class="w-[150px] mr-2">
                         <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
-                            <a class="nav-link dropdown-toggle text-white text-center" href="#" id="navbarDropdownMenuLink"
+                            <a class="nav-link dropdown-toggle text-center" href="#" id="navbarDropdownMenuLink"
                                role="button"
                                data-bs-toggle="dropdown" aria-expanded="false">
                                 마이페이지

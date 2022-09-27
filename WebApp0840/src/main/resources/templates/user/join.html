@@ -3,41 +3,59 @@
 >
 <th:block th:replace="/head :: headFragment"></th:block>
 
-<div class="h-[10%] flex text-5xl font-bold text-white p-2 default-bgcolor-base">
-    <div class="w-[60px] text-4xl mt-2">
-        <i class="fa-solid fa-piggy-bank"></i>
-    </div>
-    <div class="flex-grow text-center mt-2">
-        0840
-    </div>
+<!--<div class="h-[10%] flex text-5xl font-bold text-white p-2 default-bgcolor-base">-->
+<!--    <div class="w-[60px] text-4xl mt-2">-->
+<!--        <i class="fa-solid fa-piggy-bank"></i>-->
+<!--    </div>-->
+<!--    <div class="flex-grow text-center mt-2">-->
+<!--        0840-->
+<!--    </div>-->
+<!--</div>-->
+<body class="bg-concrete">
+<div class="container mx-auto w-[500px]">
+    <form th:action="@{/user/join}" th:object="${userCreateForm}" method="POST"
+          class="flex flex-col">
+        <div class="mt-20 p-10 flex flex-col rounded-2xl bg-concrete border-2 border-gray-50">
+            <span>회원정보를 입력해주세요.</span>
+            <hr class="border border-gray-50">
+            <div class="flex flex-grow mb-3 mt-3 h-[50px]">
+                <label class="form-label border border-gray-50 rounded-l text-base w-[50px] text-center pt-4"><i
+                        class="fa-solid fa-user"></i></label>
+                <input type="text" th:field="*{username}" class="form-control pl-2 rounded-r flex-grow"
+                       placeholder="아이디">
+            </div>
+            <div class="flex flex-grow mb-3 mt-5 h-[50px]">
+                <label class="form-label border border-gray-50 rounded-l text-base w-[50px] text-center pt-4"><i
+                        class="fa-solid fa-user-tag"></i></label>
+                <input type="text" th:field="*{nickname}" class="form-control pl-2 rounded-r flex-grow"
+                       placeholder="닉네임">
+            </div>
+            <div class="flex flex-grow mb-3 mt-5 h-[50px]">
+                <label class="form-label border border-gray-50 rounded-l text-base w-[50px] text-center pt-4"><i
+                        class="fa-solid fa-lock"></i></label>
+                <input type="password" th:field="*{password}" class="form-control pl-2 rounded-r flex-grow"
+                       placeholder="비밀번호">
+            </div>
+            <div class="flex flex-grow mb-3 mt-5 h-[50px]">
+                <label class="form-label border border-gray-50 rounded-l text-base w-[50px] text-center pt-4"><i
+                        class="fa-solid fa-circle-check"></i></label>
+                <input type="password" th:field="*{passwordCheck}" class="form-control pl-2 rounded-r flex-grow"
+                       placeholder="비밀번호 확인">
+            </div>
+            <div class="flex flex-grow mb-3 mt-5 h-[50px]">
+                <label class="form-label border border-gray-50 rounded-l text-base w-[50px] text-center pt-4"><i
+                        class="fa-solid fa-envelope"></i></label>
+                <input type="text" th:field="*{email}" class="form-control pl-2 rounded-r flex-grow" placeholder="이메일">
+            </div>
+
+        </div>
+        <div class="flex flex-grow mb-3 mt-3 gap-3">
+            <button type="submit"
+                    class="border-2 border-[#3c424d] rounded bg-white bg-[#3c424d] text-white hover:shadow-md w-[100%] mx-auto p-2 text-base">
+                가입하기
+            </button>
+        </div>
+    </form>
 </div>
-<div class="h-[90%]">
-    <div class="container mx-auto max-w-screen-lg mt-5 p-10 flex flex-col rounded-2xl shadow-lg">
-        <form th:action="@{/user/join}" th:object="${userCreateForm}" method="POST" class="flex flex-col w-[70%] mx-auto items-center">
-            <div class="flex flex-grow mb-3 gap-3">
-                <label class="form-label mt-2 text-base w-[100px]">아이디</label>
-                <input type="text" th:field="*{username}" class="form-control flex-grow" placeholder="아이디를 입력해주세요">
-            </div>
-            <div class="flex flex-grow mb-3 gap-3">
-                <label class="form-label mt-2 text-base w-[100px]">닉네임</label>
-                <input type="text" th:field="*{nickname}" class="form-control flex-grow" placeholder="닉네임을 입력해주세요">
-            </div>
-            <div class="flex flex-grow mb-3 gap-3">
-                <label class="form-label mt-2 text-base w-[100px]">비밀번호</label>
-                <input type="password" th:field="*{password}" class="form-control flex-grow" placeholder="비밀번호를 입력해주세요">
-            </div>
-            <div class="flex flex-grow mb-3 gap-3">
-                <label class="form-label mt-2 text-base w-[100px]">비밀번호 확인</label>
-                <input type="password" th:field="*{passwordCheck}" class="form-control flex-grow" placeholder="비밀번호를 다시 입력해주세요">
-            </div>
-            <div class="flex flex-grow mb-3 gap-3">
-                <label class="form-label mt-2 text-base w-[100px]">이메일</label>
-                <input type="text" th:field="*{email}" class="form-control flex-grow" placeholder="이메일을 입력해주세요">
-            </div>
-            <div class="flex flex-grow mb-3 gap-3">
-                <button type="submit" class="w-[60%] mx-auto">가입하기</button>
-            </div>
-        </form>
-    </div>
-</div>
+</body>
 </html>
