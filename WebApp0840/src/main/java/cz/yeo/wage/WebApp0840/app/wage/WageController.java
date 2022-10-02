@@ -135,6 +135,9 @@ public class WageController {
         sumBasePay = sumHours * siteUser.getBaseWage();
         System.out.println("sumHours: " + sumHours);
         System.out.println("sumMinutes: " + sumMinutes);
+        model.addAttribute("siteUser", siteUser);
+        model.addAttribute("works", works);
+        model.addAttribute("sumHours", sumHours);
         model.addAttribute("sumBasePay", sumBasePay);
         return "wage/wage_result";
     }

@@ -5,14 +5,14 @@
 
 <!-- 해당 부분을 fragment로 선언 -->
 <th:block th:fragment="navbarFragment">
-    <div class="h-[28%] bg-concrete flex justify-end px-2">
+    <div class="h-[37px] p-2 bg-concrete flex justify-end">
         <label class="mr-5"><a href="#" class="no-underline text-xs text-gray-500 hover:text-gray-500">자주 묻는 질문</a></label>
         <label class="mr-5"> | </label>
         <label class="mr-5"><a href="#" class="no-underline text-xs text-gray-500 hover:text-gray-500">공지사항</a></label>
         <label class="mr-5"> | </label>
         <label class="mr-5"><a href="#" class="no-underline text-xs text-gray-500 hover:text-gray-500">가이드</a></label>
     </div>
-    <nav class="navbar navbar-expand-xl navbar-fixed-top bg-white navbar-light bg-light p-0 h-[100%] h-[48px] mt-2 object-fit shadow-md">
+    <nav class="navbar navbar-expand-xl navbar-fixed-top bg-white navbar-light bg-light p-0 flex-grow mt-2 object-fit shadow-md">
         <div class="container-fluid pl-8 h-[100%]">
             <a class="navbar-brand" th:href="@{/user/login}"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarWithDropdown"
@@ -21,7 +21,7 @@
             </button>
             <div class="collapse navbar-collapse show flex pl-14" id="navbarWithDropdown">
                 <ul class="navbar-nav flex-grow flex">
-                    <div class="flex-grow flex gap-5">
+                    <div class="flex-grow flex justify-end gap-40">
                         <li class="nav-item">
                             <a class="nav-link active text-black" aria-current="page" th:href="@{/}"><i class="fa-solid fa-house-user"></i><span class="ml-2">홈</span></a>
                         </li>

@@ -1,45 +1,45 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <!-- 해당 부분을 fragment로 선언 -->
 <th:block th:fragment="userInfoFragment">
-    <div class="h-[100%] w-[260px] m-0 default-profile-bgcolor">
+    <div class="flex-grow p-5 border border-gray-50 m-3 rounded bg-concrete h-[800px] shadow-inner">
         <div class="w-[100%] border-b border-gray-300"></div>
         <div class="w-[100%] mt-1 border-b border-gray-300"></div>
-        <div class="px-5 pt-5">
+        <div class="pt-5">
             <img class="profileImg" src="https://picsum.photos/id/43/300/300">
         </div>
-        <div class="w-[80%] mx-auto">
-            <ul class="mt-5">
+        <div>
+            <ul class="mt-5 p-0">
                 <li class="flex justify-between">
-                    <div class="text-sm text-white">계정상태</div>
+                    <div class="text-base pt-2">계정상태</div>
                     <div class="bg-green-500 py-1 px-2 rounded text-white text-sm">Active</div>
                 </li>
                 <li class="flex justify-between">
-                    <div class="text-sm pt-1 text-white">닉네임</div>
-                    <div class="text-sm pt-1">peter</div>
+                    <div class="text-base pt-2">닉네임</div>
+                    <div class="text-base pt-2">peter</div>
                 </li>
                 <li class="flex justify-between">
-                    <div class="text-sm pt-1 text-white">가입일자</div>
-                    <div class="text-xs pt-1">2022-09-15</div>
+                    <div class="text-base pt-2">가입일자</div>
+                    <div class="text-base pt-2">2022-09-15</div>
                 </li>
                 <li class="flex justify-between">
-                    <div class="text-sm pt-1 text-white">시급</div>
-                    <div class="text-sm pt-1">미정</div>
+                    <div class="text-base pt-2">시급</div>
+                    <div class="text-base pt-2">미정</div>
                 </li>
                 <li class="flex justify-between">
-                    <div class="text-sm pt-1 text-white">주 근무시간</div>
-                    <div class="text-sm pt-1">03:28</div>
+                    <div class="text-base pt-2">주 근무시간</div>
+                    <div class="text-base pt-2">03:28</div>
                 </li>
                 <li class="flex justify-between">
-                    <div class="text-sm pt-1 text-white">누적 근무시간</div>
-                    <div class="text-sm pt-1">09:24</div>
+                    <div class="text-base pt-2">누적 근무시간</div>
+                    <div class="text-base pt-2">09:24</div>
                 </li>
                 <li class="flex justify-between">
-                    <div class="text-sm pt-1 text-white">연차</div>
-                    <div class="text-sm pt-1">0일</div>
+                    <div class="text-base pt-2">연차</div>
+                    <div class="text-base pt-2">0일</div>
                 </li>
                 <li class="flex justify-between">
-                    <div class="text-sm pt-1 text-white">월급일</div>
-                    <div class="text-sm pt-1">매월 5일</div>
+                    <div class="text-base pt-2">월급일</div>
+                    <div class="text-base pt-2">매월 5일</div>
                 </li>
             </ul>
         </div>
