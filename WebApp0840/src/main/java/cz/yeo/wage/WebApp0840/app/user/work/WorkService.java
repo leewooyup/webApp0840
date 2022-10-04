@@ -42,4 +42,17 @@ public class WorkService {
         return workRepository.findBySiteUser(siteUser);
     }
 
+    public int count(SiteUser siteUser) {
+        List<Work> works = findBySiteUser(siteUser);
+        return works.size();
+    }
+
+    public int convertHours(double hours, int minutes) {
+        int cHours = minutes / 60;
+        return (int)hours + cHours;
+    }
+
+    public int convertMinutes(double hours, int minutes) {
+        return minutes % 60;
+    }
 }

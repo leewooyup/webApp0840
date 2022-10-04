@@ -99,6 +99,7 @@ public class WageController {
     public String showResult(Principal principal, Model model) {
         SiteUser siteUser = userService.findByUsername(principal.getName());
         List<Work> works = workService.findBySiteUser(siteUser);
+        int workCounts = workService.count(siteUser);
         double sumBasePay = 0;
         int sumMinutes = 0;
         double sumHours = 0;
@@ -110,7 +111,8 @@ public class WageController {
         }
         System.out.println("before sumHours: " + sumHours);
         System.out.println("before sumMinutes: " + sumMinutes);
-
+        int accHours = workService.convertHours(sumHours, sumMinutes);
+        int accMinutes = workService.convertMinutes(sumHours, sumMinutes);
         while (sumMinutes >= 60) {
             System.out.println("60");
             sumHours += 1;
@@ -150,11 +152,13 @@ public class WageController {
 
 
         sumBasePay = sumHours * siteUser.getBaseWage();
-        System.out.println("sumHours: " + sumHours);
-        System.out.println("sumMinutes: " + sumMinutes);
+        System.out.println("accHours: " + accHours);
+        System.out.println("accMinutes: " + accMinutes);
         model.addAttribute("siteUser", siteUser);
         model.addAttribute("works", works);
-        model.addAttribute("sumHours", sumHours);
+        model.addAttribute("workCounts", workCounts);
+        model.addAttribute("accHours", accHours);
+        model.addAttribute("accMinutes", accMinutes);
         model.addAttribute("sumBasePay", sumBasePay);
         return "wage/wage_result";
     }

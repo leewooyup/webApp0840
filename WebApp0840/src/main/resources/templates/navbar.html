@@ -5,11 +5,11 @@
 
 <!-- 해당 부분을 fragment로 선언 -->
 <th:block th:fragment="navbarFragment">
-    <div class="h-[37px] p-2 bg-concrete flex justify-end">
+    <div class="h-[37px] p-2 bg-concrete flex justify-end shadow-md">
         <label class="mr-5"><a href="#" class="no-underline text-xs text-gray-500 hover:text-gray-500">자주 묻는 질문</a></label>
-        <label class="mr-5"> | </label>
+        <label class="mr-5 text-gray-500"> | </label>
         <label class="mr-5"><a href="#" class="no-underline text-xs text-gray-500 hover:text-gray-500">공지사항</a></label>
-        <label class="mr-5"> | </label>
+        <label class="mr-5 text-gray-500"> | </label>
         <label class="mr-5"><a href="#" class="no-underline text-xs text-gray-500 hover:text-gray-500">가이드</a></label>
     </div>
     <nav class="navbar navbar-expand-xl navbar-fixed-top bg-white navbar-light bg-light p-0 flex-grow mt-2 object-fit shadow-md">
@@ -43,7 +43,7 @@
                             <a class="nav-link dropdown-toggle text-center" href="#" id="navbarDropdownMenuLink"
                                role="button"
                                data-bs-toggle="dropdown" aria-expanded="false">
-                                마이페이지
+                                <span th:text="|${#authentication.principal.username}님|"></span>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <li><a class="dropdown-item" href="#">Action</a></li>
