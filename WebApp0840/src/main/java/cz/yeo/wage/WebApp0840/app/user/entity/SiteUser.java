@@ -42,6 +42,10 @@ public class SiteUser {
     private Double baseWage;
 
     @Column
+    @ColumnDefault("false")
+    private boolean isRegistered;
+
+    @Column
     @ColumnDefault("0")
     private Integer annual;
 

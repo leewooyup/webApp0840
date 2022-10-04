@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -51,6 +54,7 @@ public class WageController {
                 siteUser.setAnnual(wageBaseForm.getAnnual());
                 siteUser.setPayday(wageBaseForm.getPayday());
                 siteUser.setWorkStartDate(formatDate);
+                siteUser.setRegistered(true);
                 userRepository.save(siteUser);
             } catch (ParseException e) {
                 throw new RuntimeException(e);
@@ -61,7 +65,20 @@ public class WageController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/working-time")
-    public String showWorkingTime(WorkingTimeForm workingTimeForm) {
+    public String showWorkingTime(HttpServletResponse response, Principal principal, Model model, WorkingTimeForm workingTimeForm) {
+        SiteUser siteUser = userService.findByUsername(principal.getName());
+        if(!siteUser.isRegistered()) {
+            response.setContentType("text/html; charset=euc-kr");
+            try {
+                PrintWriter out = response.getWriter();
+                out.println("<script>alert('기본 급여정보를 입력해주세요'); location.href='/wage/base';</script>");
+                out.flush();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        List<Work> works = workService.findBySiteUser(siteUser);
+        model.addAttribute("works", works);
         return "wage/working_time_form";
     }
 
@@ -74,7 +91,7 @@ public class WageController {
             Work work = workService.create(siteUser, workingTimeForm.getWorkingDate(), workingTimeForm.getWorkingHours(),
                     workingTimeForm.getWorkingMinutes(), workingTimeForm.getExtendedHours(), workingTimeForm.getExtendedMinutes());
         }
-        return "redirect:/wage/result";
+        return "redirect:/wage/working-time";
     }
 
     @PreAuthorize("isAuthenticated()")

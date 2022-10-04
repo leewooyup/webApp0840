@@ -41,4 +41,5 @@ public class WorkService {
     public List<Work> findBySiteUser(SiteUser siteUser) {
         return workRepository.findBySiteUser(siteUser);
     }
+
 }
