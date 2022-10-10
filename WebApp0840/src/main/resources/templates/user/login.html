@@ -23,13 +23,29 @@
 <body class="bg-concrete">
     <div class="container mx-auto w-[450px]">
         <div class="mt-28 p-3 flex flex-col rounded-2xl bg-concrete border-2 border-gray-50 mx-auto">
-            <form th:action="@{/user/login}" method="POST" class="flex flex-col w-[95%] mx-auto items-center">
+            <script>
+                function LoginForm__submit(form) {
+                    form.username.value = form.username.value.trim();
+
+                    if(form.username.value.length == 0) {
+                        alert("아이디를 입력해주세요.");
+                        form.username.focus();
+                        return;
+                    }
+
+                    form.password.value = form.password.value.trim();
+
+                    if(form.password.value.length == 0) {
+                        alert("비밀번호를 입력해주세요.");
+                        form.password.focus();
+                        return;
+                    }
+
+                    form.submit();
+                }
+            </script>
+            <form th:action method="POST" onsubmit="LoginForm__submit(this); return false;" class="flex flex-col w-[95%] mx-auto items-center">
                 <div class="p-5 text-center text-2xl font-semibold mt-3 mb-2">
-                    <div th:if="${param.error}">
-                        <div class="alert alert-danger">
-                            사용자ID 또는 비밀번호를 확인해 주세요.
-                        </div>
-                    </div>
                     <div class="mx-auto"><i class="fa-regular fa-circle-user fa-5x"></i></div>
                     <div class="mx-auto">
                         <div class="flex flex-grow mb-3 mt-7">
@@ -42,9 +58,10 @@
                         </div>
                     </div>
                     <div class="flex flex-col max-w-screen-md">
-                        <button type="submit" class="border-2 border-[#3c424d] text-[#3c424d] bg-white hover:bg-[#3c424d] hover:text-white hover:shadow-md w-[100%] mx-auto p-2 text-base">로그인 <span
-                                class="text-sm ml-2"><i class="fa-solid fa-piggy-bank"></i></span></button>
-                        <a th:href="@{/user/join}" class="mt-2 text-right text-sm text-gray-400 font-light underline cursor-pointer">회원가입</a>
+                        <input type="submit" value="로그인" class="border-2 border-[#3c424d] text-[#3c424d] bg-white hover:bg-[#3c424d] hover:text-white hover:shadow-md w-[100%] mx-auto p-2 text-base">
+<!--                                class="text-sm ml-2">-->
+<!--                        <i class="fa-solid fa-piggy-bank"></i>-->
+<!--                        <a th:href="@{/user/join}" class="mt-2 text-right text-sm text-gray-400 font-light underline cursor-pointer">회원가입</a>-->
                     </div>
                 </div>
             </form>

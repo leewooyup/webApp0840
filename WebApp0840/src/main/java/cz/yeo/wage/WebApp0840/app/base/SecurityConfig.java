@@ -39,7 +39,9 @@ public class SecurityConfig {
                                 .loginProcessingUrl("/user/login")
                 )
                 .logout(logout -> logout
-                        .logoutUrl("/user/logout")
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+                        .logoutSuccessUrl("/user/login")
+                        .invalidateHttpSession(true)
                 );
         return http.build();
     }
@@ -49,8 +51,8 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
+//    @Bean
+//    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+//        return authenticationConfiguration.getAuthenticationManager();
+//    }
 }

@@ -4,12 +4,16 @@ package cz.yeo.wage.WebApp0840.app.user;
 import cz.yeo.wage.WebApp0840.app.user.entity.SiteUser;
 import cz.yeo.wage.WebApp0840.app.user.exception.SignupEmailDuplicatedException;
 import cz.yeo.wage.WebApp0840.app.user.exception.SignupLoginIdDuplicatedException;
+import cz.yeo.wage.WebApp0840.util.Util;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.io.File;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -41,5 +45,15 @@ public class UserService {
 
     public SiteUser findByUsername(String name) {
         return userRepository.findByUsername(name).orElse(null);
+    }
+
+    public void setProfileImgByUrl(SiteUser siteUser, String url) {
+        String filePath = Util.file.downloading(url, genFileDirPath + "/" + getCurrentProfileImgDirName() + "/" + UUID.randomUUID());
+        siteUser.setUserImgRelPath(getCurrentProfileImgDirName() + "/" + new File(filePath).getName());
+        userRepository.save(siteUser);
+    }
+
+    private String getCurrentProfileImgDirName() {
+        return "user/" + Util.date.getCurrentDateFormatted("yyyy_MM_dd");
     }
 }

@@ -53,6 +53,9 @@ dependencies {
 
 	// # 폼 validation
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// # tika 확장자 감지
+	implementation 'org.apache.tika:tika-core:2.4.1'
 }
 
 tasks.named('test') {
