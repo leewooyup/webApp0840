@@ -12,14 +12,14 @@
         .wage-text {
             position: absolute;
             top: 40px;
-            left: 150px;
+            left: 100px;
             animation: wage-appear-slide 1s ease-out;
         }
 
         .wage-form {
             position: absolute;
             top: 40px;
-            right: 200px;
+            right: 100px;
         }
 
         @keyframes wage-appear-slide {
@@ -28,7 +28,7 @@
                 opacity: 0;
             }
             to {
-                left: 150px;
+                left: 100px;
                 opacity: 1;
             }
         }
@@ -42,21 +42,21 @@
         <div class="flex-grow flex flex-col">
             <nav class="w-full h-[2%] default-bgcolor-base pt-2 text-white">
                 <ul class="flex gap-20">
-                    <li><a href="/wage/base" class="no-underline text-white hover:text-white hover:cursor-pointer">기본급여정보</a></li>
-                    <li><a href="/wage/working-time" class="no-underline text-white hover:text-white hover:cursor-pointer">근무시간입력</a></li>
-                    <li><a href="/wage/result" class="no-underline text-white hover:text-white hover:cursor-pointer">누적급여계산</a></li>
+                    <li><a href="/wage/base" class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">기본급여정보</a></li>
+                    <li><a href="/wage/working-time" class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">근무시간입력</a></li>
+                    <li><a href="/wage/result" class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">누적급여계산</a></li>
                 </ul>
             </nav>
-            <img class="w-[100%] h-[20%] object-cover contrast-50" src="https://i.imgur.com/hVTGIiu.png">
+            <img class="w-[100%] h-[15%] object-cover contrast-50" src="https://i.imgur.com/hVTGIiu.png">
             <div class="w-[100%]">
                 <div class="flex wrapper">
                     <div class="wage-text p-4 max-w-xs text-2xl mt-8">
                         <i class="fa-solid fa-money-check-dollar fa-2x"></i>
-                        <span class="ml-2 text-4xl"><br>급여정보를<br>입력하세요.</span>
+                        <span class="ml-2 text-3xl"><br>급여정보를<br>입력하세요.</span>
                     </div>
 
                     <div class="wage-form p-5 flex-grow flex flex-col mt-1">
-                        <div class="card card-small card-post mb-2 flex rounded-2xl shadow-md p-5 w-[650px]">
+                        <div class="card card-small card-post mb-2 flex rounded-2xl shadow-md p-5 w-[530px]">
                             <form th:action="@{/wage/base}" th:object="${wageBaseForm}" method="POST">
                                 <div class="flex gap-2">
                                     <label class="w-[100px] mt-2">시급</label>
@@ -72,7 +72,7 @@
                                     <div class="flex flex-grow justify-end mt-2">
                                         <div>
                                             <input type="number" th:field="*{annual}" min="0"
-                                                   class="ml-auto ml-2 border form-control-sm w-[60px]">
+                                                   class="ml-auto ml-2 border form-control-sm w-[50px]">
                                             <span class="ml-1">일</span>
                                         </div>
                                     </div>
@@ -83,7 +83,7 @@
                                         <div>
                                             <span>매달</span>
                                             <input type="number" th:field="*{payday}" min="1" max="31"
-                                                   class="ml-auto ml-2 border form-control-sm w-[60px]">
+                                                   class="ml-auto ml-2 border form-control-sm w-[50px]">
                                             <span class="ml-1">일</span>
                                         </div>
                                     </div>

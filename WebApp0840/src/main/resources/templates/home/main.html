@@ -6,15 +6,15 @@
 <head>
     <style>
     .main-section {
-        height: 800px;
+        height: 700px;
         background: url(https://i.imgur.com/ez8FkY4.jpg) fixed;
     }
 
     .main-text {
         position: absolute;
-        top: 490px;
-        left: 400px;
-        font-size: 5em;
+        top: 360px;
+        left: 250px;
+        font-size: 4em;
         font-weight: bolder;
         width: 258px;
         color: white;
@@ -24,10 +24,10 @@
         background-color: white;
         padding: 10px;
         position: absolute;
-        top: 480px;
-        right: 400px;
-        width: 330px;
-        height: 300px;
+        top: 340px;
+        right: 300px;
+        width: 250px;
+        height: 280px;
         object-fit: cover;
         filter: contrast(75%);
     }
@@ -38,14 +38,14 @@
             opacity: 0;
         }
         to  {
-            left: 400px;
+            left: 250px;
             opacity: 1;
         }
     }
 
     @keyframes disappear-slide {
         from {
-            left: 400px;
+            left: 250px;
             opacity:1;
         }
         to {
@@ -57,9 +57,9 @@
 </head>
 <th:block layout:fragment="content">
     <div class="flex flex-col">
-        <div class="py-3">
-            <div class="w-[300px] flex mx-auto h-[30px] text-center text-gray-400">
-                <i class="fa-solid fa-magnifying-glass w-[60px] h-[35px] border-[#3c424d] pt-2"></i><input type="text" id="kw" name="kw" placeholder="궁금한 용어를 입력해주세요" class="form-control-sm h-[35px] border-[#3c424d] w-full">
+        <div class="py-2">
+            <div class="w-[300px] flex mx-auto h-[38px] text-center text-gray-400 pt-2">
+                <i class="fa-solid fa-magnifying-glass w-[60px] h-[30px] pt-1"></i><input type="text" id="kw" name="kw" placeholder="궁금한 용어를 입력해주세요" class="form-control-sm h-[30px] w-full">
             </div>
         </div>
         <!--        <div class="bg-[#3c424d] h-[45%] p-10 flex justify-around px-20 bg-opacity-95">-->

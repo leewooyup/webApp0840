@@ -16,14 +16,14 @@
         .wage-text {
             position: absolute;
             top: 40px;
-            left: 150px;
+            left: 100px;
             animation: wage-appear-slide 1s ease-out;
         }
 
         .wage-form {
             position: absolute;
             top: 40px;
-            right: 200px;
+            right: 100px;
         }
 
         .acc-works-text {
@@ -43,7 +43,7 @@
                 opacity: 0;
             }
             to {
-                left: 150px;
+                left: 100px;
                 opacity: 1;
             }
         }
@@ -57,22 +57,22 @@
         <div class="flex-grow flex flex-col content-wrapper">
             <nav class="w-full h-[2%] default-bgcolor-base pt-2 text-white">
                 <ul class="flex gap-20">
-                    <li><a href="/wage/base" class="no-underline text-white hover:text-white hover:cursor-pointer">기본급여정보</a></li>
+                    <li><a href="/wage/base" class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">기본급여정보</a></li>
                     <li><a href="/wage/working-time"
-                           class="no-underline text-white hover:text-white hover:cursor-pointer">근무시간입력</a></li>
-                    <li><a href="/wage/result" class="no-underline text-white hover:text-white hover:cursor-pointer">누적급여계산</a></li>
+                           class="no-underline text-white hover:text-white text-[13px] hover:cursor-pointer">근무시간입력</a></li>
+                    <li><a href="/wage/result" class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">누적급여계산</a></li>
                 </ul>
             </nav>
-            <img class="w-[100%] h-[20%] object-cover contrast-50" src="https://i.imgur.com/hVTGIiu.png">
+            <img class="w-[100%] h-[15%] object-cover contrast-50" src="https://i.imgur.com/hVTGIiu.png">
             <div class="w-[100%]">
                 <div class="flex wrapper">
                     <div class="wage-text p-3 pt-4 max-w-xs text-2xl mt-8">
                         <i class="fa-solid fa-clock fa-2x"></i>
-                        <span class="ml-2 text-4xl"><br>근무 날짜/시간을<br>입력하세요.</span>
+                        <span class="ml-2 text-3xl"><br>근무 날짜/시간을<br>입력하세요.</span>
                     </div>
 
                     <div class="wage-form p-5 flex-grow flex flex-col mt-1">
-                        <div class="card card-small card-post mb-2 flex rounded-2xl shadow-md p-5 w-[650px]">
+                        <div class="card card-small card-post mb-2 flex rounded-2xl shadow-md p-5 w-[530px]">
                             <form th:action="@{/wage/working-time}" th:object="${workingTimeForm}" method="POST">
                                 <div class="flex gap-2">
                                     <label class="w-[100px] mt-2">근무날짜</label>
@@ -86,20 +86,20 @@
                                     <label class="w-[100px] mt-2">근무시간</label>
                                     <div class="flex flex-grow justify-end mt-2">
                                         <input type="number" th:field="*{workingHours}" min="0" max="12"
-                                               class="ml-auto border mr-2 form-control-sm w-[70px]"/>
+                                               class="ml-auto border mr-2 form-control-sm w-[50px]"/>
                                         <span class="mr-2">시간</span>
                                         <input type="number" th:field="*{workingMinutes}" min="0" max="59"
-                                               class="border mr-2 form-control-sm w-[70px]"/><span>분</span>
+                                               class="border mr-2 form-control-sm w-[50px]"/><span>분</span>
                                     </div>
                                 </div>
                                 <div class="flex gap-2">
                                     <span class="w-[100px] mt-2">연장 근무시간</span>
                                     <div class="flex flex-grow justify-end mt-2">
                                         <input type="number" th:field="*{extendedHours}" min="0" max="12"
-                                               class="ml-auto mr-2 border form-control-sm w-[70px]"/>
+                                               class="ml-auto mr-2 border form-control-sm w-[50px]"/>
                                         <span class="mr-2">시간</span>
                                         <input type="number" th:field="*{extendedMinutes}" min="0" max="59"
-                                               class="border mr-2 form-control-sm w-[70px]"/><span>분</span>
+                                               class="border mr-2 form-control-sm w-[50px]"/><span>분</span>
                                     </div>
                                 </div>
                                 <div class="flex justify-end">
@@ -110,7 +110,7 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="flex justify-end hover:cursor-pointer"><button href="/wage/working-time/add" class="bg-[#4acaa8] text-white rounded font-bold hover: hover:shadow-md p-3"><i class="fa-solid fa-calculator"></i> 급여계산하기</button></div>
+                        <div class="flex justify-end hover:cursor-pointer"><button href="/wage/working-time/add" class="bg-[#4acaa8] text-white rounded font-bold hover: hover:shadow-md px-3 py-2"><i class="fa-solid fa-calculator"></i> 급여계산하기</button></div>
                     </div>
                 </div>
             </div>
@@ -119,7 +119,7 @@
                 <div class="pl-14 pt-3">근무이력 <i class="fa-regular fa-file-lines"></i></div>
             </div>
 
-            <div class="w-[95%] row row-cols-4 acc-works-section">
+            <div class="w-[95%] row row-cols-4 gy-3 acc-works-section">
                 <div th:each="work : ${works}">
                     <div class="card border-danger text-black">
                         <div class="card-header border-danger">
