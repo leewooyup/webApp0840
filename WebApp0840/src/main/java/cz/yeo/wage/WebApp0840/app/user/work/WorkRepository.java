@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface WorkRepository extends JpaRepository<Work, Integer> {
 
     List<Work> findBySiteUser(SiteUser siteUser);
+
+    List<Work> findByWorkType(String workType);
 }

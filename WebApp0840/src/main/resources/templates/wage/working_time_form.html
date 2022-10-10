@@ -86,21 +86,37 @@
                                     <label class="w-[100px] mt-2">근무시간</label>
                                     <div class="flex flex-grow justify-end mt-2">
                                         <input type="number" th:field="*{workingHours}" min="0" max="12"
-                                               class="ml-auto border mr-2 form-control-sm w-[50px]"/>
+                                               class="ml-auto border mr-2 form-control-sm w-[60px]"/>
                                         <span class="mr-2">시간</span>
                                         <input type="number" th:field="*{workingMinutes}" min="0" max="59"
-                                               class="border mr-2 form-control-sm w-[50px]"/><span>분</span>
+                                               class="border mr-2 form-control-sm w-[60px]"/><span>분</span>
                                     </div>
                                 </div>
                                 <div class="flex gap-2">
                                     <span class="w-[100px] mt-2">연장 근무시간</span>
                                     <div class="flex flex-grow justify-end mt-2">
                                         <input type="number" th:field="*{extendedHours}" min="0" max="12"
-                                               class="ml-auto mr-2 border form-control-sm w-[50px]"/>
+                                               class="ml-auto mr-2 border form-control-sm w-[60px]"/>
                                         <span class="mr-2">시간</span>
                                         <input type="number" th:field="*{extendedMinutes}" min="0" max="59"
-                                               class="border mr-2 form-control-sm w-[50px]"/><span>분</span>
+                                               class="border mr-2 form-control-sm w-[60px]"/><span>분</span>
                                     </div>
+                                </div>
+                                <div class="flex gap-2">
+                                    <span class="w-[100px] mt-2">야간 근무시간</span>
+                                    <div class="flex flex-grow justify-end mt-2">
+                                        <input type="number" th:field="*{nightHours}" min="0" max="12"
+                                               class="ml-auto mr-2 border form-control-sm w-[60px]"/>
+                                        <span class="mr-2">시간</span>
+                                        <input type="number" th:field="*{nightMinutes}" min="0" max="59"
+                                               class="border mr-2 form-control-sm w-[60px]"/><span>분</span>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 justify-end mt-2">
+                                    <input type="radio" th:field="*{workType}" value="regular" checked/>
+                                    근무일
+                                    <input type="radio" th:field="*{workType}" value="holiday" />
+                                    휴일
                                 </div>
                                 <div class="flex justify-end">
                                     <button type="submit"
@@ -129,6 +145,7 @@
                         <div class="card-body flex flex-col">
                             <label th:text="|근무시간: ${work.workingHours}시간 ${work.workingMinutes}분|"></label>
                             <label th:text="|연장근무시간: ${work.extendedHours}시간 ${work.extendedMinutes}분|"></label>
+                            <label th:text="|야간근무시간: ${work.nightHours}시간 ${work.nightMinutes}분|"></label>
                         </div>
                     </div>
                 </div>

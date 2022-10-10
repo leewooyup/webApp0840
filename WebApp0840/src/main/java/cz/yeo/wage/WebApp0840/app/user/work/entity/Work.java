@@ -41,4 +41,13 @@ public class Work {
     @Column
     @ColumnDefault("0")
     private Integer extendedMinutes;
+
+    @Column
+    private Integer nightHours;
+
+    @Column
+    private Integer nightMinutes;
+
+    @Column
+    private String workType;
 }

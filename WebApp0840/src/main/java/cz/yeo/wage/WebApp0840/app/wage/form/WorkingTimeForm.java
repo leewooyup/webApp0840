@@ -34,5 +34,18 @@ public class WorkingTimeForm {
     @Min(0)
     @Max(59)
     private Integer extendedMinutes;
+
+    @NotNull(message="야간근무시간(시)는 필수 항목입니다.")
+    @Min(0)
+    @Max(12)
+    private Integer nightHours;
+
+    @NotNull(message="야간근무시간(분)는 필수 항목입니다.")
+    @Min(0)
+    @Max(59)
+    private Integer nightMinutes;
+
+    @NotEmpty(message="근무형태를 골라주세요.")
+    private String workType;
 }
 

@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -98,7 +99,8 @@ public class WageController {
         if (ou.isPresent()) {
             SiteUser siteUser = ou.get();
             Work work = workService.create(siteUser, workingTimeForm.getWorkingDate(), workingTimeForm.getWorkingHours(),
-                    workingTimeForm.getWorkingMinutes(), workingTimeForm.getExtendedHours(), workingTimeForm.getExtendedMinutes());
+                    workingTimeForm.getWorkingMinutes(), workingTimeForm.getExtendedHours(), workingTimeForm.getExtendedMinutes(),
+                    workingTimeForm.getNightHours(), workingTimeForm.getNightMinutes(), workingTimeForm.getWorkType());
         }
         return "redirect:/wage/working-time";
     }
@@ -110,6 +112,16 @@ public class WageController {
         String createDateFormat = siteUser.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
         List<Work> works = workService.findBySiteUser(siteUser);
         int workCounts = workService.count(siteUser);
+        int hollidayCounts = workService.getHolidayCount(siteUser);
+        HashMap<String, Integer> accWorksMap = workService.getAccWorks(siteUser);
+        int accHours = accWorksMap.get("accHours");
+        int accMinutes = accWorksMap.get("accMinutes");
+        int accRegularHours = accWorksMap.get("accRegularHours");
+        int accRegularMinutes = accWorksMap.get("accRegularMinutes");
+        int accExtendedHours = accWorksMap.get("accExtendedHours");
+        int accExtendedMinutes = accWorksMap.get("accExtendedMinutes");
+        int accNightHours = accWorksMap.get("accNightHours");
+        int accNightMinutes = accWorksMap.get("accNightMinutes");
         double sumBasePay = 0;
         int sumMinutes = 0;
         double sumHours = 0;
@@ -121,8 +133,8 @@ public class WageController {
         }
         System.out.println("before sumHours: " + sumHours);
         System.out.println("before sumMinutes: " + sumMinutes);
-        int accHours = workService.convertHours(sumHours, sumMinutes);
-        int accMinutes = workService.convertMinutes(sumHours, sumMinutes);
+        int accHours1 = workService.convertHours(sumHours, sumMinutes);
+        int accMinutes1 = workService.convertMinutes(sumHours, sumMinutes);
         while (sumMinutes >= 60) {
             System.out.println("60");
             sumHours += 1;
@@ -169,6 +181,15 @@ public class WageController {
         model.addAttribute("createDateFormat", createDateFormat);
         model.addAttribute("workCounts", workCounts);
         model.addAttribute("accHours", accHours);
+        model.addAttribute("accMinutes", accMinutes);
+        model.addAttribute("accRegularHours", accRegularHours);
+        model.addAttribute("accRegularMinutes", accRegularMinutes);
+        model.addAttribute("accExtendedHours", accExtendedHours);
+        model.addAttribute("accExtendedMinutes", accExtendedMinutes);
+        model.addAttribute("accNightHours", accNightHours);
+        model.addAttribute("accNightMinutes", accNightMinutes);
+        model.addAttribute("hollidayCounts", hollidayCounts);
+
         model.addAttribute("accMinutes", accMinutes);
         model.addAttribute("sumBasePay", sumBasePay);
         return "wage/wage_result";

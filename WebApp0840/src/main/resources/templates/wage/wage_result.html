@@ -52,6 +52,7 @@
                                 <div class="flex flex-col mb-2" style="color:red;">
                                     <label th:text="|근무시간: ${work.workingHours}시간 ${work.workingMinutes}분|"></label>
                                     <label th:text="|연장근무시간: ${work.extendedHours}시간 ${work.extendedMinutes}분|"></label>
+                                    <label th:text="|야간근무시간: ${work.nightHours}시간 ${work.nightMinutes}분|"></label>
                                 </div>
                             </div>
                         </div>
@@ -73,23 +74,67 @@
                 <div class="w-full h-[4%] text-2xl">
                     <div class="bg-concrete h-[30%] shadow-inner"></div>
                     <div class="pl-14 pt-3">
-                        상세이력
+                        근무내역통계 <i class="fa-solid fa-chart-line"></i>
                     </div>
                 </div>
-                <div class="flex flex-col pl-14 mt-3">
-                    <div><i class="fa-solid fa-calendar-check w-[30px] text-xl"></i><label class="w-[220px]">누적
-                        근무일수</label><label th:text="|${workCounts}일|"></label>
+                <div class="flex flex-col pl-14 gap-1">
+                    <div class="flex gap-2">
+                        <div class="card w-[500px] ">
+                            <div class="card-body h-[40px] py-0 pl-2 pt-1 flex justify-between bg-[#3c424d] text-white">
+                                <div>
+                                    <i class="fa-solid fa-calendar-check w-[30px] text-base pt-1"></i>
+                                    <label class="w-[220px]">누적 근무일수</label>
+                                </div>
+                                <label th:text="|${workCounts}일|" class="pt-1"></label>
+                            </div>
+                        </div>
                         <button type="button" class="btn-show-popup ml-24">자세히</button>
                     </div>
-                    <div><i class="fa-solid fa-clock w-[30px] text-xl"></i><label class="w-[220px]">누적
-                        근무시간</label><label th:text="|${accHours}시간 ${accMinutes}분|"></label></div>
-                    <div><i class="fa-solid fa-user-clock w-[30px] text-xl"></i><label class="w-[220px]"> 정근</label>
+                    <div class="card w-[500px] ">
+                        <div class="card-body h-[40px] py-0 pl-2 pt-1 flex justify-between bg-[#3c424d] text-white">
+                            <div>
+                                <i class="fa-solid fa-clock w-[30px] text-base pt-1"></i>
+                                <label class="w-[220px]">누적 근무시간</label>
+                            </div>
+                            <label th:text="|${accHours}시간 ${accMinutes}분|" class="pt-1"></label>
+                        </div>
                     </div>
-                    <div><i class="fa-solid fa-hourglass-half w-[30px] text-xl"></i><label class="w-[220px]">연장</label>
+                    <div class="card w-[500px] ">
+                        <div class="card-body h-[40px] py-0 pl-2 pt-1 flex justify-between">
+                            <div>
+                                <i class="fa-solid fa-user-clock w-[30px] text-base pt-1"></i>
+                                <label class="w-[220px]">정근</label>
+                            </div>
+                            <label th:text="|${accRegularHours}시간 ${accRegularMinutes}분|" class="pt-1"></label>
+                        </div>
                     </div>
-                    <div><i class="fa-solid fa-moon w-[30px] text-xl"></i><label class="w-[220px]"> 야근</label></div>
-                    <div><i class="fa-solid fa-user-clock w-[30px] text-xl" style="color:red;"></i><label
-                            class="w-[220px]"> 휴일근로</label></div>
+                    <div class="card w-[500px] ">
+                        <div class="card-body h-[40px] py-0 pl-2 pt-1 flex justify-between">
+                            <div>
+                                <i class="fa-solid fa-hourglass-half w-[30px] text-base pt-1"></i>
+                                <label class="w-[220px]">연장</label>
+                            </div>
+                            <label th:text="|${accExtendedHours}시간 ${accExtendedMinutes}분|" class="pt-1"></label>
+                        </div>
+                    </div>
+                    <div class="card w-[500px] ">
+                        <div class="card-body h-[40px] py-0 pl-2 pt-1 flex justify-between">
+                            <div>
+                                <i class="fa-solid fa-moon w-[30px] text-base pt-1"></i>
+                                <label class="w-[220px]">야근</label>
+                            </div>
+                            <label th:text="|${accNightHours}시간 ${accNightMinutes}분|" class="pt-1"></label>
+                        </div>
+                    </div>
+                    <div class="card w-[500px] ">
+                        <div class="card-body h-[40px] py-0 pl-2 pt-1 flex justify-between">
+                            <div>
+                                <i class="fa-solid fa-user-clock w-[30px] text-base pt-1" style="color:red;"></i>
+                                <label class="w-[220px]"> 휴일근로</label>
+                            </div>
+                            <label th:text="|${hollidayCounts}일|" class="pt-1"></label>
+                        </div>
+                    </div>
                 </div>
                 <hr>
                 <div>
