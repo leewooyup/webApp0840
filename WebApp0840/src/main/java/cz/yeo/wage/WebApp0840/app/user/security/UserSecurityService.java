@@ -2,6 +2,7 @@ package cz.yeo.wage.WebApp0840.app.user.security;
 
 import cz.yeo.wage.WebApp0840.app.user.UserRepository;
 import cz.yeo.wage.WebApp0840.app.user.UserRole;
+import cz.yeo.wage.WebApp0840.app.user.dto.UserContext;
 import cz.yeo.wage.WebApp0840.app.user.entity.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -38,6 +39,6 @@ public class UserSecurityService implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(UserRole.USER.getValue()));
         }
 
-        return new User(siteUser.getUsername(), siteUser.getPassword(), authorities);
+        return new UserContext(siteUser, authorities);
     }
 }

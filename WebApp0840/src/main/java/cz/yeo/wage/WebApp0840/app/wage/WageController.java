@@ -24,6 +24,8 @@ import java.io.PrintWriter;
 import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +40,11 @@ public class WageController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/base")
-    public String showWageBase(WageBaseForm wageBaseForm) {
+    public String showWageBase(Principal principal, Model model, WageBaseForm wageBaseForm) {
+        SiteUser siteUser = userService.findByUsername(principal.getName());
+        String createDateFormat = siteUser.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+        model.addAttribute("siteUser", siteUser);
+        model.addAttribute("createDateFormat", createDateFormat);
         return "wage/wage_base_form";
     }
 
@@ -67,6 +73,7 @@ public class WageController {
     @GetMapping("/working-time")
     public String showWorkingTime(HttpServletResponse response, Principal principal, Model model, WorkingTimeForm workingTimeForm) {
         SiteUser siteUser = userService.findByUsername(principal.getName());
+        String createDateFormat = siteUser.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
         if(!siteUser.isRegistered()) {
             response.setContentType("text/html; charset=euc-kr");
             try {
@@ -78,7 +85,9 @@ public class WageController {
             }
         }
         List<Work> works = workService.findBySiteUser(siteUser);
+        model.addAttribute("siteUser", siteUser);
         model.addAttribute("works", works);
+        model.addAttribute("createDateFormat", createDateFormat);
         return "wage/working_time_form";
     }
 
@@ -98,6 +107,7 @@ public class WageController {
     @GetMapping("/result")
     public String showResult(Principal principal, Model model) {
         SiteUser siteUser = userService.findByUsername(principal.getName());
+        String createDateFormat = siteUser.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
         List<Work> works = workService.findBySiteUser(siteUser);
         int workCounts = workService.count(siteUser);
         double sumBasePay = 0;
@@ -156,6 +166,7 @@ public class WageController {
         System.out.println("accMinutes: " + accMinutes);
         model.addAttribute("siteUser", siteUser);
         model.addAttribute("works", works);
+        model.addAttribute("createDateFormat", createDateFormat);
         model.addAttribute("workCounts", workCounts);
         model.addAttribute("accHours", accHours);
         model.addAttribute("accMinutes", accMinutes);

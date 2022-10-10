@@ -1,9 +1,16 @@
 package cz.yeo.wage.WebApp0840.app.home.controller;
 
+import cz.yeo.wage.WebApp0840.app.user.dto.UserContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.security.Principal;
 
 
 @Controller
@@ -15,5 +22,11 @@ public class HomeController {
     @RequestMapping("/")
     public String main() {
         return "home/main";
+    }
+
+    @GetMapping("/currentUserOrigin")
+    @ResponseBody
+    public Principal currentUserOrigin(Principal principal) {
+        return principal;
     }
 }

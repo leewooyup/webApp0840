@@ -5,7 +5,7 @@
         <div class="w-[100%] border-b border-gray-300"></div>
         <div class="w-[100%] mt-1 border-b border-gray-300"></div>
         <div class="pt-5">
-            <img class="profileImg" src="https://picsum.photos/id/43/300/300">
+            <img class="profileImg" th:src="@{${#authentication.principal.userImgUrl}}">
         </div>
         <div>
             <ul class="mt-5 p-0">
@@ -15,31 +15,36 @@
                 </li>
                 <li class="flex justify-between">
                     <div class="text-[13px] pt-2">닉네임</div>
-                    <div class="text-[13px] pt-2">peter</div>
+                    <div class="text-[13px] pt-2" th:text="${#authentication.principal.nickname}"></div>
                 </li>
                 <li class="flex justify-between">
                     <div class="text-[13px] pt-2">가입일자</div>
-                    <div class="text-[13px] pt-2">2022-09-15</div>
+                    <div class="text-[13px] pt-2" th:text="${createDateFormat}"></div>
                 </li>
                 <li class="flex justify-between">
                     <div class="text-[13px] pt-2">시급</div>
-                    <div class="text-[13px] pt-2">미정</div>
+                    <div th:if="${siteUser.isRegistered}" class="text-[13px] pt-2" th:text="${#authentication.principal.baseWage}"></div>
+                    <div th:unless="${siteUser.isRegistered}" th:text="미정" class="text-[13px] pt-2"></div>
                 </li>
                 <li class="flex justify-between">
                     <div class="text-[13px] pt-2">주 근무시간</div>
-                    <div class="text-[13px] pt-2">03:28</div>
+                    <div th:if="${siteUser.isRegistered}" class="text-[13px] pt-2">03:28</div>
+                    <div th:unless="${siteUser.isRegistered}" th:text="미정" class="text-[13px] pt-2"></div>
                 </li>
                 <li class="flex justify-between">
                     <div class="text-[13px] pt-2">누적 근무시간</div>
-                    <div class="text-[13px] pt-2">09:24</div>
+                    <div th:if="${siteUser.isRegistered}" class="text-[13px] pt-2">09:24</div>
+                    <div th:unless="${siteUser.isRegistered}" th:text="미정" class="text-[13px] pt-2"></div>
                 </li>
                 <li class="flex justify-between">
                     <div class="text-[13px] pt-2">연차</div>
-                    <div class="text-[13px] pt-2">0일</div>
+                    <div th:if="${siteUser.isRegistered}" class="text-[13px] pt-2" th:text="|${#authentication.principal.annual}일|"></div>
+                    <div th:unless="${siteUser.isRegistered}" th:text="미정" class="text-[13px] pt-2"></div>
                 </li>
                 <li class="flex justify-between">
                     <div class="text-[13px] pt-2">월급일</div>
-                    <div class="text-[13px] pt-2">매월 5일</div>
+                    <div th:if="${siteUser.isRegistered}" th:text="|매월 ${siteUser.payday}일|" class="text-[13px] pt-2"></div>
+                    <div th:unless="${siteUser.isRegistered}" th:text="미정" class="text-[13px] pt-2"></div>
                 </li>
             </ul>
         </div>

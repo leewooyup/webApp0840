@@ -44,9 +44,14 @@
                     form.submit();
                 }
             </script>
-            <form th:action method="POST" onsubmit="LoginForm__submit(this); return false;" class="flex flex-col w-[95%] mx-auto items-center">
+            <form th:action="@{/user/login}" method="POST" onsubmit="LoginForm__submit(this); return false;" class="flex flex-col w-[95%] mx-auto items-center">
                 <div class="p-5 text-center text-2xl font-semibold mt-3 mb-2">
                     <div class="mx-auto"><i class="fa-regular fa-circle-user fa-5x"></i></div>
+                    <div th:if="${param.error}">
+                        <div class="alert alert-danger">
+                            사용자ID 또는 비밀번호를 확인해 주세요.
+                        </div>
+                    </div>
                     <div class="mx-auto">
                         <div class="flex flex-grow mb-3 mt-7">
                             <label class="form-label pt-2 text-base border border-gray-50 rounded-l w-[50px]"><i class="fa-solid fa-user-tie"></i></label>
@@ -58,10 +63,10 @@
                         </div>
                     </div>
                     <div class="flex flex-col max-w-screen-md">
-                        <input type="submit" value="로그인" class="border-2 border-[#3c424d] text-[#3c424d] bg-white hover:bg-[#3c424d] hover:text-white hover:shadow-md w-[100%] mx-auto p-2 text-base">
+                        <button type="submit" class="border-2 border-[#3c424d] text-[#3c424d] bg-white hover:bg-[#3c424d] hover:text-white hover:shadow-md w-[100%] mx-auto p-2 text-base">로그인</button>
 <!--                                class="text-sm ml-2">-->
 <!--                        <i class="fa-solid fa-piggy-bank"></i>-->
-<!--                        <a th:href="@{/user/join}" class="mt-2 text-right text-sm text-gray-400 font-light underline cursor-pointer">회원가입</a>-->
+                        <a th:href="@{/user/join}" class="mt-2 text-right text-sm text-gray-400 font-light underline cursor-pointer">회원가입</a>
                     </div>
                 </div>
             </form>

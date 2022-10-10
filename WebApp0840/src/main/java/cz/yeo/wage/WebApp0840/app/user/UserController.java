@@ -40,8 +40,10 @@ public class UserController {
         }
 
         String passwordClearText = userCreateForm.getPassword();
-        userService.join(userCreateForm.getUsername(), userCreateForm.getPassword(),
+        SiteUser siteUser = userService.join(userCreateForm.getUsername(), userCreateForm.getPassword(),
                             userCreateForm.getNickname(), userCreateForm.getEmail());
+
+        userService.setProfileImgByUrl(siteUser, "https://i.imgur.com/AOhLZFN.png");
         try {
             req.login(userCreateForm.getUsername(), passwordClearText);
         } catch (ServletException e) {

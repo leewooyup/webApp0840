@@ -1,5 +1,6 @@
 package cz.yeo.wage.WebApp0840.app.user.entity;
 
+import cz.yeo.wage.WebApp0840.app.base.entity.BaseEntity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.ColumnDefault;
@@ -17,7 +18,7 @@ import java.util.Date;
 @AllArgsConstructor
 @DynamicInsert
 @ToString(callSuper = true)
-public class SiteUser {
+public class SiteUser extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -38,7 +39,6 @@ public class SiteUser {
     private String userImgRelPath;
 
     @Column
-    @ColumnDefault("9160")
     private Double baseWage;
 
     @Column
@@ -46,7 +46,6 @@ public class SiteUser {
     private boolean isRegistered;
 
     @Column
-    @ColumnDefault("0")
     private Integer annual;
 
     @Column
@@ -54,4 +53,9 @@ public class SiteUser {
 
     @Column
     private Date workStartDate;
+
+    public String getUserImgUrl() {
+        if(userImgRelPath == null) return null;
+        return "/gen/" + userImgRelPath;
+    }
 }
