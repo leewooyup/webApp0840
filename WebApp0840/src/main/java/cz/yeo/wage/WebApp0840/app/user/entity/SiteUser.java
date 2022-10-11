@@ -39,6 +39,9 @@ public class SiteUser extends BaseEntity {
     private String userImgRelPath;
 
     @Column
+    private String workPlaceName;
+
+    @Column
     private int baseWage;
 
     @Column

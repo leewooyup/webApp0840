@@ -70,6 +70,7 @@ public class WorkService {
 
     public int convertHours(double hours, int minutes) {
         int cHours = minutes / 60;
+
         return (int)hours + cHours;
     }
 
@@ -102,8 +103,24 @@ public class WorkService {
             sumNightHours += work.getNightHours();
             sumNightMinutes += work.getNightMinutes();
         }
+        sumRegularHours = convertHours(sumRegularHours, sumRegularMinutes);
+        sumRegularMinutes = convertMinutes(sumRegularMinutes);
+
+        sumExtendedHours = convertHours(sumExtendedHours, sumExtendedMinutes);
+        sumExtendedMinutes = convertMinutes(sumExtendedMinutes);
+
+        sumNightHours = convertHours(sumNightHours, sumNightMinutes);
+        sumNightMinutes = convertMinutes(sumNightMinutes);
+
+        sumHolidayHours = convertHours(sumHolidayHours, sumHolidayMinutes);
+        sumHolidayMinutes = convertMinutes(sumHolidayMinutes);
+
         sumHours = sumRegularHours + sumExtendedHours + sumNightHours + sumHolidayHours;
         sumMinutes = sumRegularMinutes + sumExtendedMinutes + sumNightMinutes + sumHolidayMinutes;
+
+        sumHours = convertHours(sumHours, sumMinutes);
+        sumMinutes = convertMinutes(sumMinutes);
+
         map.put("accHours", sumHours);
         map.put("accMinutes", sumMinutes);
         map.put("accRegularHours", sumRegularHours);
@@ -130,11 +147,12 @@ public class WorkService {
 
     public double getNightHoursWage(SiteUser siteUser) {
         int accNightHours = map.get("accNightHours");
+        System.out.println("accNightHours: " + accNightHours);
         return accNightHours * 1.5 * siteUser.getBaseWage();
     }
     public double getHolidayHoursWage(SiteUser siteUser) {
-        int accRegularHours = map.get("accRegularHours");
-        return accRegularHours * 1.5 * siteUser.getBaseWage();
+        int accHolidayHours = map.get("accHolidayHours");
+        return accHolidayHours * 1.5 * siteUser.getBaseWage();
     }
 
     public List<Double> getRegularMinutesWage(SiteUser siteUser) {
@@ -319,5 +337,16 @@ public class WorkService {
 
     public double getAccTotalWage(SiteUser siteUser) {
         return getAccRegularWage(siteUser) + getAccExtendedWage(siteUser) + getAccNightWage(siteUser) + getAccHolidayWage(siteUser);
+    }
+
+    public String formatSecondDecimalPoint(Double d) {
+        return String.format("%.2f", d);
+    }
+    public String formatFloorTenth(Double d) {
+        return Integer.toString((int)Math.floor(d/10.0) * 10);
+    }
+
+    public String formatIntFloorTenth(Integer i) {
+        return Integer.toString((int)Math.floor(i/10.0) * 10);
     }
 }

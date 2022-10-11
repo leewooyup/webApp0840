@@ -55,6 +55,7 @@ public class WageController {
             try {
                 Date formatDate = new SimpleDateFormat("yyyy-MM-dd").parse(wageBaseForm.getWorkStartDate());
                 SiteUser siteUser = ou.get();
+                siteUser.setWorkPlaceName(wageBaseForm.getWorkPlaceName());
                 siteUser.setBaseWage(wageBaseForm.getBaseWage());
                 siteUser.setAnnual(wageBaseForm.getAnnual());
                 siteUser.setPayday(wageBaseForm.getPayday());
@@ -109,9 +110,10 @@ public class WageController {
         SiteUser siteUser = userService.findByUsername(principal.getName());
         String createDateFormat = siteUser.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
         List<Work> works = workService.findBySiteUser(siteUser);
-        int workCounts = workService.count(siteUser);
-        int hollidayCounts = workService.getHolidayCount(siteUser);
         HashMap<String, Integer> accWorksMap = workService.getAccWorks(siteUser);
+
+        int workCounts = workService.count(siteUser);
+        int holidayCounts = workService.getHolidayCount(siteUser);
         int accHours = accWorksMap.get("accHours");
         int accMinutes = accWorksMap.get("accMinutes");
         int accRegularHours = accWorksMap.get("accRegularHours");
@@ -122,74 +124,9 @@ public class WageController {
         int accNightMinutes = accWorksMap.get("accNightMinutes");
         int accHolidayHours = accWorksMap.get("accHolidayHours");
         int accHolidayMinutes = accWorksMap.get("accHolidayMinutes");
-
         double accTotalWage = workService.getAccTotalWage(siteUser);
-        int sumHours = 0;
-        double sumBasePay = 0;
-        int sumMinutes = 0;
-        double accHourssumHours = 0;
-        for (Work work : works) {
-            double workingHours = work.getWorkingHours();
-            double workingMinutes = work.getWorkingMinutes();
-            sumMinutes += workingMinutes;
-            sumHours += workingHours;
-        }
 
-        accHours = workService.convertHours(accHours, accMinutes);
-        accMinutes = workService.convertMinutes(accMinutes);
-        accRegularHours = workService.convertHours(accRegularHours, accRegularMinutes);
-        accRegularMinutes = workService.convertMinutes(accRegularMinutes);
-        accExtendedHours = workService.convertHours(accExtendedHours, accExtendedMinutes);
-        accExtendedMinutes = workService.convertMinutes(accExtendedMinutes);
-        accNightHours = workService.convertHours(accNightHours, accNightMinutes);
-        accNightMinutes = workService.convertMinutes(accNightMinutes);
-        accHolidayHours = workService.convertHours(accHolidayHours, accHolidayMinutes);
-        accHolidayMinutes = workService.convertMinutes(accHolidayMinutes);
-
-
-
-        while (sumMinutes >= 60) {
-            System.out.println("60");
-            sumHours += 1;
-            sumMinutes -= 60;
-        }
-
-        while (sumMinutes >= 30) {
-            System.out.println("30");
-            sumHours += 0.5;
-            sumMinutes -= 30;
-        }
-
-        while (sumMinutes >= 10) {
-            System.out.println("10");
-            sumHours += 0.17;
-            sumMinutes -= 10;
-        }
-
-
-        switch (sumMinutes) {
-            case 9:
-                sumHours += 0.15;
-                break;
-            case 8:
-                sumHours += 0.1333;
-                break;
-            case 7:
-                sumHours += 0.1166;
-                break;
-            case 6:
-                sumHours += 0.1;
-                break;
-            case 5:
-                sumMinutes += 0.0833;
-                break;
-        }
-
-
-        sumBasePay = sumHours * siteUser.getBaseWage();
-        System.out.println("accHours: " + accHours);
-        System.out.println("accMinutes: " + accMinutes);
-        model.addAttribute("accTotalWage", formatFloorTenth(accTotalWage));
+        model.addAttribute("accTotalWage", workService.formatFloorTenth(accTotalWage));
         model.addAttribute("siteUser", siteUser);
         model.addAttribute("works", works);
         model.addAttribute("createDateFormat", createDateFormat);
@@ -205,40 +142,28 @@ public class WageController {
         model.addAttribute("accHolidayHours", accHolidayHours);
         model.addAttribute("accHolidayMinutes", accHolidayMinutes);
 
-        model.addAttribute("hollidayCounts", hollidayCounts);
+        model.addAttribute("holidayCounts", holidayCounts);
 
-        model.addAttribute("accRegularHoursWage", formatIntFloorTenth(workService.getRegularHoursWage(siteUser)));
-        model.addAttribute("minutesToHours", formatSecondDecimalPoint(workService.getRegularMinutesWage(siteUser).get(0)));
-        model.addAttribute("accRegularMinutesWage", formatFloorTenth(workService.getRegularMinutesWage(siteUser).get(1)));
-        model.addAttribute("accRegularWage", formatFloorTenth(workService.getAccRegularWage(siteUser)));
+        model.addAttribute("accRegularHoursWage", workService.formatIntFloorTenth(workService.getRegularHoursWage(siteUser)));
+        model.addAttribute("minutesToHours", workService.formatSecondDecimalPoint(workService.getRegularMinutesWage(siteUser).get(0)));
+        model.addAttribute("accRegularMinutesWage", workService.formatFloorTenth(workService.getRegularMinutesWage(siteUser).get(1)));
+        model.addAttribute("accRegularWage", workService.formatFloorTenth(workService.getAccRegularWage(siteUser)));
 
-        model.addAttribute("accExtendedHoursWage", formatFloorTenth(workService.getExtendedHoursWage(siteUser)));
-        model.addAttribute("minutesToHours_E", formatSecondDecimalPoint(workService.getExtendedMinutesWage(siteUser).get(0)));
-        model.addAttribute("accExtendedMinutesWage", formatFloorTenth(workService.getExtendedMinutesWage(siteUser).get(1)));
-        model.addAttribute("accExtendedWage", formatFloorTenth(workService.getAccExtendedWage(siteUser)));
+        model.addAttribute("accExtendedHoursWage", workService.formatFloorTenth(workService.getExtendedHoursWage(siteUser)));
+        model.addAttribute("minutesToHours_E", workService.formatSecondDecimalPoint(workService.getExtendedMinutesWage(siteUser).get(0)));
+        model.addAttribute("accExtendedMinutesWage", workService.formatFloorTenth(workService.getExtendedMinutesWage(siteUser).get(1)));
+        model.addAttribute("accExtendedWage", workService.formatFloorTenth(workService.getAccExtendedWage(siteUser)));
 
-        model.addAttribute("accNightHoursWage", formatFloorTenth(workService.getNightHoursWage(siteUser)));
-        model.addAttribute("minutesToHours_N", formatSecondDecimalPoint(workService.getNightMinutesWage(siteUser).get(0)));
-        model.addAttribute("accNightMinutesWage", formatFloorTenth(workService.getNightMinutesWage(siteUser).get(1)));
-        model.addAttribute("accNightWage", formatFloorTenth(workService.getAccNightWage(siteUser)));
+        model.addAttribute("accNightHoursWage", workService.formatFloorTenth(workService.getNightHoursWage(siteUser)));
+        model.addAttribute("minutesToHours_N", workService.formatSecondDecimalPoint(workService.getNightMinutesWage(siteUser).get(0)));
+        model.addAttribute("accNightMinutesWage", workService.formatFloorTenth(workService.getNightMinutesWage(siteUser).get(1)));
+        model.addAttribute("accNightWage", workService.formatFloorTenth(workService.getAccNightWage(siteUser)));
 
-        model.addAttribute("accHolidayHoursWage", formatFloorTenth(workService.getHolidayHoursWage(siteUser)));
-        model.addAttribute("accHolidayMinutesWage", formatFloorTenth(workService.getHolidayMinutesWage(siteUser).get(1)));
-        model.addAttribute("accHolidayWage", formatFloorTenth(workService.getAccHolidayWage(siteUser)));
+        model.addAttribute("accHolidayHoursWage", workService.formatFloorTenth(workService.getHolidayHoursWage(siteUser)));
+        model.addAttribute("accHolidayMinutesWage", workService.formatFloorTenth(workService.getHolidayMinutesWage(siteUser).get(1)));
+        model.addAttribute("accHolidayWage", workService.formatFloorTenth(workService.getAccHolidayWage(siteUser)));
 
         model.addAttribute("accMinutes", accMinutes);
-        model.addAttribute("sumBasePay", formatFloorTenth(sumBasePay));
         return "wage/wage_result";
-    }
-
-    public String formatSecondDecimalPoint(Double d) {
-        return String.format("%.2f", d);
-    }
-    public String formatFloorTenth(Double d) {
-        return Integer.toString((int)Math.floor(d/10.0) * 10);
-    }
-
-    public String formatIntFloorTenth(Integer i) {
-        return Integer.toString((int)Math.floor(i/10.0) * 10);
     }
 }

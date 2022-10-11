@@ -12,6 +12,9 @@ import java.util.Date;
 @Getter
 @Setter
 public class WageBaseForm {
+    @NotEmpty(message="근무지명은 필수 항목입니다.")
+    private String workPlaceName;
+
     @NotNull(message="기본시급은 필수 항목입니다.")
     private Integer baseWage;
 
