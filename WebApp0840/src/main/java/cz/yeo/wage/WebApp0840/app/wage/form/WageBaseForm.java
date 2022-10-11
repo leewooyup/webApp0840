@@ -13,7 +13,7 @@ import java.util.Date;
 @Setter
 public class WageBaseForm {
     @NotNull(message="기본시급은 필수 항목입니다.")
-    private Double baseWage;
+    private Integer baseWage;
 
     @NotNull(message="연차는 필수 항목입니다.")
     private Integer annual;

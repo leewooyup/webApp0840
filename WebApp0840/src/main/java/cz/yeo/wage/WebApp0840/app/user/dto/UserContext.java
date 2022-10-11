@@ -15,7 +15,7 @@ public class UserContext extends User {
     private final Integer id;
     private final String nickname;
     private final LocalDateTime createDate;
-    private final Double BaseWage;
+    private final Integer BaseWage;
     private final Integer annual;
     private final String userImgUrl;
 

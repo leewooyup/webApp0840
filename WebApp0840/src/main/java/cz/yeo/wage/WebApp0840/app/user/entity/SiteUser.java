@@ -39,7 +39,7 @@ public class SiteUser extends BaseEntity {
     private String userImgRelPath;
 
     @Column
-    private Double baseWage;
+    private int baseWage;
 
     @Column
     @ColumnDefault("false")
