@@ -6,30 +6,62 @@
 <head>
     <style>
     .main-section {
-        height: 700px;
-        background: url(https://i.imgur.com/ez8FkY4.jpg) fixed;
+        height: 660px;
+        background: url(https://i.imgur.com/ez8FkY4.jpg);
     }
 
     .main-text {
         position: absolute;
-        top: 360px;
-        left: 250px;
+        top: 290px;
+        left: 300px;
         font-size: 4em;
         font-weight: bolder;
         width: 258px;
         color: white;
         animation: appear-slide 2s ease-out;
     }
+
+    .sub-section-1 {
+        position: relative;
+    }
+
+    .sub-section-2 {
+        position: relative;
+        height: 500px;
+        background: url(https://i.imgur.com/cYppQAq.jpg) fixed;
+    }
+
+    .current-date {
+        position: absolute;
+        top: 180px;
+        right: 520px;
+        animation: appear-right-slide 1s ease-out;
+    }
+
+    .minimum-wage {
+        position: absolute;
+        top: 240px;
+        right: 340px;
+        animation: appear-right-slide2 2s ease-out;
+    }
+
+
     .photo {
         background-color: white;
         padding: 10px;
         position: absolute;
-        top: 340px;
+        top: 270px;
         right: 300px;
         width: 250px;
         height: 280px;
         object-fit: cover;
-        filter: contrast(75%);
+        filter: contrast(80%);
+    }
+
+    .photo-wage {
+       width: 150px;
+       height: 150px;
+       object-fit: cover;
     }
 
     @keyframes appear-slide {
@@ -38,14 +70,14 @@
             opacity: 0;
         }
         to  {
-            left: 250px;
+            left: 300px;
             opacity: 1;
         }
     }
 
     @keyframes disappear-slide {
         from {
-            left: 250px;
+            left: 300px;
             opacity:1;
         }
         to {
@@ -53,34 +85,207 @@
             opacity: 0;
         }
     }
+
+    @keyframes appear-right-slide {
+        from {
+            right: -100px;
+            opacity: 0;
+        }
+        to  {
+            right: 520px;
+            opacity: 1;
+        }
+    }
+
+    @keyframes disappear-right-slide {
+        from {
+            right: 520px;
+            opacity:1;
+        }
+        to {
+            right: -100px;
+            opacity: 0;
+        }
+    }
+
+    @keyframes appear-right-slide2 {
+        from {
+            right: -100px;
+            opacity: 0;
+        }
+        to  {
+            right: 340px;
+            opacity: 1;
+        }
+    }
+
+    @keyframes disappear-right-slide2 {
+        from {
+            right: 340px;
+            opacity:1;
+        }
+        to {
+            right: -100px;
+            opacity: 0;
+        }
+    }
+
+    .typingText {
+        position: absolute;
+        top: 10px;
+        display: inline; vertical-align: middle;
+        border-right: .05em solid black;
+        animation: cursor 0.2s ease infinite;
+    }
+
+
     </style>
 </head>
 <th:block layout:fragment="content">
-    <div class="flex flex-col">
-        <div class="py-2">
-            <div class="w-[300px] flex mx-auto h-[38px] text-center text-gray-400 pt-2">
-                <i class="fa-solid fa-magnifying-glass w-[60px] h-[30px] pt-1"></i><input type="text" id="kw" name="kw" placeholder="궁금한 용어를 입력해주세요" class="form-control-sm h-[30px] w-full">
+    <!--    <div class="flex flex-col">-->
+    <!--        <div class="py-2">-->
+    <!--            <div class="w-[300px] flex mx-auto h-[38px] text-center text-gray-400 pt-2">-->
+    <!--                <i class="fa-solid fa-magnifying-glass w-[60px] h-[30px] pt-1"></i><input type="text" id="kw" name="kw" placeholder="궁금한 용어를 입력해주세요" class="form-control-sm h-[30px] w-full">-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        <div class="bg-[#3c424d] h-[45%] p-10 flex justify-around px-20 bg-opacity-95">-->
+    <!--            <div class="pt-10">-->
+    <!--                <label><span class="text-4xl text-center font-bold text-white">내가 일한만큼 받는걸까?</span></label>-->
+    <!--                <div class="text-center mt-7">-->
+    <!--                    <a th:href="@{/wage/base}" class="border-2 border-[#4acaa8] text-black font-bold bg-[#4acaa8] no-underline rounded hover:text-white hover:shadow-md w-[100%] mx-auto p-3 text-base cursor-pointer">확인해보기</a>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--            <div>-->
+    <!--                <span class="text-white"><i class="fa-solid fa-coins fa-10x pt-2"></i></span>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <body style="height: 3000px;">
+    <section class="main-section">
+        <h1 class="main-text">CHECK YOUR SALARY</h1>
+        <img class="photo rounded" src="https://i.imgur.com/hVTGIiu.png">
+    </section>
+    <section class="sub-section-1 mt-8 flex flex-col items-center">
+        <div class="typingText text-2xl mx-auto"></div>
+        <div class="text-md mt-16 text-gray-500">이 시간이 넘어가면 연장근로로 판단, 추가수당을 받는다</div>
+        <div class="text-lg mt-3 text-gray-500">" 1일 <span style="color:red; font-size: 2rem;">08</span>시간, 주 <span
+                style="color:red; font-size: 2rem;">40</span>시간 "
+        </div>
+        <div class="flex mt-5 gap-12">
+            <!--                <img class="photo-wage" src="https://i.imgur.com/xVw0k5C.png">-->
+            <div class="flex flex-col items-center">
+                <div class="border rounded-full bg-[#3c424d] p-4">
+                    <i class="fa-solid fa-sack-dollar fa-5x" style="color: white;"></i>
+                </div>
+                <div class="mt-2 text-xl">급여 산출원리 파악</div>
+                <div class="text-gray-500 text-[16px] text-center w-[300px]">
+                    근무형태별 차이를 파악하고<br>
+                    한달 급여가 산출되는 방식을 알 수 있게<br>
+                    급여계산과정을 낱낱이<br>
+                    보여드립니다
+                </div>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="border rounded-full bg-[#3c424d] p-4">
+                    <i class="fa-solid fa-pen-to-square fa-5x" style="color: white;"></i>
+                </div>
+                <div class="mt-2 text-xl">예상 소비계획 수립</div>
+                <div class="text-gray-500 text-[16px] text-center w-[300px]">
+                    누적된 급여계산결과와<br>
+                    내가 설정한 고정입출액을 토대로<br>
+                    상황에 맞는 소비 패턴을 만들수 있도록,<br>
+                    도와줍니다
+                </div>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="border rounded-full bg-[#3c424d] w-[130px] p-4 text-center">
+                    <i class="fa-solid fa-clipboard-question fa-5x" style="color: white;"></i>
+                </div>
+                <div class="mt-2 text-xl">궁금한 근로정책 질문</div>
+                <div class="text-gray-500 text-[16px] text-center w-[300px]">
+                    생소한 정책을 소개하는 <br>
+                    게시판을 두고 사용자와 소통하는 창구를<br>
+                    만들어 근로정책에 대한 이해를<br>
+                    높여줍니다
+                </div>
             </div>
         </div>
-        <!--        <div class="bg-[#3c424d] h-[45%] p-10 flex justify-around px-20 bg-opacity-95">-->
-        <!--            <div class="pt-10">-->
-        <!--                <label><span class="text-4xl text-center font-bold text-white">내가 일한만큼 받는걸까?</span></label>-->
-        <!--                <div class="text-center mt-7">-->
-        <!--                    <a th:href="@{/wage/base}" class="border-2 border-[#4acaa8] text-black font-bold bg-[#4acaa8] no-underline rounded hover:text-white hover:shadow-md w-[100%] mx-auto p-3 text-base cursor-pointer">확인해보기</a>-->
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--            <div>-->
-        <!--                <span class="text-white"><i class="fa-solid fa-coins fa-10x pt-2"></i></span>-->
-        <!--            </div>-->
-        <!--        </div>-->
-        <section class="main-section">
-            <h1 class="main-text">CHECK YOUR SALARY</h1>
-            <img class="photo" src="https://i.imgur.com/hVTGIiu.png">
-        </section>
-        <div>
-            공지사항 etc
-        </div>
+    </section>
+    <div class="w-full h-[12px] mt-5 text-2xl">
+        <div class="bg-concrete h-full shadow-inner"></div>
     </div>
+    <section class="sub-section-2 flex items-center">
+        <div class="flex items-center pl-96">
+            <div>
+                <i class="fa-solid fa-hand-holding-dollar"
+                   style="font-size: 150px; color: rgba(74, 202, 168, 0.6); background-color: #3c424d; border-radius: 50%; width: 250px; height: 250px; text-align: center; padding-top: 30px;"></i>
+            </div>
+            <div>
+                <div class="current-date text-4xl font-bold">[[${now}]]</div>
+                <div class="minimum-wage text-5xl font-bold">최저시급 9,160원</div>
+            </div>
+        </div>
+    </section>
+    <div class="w-full h-[12px] text-2xl">
+        <div class="bg-concrete h-full shadow-inner"></div>
+    </div>
+    <section class="sub-section-3 flex flex-col justify-center pl-40 pt-4">
+        <div class="py-3 font-bold text-2xl">자주 물어보는 근로 정책</div>
+        <div class="flex gap-3">
+            <div class="card w-[300px]">
+                <img src="/images/unemployment.png" class="card-img-top" alt="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">실업급여란?</h5>
+                    <p class="card-text">직장을 잃게된 경우, 피보험자의 구직활동 및 재교육을 지원하는 사회보험을 말한다</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+            <div class="card w-[300px]">
+                <img src="/images/annual-holiday.png" class="card-img-top" alt="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">연차란?</h5>
+                    <p class="card-text">직장을 잃게된 경우, 피보험자의 구직활동 및 재교육을 지원하는 사회보험을 말한다</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+            <div class="card w-[300px]">
+                <img src="/images/annual-holiday.png" class="card-img-top" alt="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">연차란?</h5>
+                    <p class="card-text">직장을 잃게된 경우, 피보험자의 구직활동 및 재교육을 지원하는 사회보험을 말한다</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+            <div class="card w-[300px]">
+                <img src="/images/annual-holiday.png" class="card-img-top" alt="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">연차란?</h5>
+                    <p class="card-text">직장을 잃게된 경우, 피보험자의 구직활동 및 재교육을 지원하는 사회보험을 말한다</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        const content = "법정근로시간 : 법률이 정하는 기준 근로시간.";
+        const text = document.querySelector(".typingText");
+        let index=0;
+        function sleep(delay) {
+            const start = new Date().getTime();
+            while(new Date().getTime() < start + delay);
+        }
+
+        function typing() {
+            text.textContent += content[index++];
+            if(index > content.length) {
+                text.textContent ="";
+                index = 0;
+            }
+        }
+
+        setInterval(typing, 200);
+
+    </script>
+    </body>
 </th:block>
 
 </html>
