@@ -1,0 +1,98 @@
+<html
+        xmlns:th="http://thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}"
+>
+<head>
+    <style>
+        .wrapper {
+            position: relative;
+        }
+
+    </style>
+</head>
+<th:block layout:fragment="content">
+    <div class="h-full flex">
+        <div class="w-[20%] flex default-bgcolor-base">
+            <th:block th:replace="/accountBook/fixedInfo :: fixedInfoFragment"></th:block>
+        </div>
+        <div class="flex-grow flex flex-col">
+            <nav class="w-full h-[2%] default-bgcolor-base pt-2 text-white">
+                <ul class="flex gap-20">
+                    <li><a href="/wage/base"
+                           class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">기본급여정보</a>
+                    </li>
+                    <li><a href="/wage/working-time"
+                           class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">근무시간입력</a>
+                    </li>
+                    <li><a href="/wage/result"
+                           class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">누적급여계산</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="w-[100%] p-3">
+                <div class="w-[90%] bg-concrete mt-3 flex flex-col wrapper rounded p-3">
+                    <div th:text="|${nextMonth}월 예상소비계획|" class="border-b-4 border-[#3c424d]">
+                    </div>
+                    <div class="flex justify-between">
+                        <div class="flex flex-col gap-3 mt-2 w-[600px]">
+                            <div class="flex gap-2">
+                                <i class="fa-regular fa-calendar-days text-2xl"></i>
+                                <div th:text="|${nextMonth}.01 ~ ${nextMonth}.${nextMonthLastDate}|" class="pt-2"></div>
+                            </div>
+                            <div>
+                                <span>누적급여</span>
+                                <div class="flex justify-end">
+                                    <span th:text="|${accTotalWage}원|"></span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <div><i class="fa-solid fa-minus"></i> 고정지출액</div>
+                                    <div>
+                                        <span th:text="|${fixedSpendingSum}원|"></span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between">
+                                    <div><i class="fa-solid fa-plus"></i> 고정수입액</div>
+                                    <div>
+                                        <span th:text="|${fixedIncomeSum}원|"></span>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="flex justify-between">
+                                    <div>한달 소비가능 금액</div>
+                                    <div>
+                                        <span th:text="|${balance}원|"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <form th:action="@{/account/base/fixed-spending}" th:object="${fixedSpendingForm}"
+                                  method="POST">
+
+                            </form>
+                        </div>
+                        <div class="card card-small card-post mb-2 flex rounded-2xl shadow-md p-5 mt-3 w-[400px] h-[500px] text-7xl font-bold">
+                            <div class="flex gap-5">
+                                <div>
+                                    <div class="text-base">월급일로부터</div>
+                                    <div class="text-base">D+[[${dDayFrom}]]</div>
+                                </div>
+                                <div>
+                                    <div class="text-base">[[${month}]]</div>
+                                    <div class="text-base">月</div>
+                                </div>
+                                <div>
+                                    <div class="text-base">월급일까지</div>
+                                    <div class="text-base">D-[[${dDayTo}]]</div>
+                                </div>
+                            </div>
+                            <div th:if="${date == siteUser.payday}" class="text-red mt-5">[[${date}]]</div>
+                            <div th:unless="${date == siteUser.payday}" class="text-center text-9xl mt-5">[[${date}]]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

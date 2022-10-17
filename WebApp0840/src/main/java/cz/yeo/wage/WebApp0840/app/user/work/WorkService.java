@@ -20,6 +20,7 @@ public class WorkService {
 
     private HashMap<String, Integer> map = new HashMap<>();
 
+
     public Work create(SiteUser siteUser, String workingDate, Integer workingHours, Integer workingMinutes,
                             Integer extendedHours, Integer extendedMinutes, Integer nightHours, Integer nightMinutes, String workType) {
         try {
@@ -136,21 +137,25 @@ public class WorkService {
     }
 
     public int getRegularHoursWage(SiteUser siteUser) {
+        getAccWorks(siteUser);
         int accRegularHours = map.get("accRegularHours");
         return accRegularHours * siteUser.getBaseWage();
     }
 
     public double getExtendedHoursWage(SiteUser siteUser) {
+        getAccWorks(siteUser);
         int accExtendedHours = map.get("accExtendedHours");
         return accExtendedHours * 1.5 * siteUser.getBaseWage();
     }
 
     public double getNightHoursWage(SiteUser siteUser) {
+        getAccWorks(siteUser);
         int accNightHours = map.get("accNightHours");
         System.out.println("accNightHours: " + accNightHours);
         return accNightHours * 1.5 * siteUser.getBaseWage();
     }
     public double getHolidayHoursWage(SiteUser siteUser) {
+        getAccWorks(siteUser);
         int accHolidayHours = map.get("accHolidayHours");
         return accHolidayHours * 1.5 * siteUser.getBaseWage();
     }
