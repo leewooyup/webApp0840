@@ -9,6 +9,9 @@
             position: relative;
         }
 
+
+
+
     </style>
 </head>
 <th:block layout:fragment="content">
@@ -64,11 +67,41 @@
                                         <span th:text="|${balance}원|"></span>
                                     </div>
                                 </div>
+                                <div>
+                                    <form th:action="@{/account/daily/pattern}" th:object="${dailyPatternForm}" method="POST">
+                                        <div>하루 소비패턴 만들기</div>
+                                        <div>소비유형별 가능한 최대금액을 적어주세요.</div>
+                                        <div class="flex justify-between">
+                                            <div>소비패턴명</div>
+                                            <input type="text" th:field="*{dailyPatternName}" placeholder="ex. 일상, 주말, 데이트...">
+                                        </div>
+                                        <div>
+                                            <select name="dailyConsumptionTypes[]" class="h-[25px]">
+                                                <option value="">--(하루)소비유형을 선택하세요--</option>
+                                                <option value="아침식비">아침식비</option>
+                                                <option value="점심식비">점심식비</option>
+                                                <option value="저녁식비">저녁식비</option>
+                                                <option value="카페">카페</option>
+                                                <option value="담배">담배</option>
+                                                <option value="쇼핑">쇼핑</option>
+                                                <option value="영화">영화</option>
+                                                <option value="기타">기타</option>
+                                            </select>
+                                            <input type="number" name="dailyConsumptionPrices[]"
+                                                   class="border border-gray-500 ml-2"> 원
+                                            <div class="append-select-parents">
+                                                <div class="append-select">
+                                                    <i class="fa-solid fa-square-plus"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex justify-end">
+                                            <input type="submit"
+                                                   value="다음" class="border-2 border-[#3c424d] rounded text-white bg-[#3c424d] hover:shadow-md px-4 pt-1 mt-3">
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                            <form th:action="@{/account/base/fixed-spending}" th:object="${fixedSpendingForm}"
-                                  method="POST">
-
-                            </form>
                         </div>
                         <div class="card card-small card-post mb-2 flex rounded-2xl shadow-md p-5 mt-3 w-[400px] h-[500px] text-7xl font-bold">
                             <div class="flex gap-5">
@@ -94,5 +127,33 @@
             </div>
         </div>
     </div>
+    <script>
+    $(".append-select").on("click", function() {
+        const select = `
+        <div>
+            <select name="dailyConsumptionTypes[]" class="h-[25px]">
+                <option value="">--(하루)소비유형을 선택하세요--</option>
+                <option value="아침식비">아침식비</option>
+                <option value="점심식비">점심식비</option>
+                <option value="저녁식비">저녁식비</option>
+                <option value="카페">카페</option>
+                <option value="담배">담배</option>
+                <option value="쇼핑">쇼핑</option>
+                <option value="영화">영화</option>
+                <option value="기타">기타</option>
+            </select>
+            <input type="number" name="dailyConsumptionPrices[]"
+                   class="border border-gray-500 ml-2"> 원
+        <div>
+        `;
+
+        const selectParents = document.createElement('div');
+        selectParents.innerHTML = select;
+        document.getElementsByClassName("append-select-parents")[0].appendChild(selectParents);
+    });
+
+
+
+    </script>
 </th:block>
 </html>

@@ -152,52 +152,5 @@
             </div>
         </div>
     </div>
-<script>
-<!--    $("#append_form").on("click", function() {-->
-<!--        const form = `<div class="card card-small card-post mb-2 flex rounded-2xl shadow-md p-5 w-[650px]">-->
-<!--            <form th:action="@{/wage/working-time}" th:object="${workingTimeForm}" method="POST">-->
-<!--                <div class="flex gap-2">-->
-<!--                    <label class="w-[100px] mt-2">근무날짜</label>-->
-<!--                    <div class="flex gap-2 ml-auto">-->
-<!--                        <i class="fa-regular fa-calendar-days text-2xl"></i>-->
-<!--                        <input type="text" th:field="*{workingDate}"-->
-<!--                               class="datepicker border w-[120px] text-right">-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="flex gap-2">-->
-<!--                    <label class="w-[100px] mt-2">근무시간</label>-->
-<!--                    <div class="flex flex-grow justify-end mt-2">-->
-<!--                        <input type="number" th:field="*{workingHours}" min="0" max="12"-->
-<!--                               class="ml-auto border mr-2 form-control-sm w-[70px]"/>-->
-<!--                        <span class="mr-2">시간</span>-->
-<!--                        <input type="number" th:field="*{workingMinutes}" min="0" max="59"-->
-<!--                               class="border mr-2 form-control-sm w-[70px]"/><span>분</span>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="flex gap-2">-->
-<!--                    <span class="w-[100px] mt-2">연장 근무시간</span>-->
-<!--                    <div class="flex flex-grow justify-end mt-2">-->
-<!--                        <input type="number" th:field="*{extendedHours}" min="0" max="12"-->
-<!--                               class="ml-auto mr-2 border form-control-sm w-[70px]"/>-->
-<!--                        <span class="mr-2">시간</span>-->
-<!--                        <input type="number" th:field="*{extendedMinutes}" min="0" max="59"-->
-<!--                               class="border mr-2 form-control-sm w-[70px]"/><span>분</span>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="flex justify-end">-->
-<!--                    <button type="submit"-->
-<!--                            class="border-2 border-[#3c424d] text-[#3c424d] bg-white hover:shadow-md px-4 pt-1 mt-3">-->
-<!--                        다음-->
-<!--                    </button>-->
-<!--                </div>-->
-<!--            </form>-->
-<!--        </div>-->
-<!--        `;-->
-
-<!--        const formParents = document.createElement(".wage-form");-->
-<!--        formParents.innerHTML = form;-->
-<!--        document.getElementByClassName(".wage-form").appendChild(formParents);-->
-<!--    });-->
-</script>
 </th:block>
 </html>

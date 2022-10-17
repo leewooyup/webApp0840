@@ -1,7 +1,9 @@
 package cz.yeo.wage.WebApp0840.app.accountBook;
 
+import cz.yeo.wage.WebApp0840.app.accountBook.entity.DailyPattern;
 import cz.yeo.wage.WebApp0840.app.accountBook.entity.FixedIncome;
 import cz.yeo.wage.WebApp0840.app.accountBook.entity.FixedSpending;
+import cz.yeo.wage.WebApp0840.app.accountBook.form.DailyPatternForm;
 import cz.yeo.wage.WebApp0840.app.accountBook.form.FixedIncomeForm;
 import cz.yeo.wage.WebApp0840.app.accountBook.form.FixedSpendingForm;
 import cz.yeo.wage.WebApp0840.app.user.UserService;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/account")
@@ -27,6 +30,8 @@ public class AccountController {
     private final UserService userService;
     private final WorkService workService;
     private final FixedInfoService fixedInfoService;
+    private final DailyPatternService dailyPatternService;
+    private final DailyPatternItemService dailyPatternItemService;
 
 
     @PreAuthorize("isAuthenticated()")
@@ -104,7 +109,7 @@ public class AccountController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/daily/pattern")
-    public String showDailyPatternForm(Principal principal, Model model, FixedIncomeForm fixedIncomeForm) {
+    public String showDailyPatternForm(Principal principal, Model model, DailyPatternForm dailyPatternForm) {
         SiteUser siteUser = userService.findByUsername(principal.getName());
         String dateInfo = Util.date.getCurrentDateFormatted("yyyy MM dd");
         String[] dateInfoBits = dateInfo.split(" ");
@@ -136,5 +141,25 @@ public class AccountController {
         model.addAttribute("fixedIncomeSum", fixedIncomeSum);
         model.addAttribute("balance", balance);
         return "accountBook/baseForm/daily_consumption_pattern";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/daily/pattern")
+    @ResponseBody
+    public String dailyPattern(Principal principal, Model model, @Valid DailyPatternForm dailyPatternForm, BindingResult bindingResult) {
+        DailyPattern dailyPattern = dailyPatternService.create(dailyPatternForm.getDailyPatternName());
+        Stream.of(dailyPatternForm.getDailyConsumptionTypes())
+                .forEach(type -> {
+                    dailyPatternItemService.createType(dailyPattern, String.valueOf(type));
+                });
+//        Stream.of(dailyPatternForm.getDailyConsumptionTypes())
+//                .forEach(type -> {
+//                    dailyPatternItemService.create(dailyPattern, String.valueOf(type));
+//                });
+        Stream.of(dailyPatternForm.getDailyConsumptionPrices())
+                .forEach(price -> {
+                    dailyPatternItemService.createPrice(dailyPattern, String.valueOf(price));
+                });
+        return "작업중";
     }
 }
