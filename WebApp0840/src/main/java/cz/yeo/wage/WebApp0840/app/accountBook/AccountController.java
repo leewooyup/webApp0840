@@ -119,15 +119,12 @@ public class AccountController {
         int dDayTo = accountService.getDdayCalTo(siteUser);
         int dDayFrom = accountService.getDdayCalFrom(siteUser);
         int nextMonthLastDate = accountService.getLastDateByMonth(Integer.parseInt(dateInfoBits[1])+1);
-
-        double accTotalWage = workService.getAccTotalWage(siteUser);
-
+        int accTotalWage = (int)workService.getAccTotalWage(siteUser);
         int fixedSpendingSum = fixedInfoService.getFixedSpendingSum(siteUser);
-
         int fixedIncomeSum = fixedInfoService.getFixedIncomeSum(siteUser);
-
         int balance = fixedInfoService.getBalance(siteUser);
-        model.addAttribute("accTotalWage", workService.formatFloorTenth(accTotalWage));
+
+        model.addAttribute("accTotalWage", workService.formatIntFloorTenth(accTotalWage));
         model.addAttribute("siteUser", siteUser);
         model.addAttribute("month", dateInfoBits[1]);
         model.addAttribute("nextMonth", Integer.parseInt(dateInfoBits[1])+1);
@@ -139,7 +136,7 @@ public class AccountController {
         model.addAttribute("fixedIncomes", fixedIncomes);
         model.addAttribute("fixedSpendingSum", fixedSpendingSum);
         model.addAttribute("fixedIncomeSum", fixedIncomeSum);
-        model.addAttribute("balance", balance);
+        model.addAttribute("balance", workService.formatIntFloorTenth(balance));
         return "accountBook/baseForm/daily_consumption_pattern";
     }
 
