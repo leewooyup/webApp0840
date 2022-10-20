@@ -45,14 +45,14 @@
         <div class="flex-grow flex flex-col">
             <nav class="w-full h-[2%] default-bgcolor-base pt-2 text-white">
                 <ul class="flex gap-20">
-                    <li><a href="/wage/base"
-                           class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">기본급여정보</a>
+                    <li><a href="/account/base/fixed-spending"
+                           class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">고정지출입력</a>
                     </li>
-                    <li><a href="/wage/working-time"
-                           class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">근무시간입력</a>
+                    <li><a href="/account/base/fixed-income"
+                           class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">고정수입입력</a>
                     </li>
-                    <li><a href="/wage/result"
-                           class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">누적급여계산</a>
+                    <li><a href="/account/daily/pattern"
+                           class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">하루소비패턴</a>
                     </li>
                 </ul>
             </nav>
@@ -61,33 +61,34 @@
                 <div class="w-[90%] bg-concrete mt-3 flex flex-col wrapper rounded p-3">
                     <div th:text="|${nextMonth}월 예상소비계획|" class="border-b-4 border-[#3c424d]">
                     </div>
-                    <div class="flex justify-between">
-                        <div class="flex flex-col gap-3 mt-2">
+                    <div class="flex justify-between items-end">
+                        <div class="flex flex-col gap-3 mt-3 w-[600px]">
                             <div class="flex gap-2">
                                 <i class="fa-regular fa-calendar-days text-2xl"></i>
                                 <div th:text="|${nextMonth}.01 ~ ${nextMonth}.${nextMonthLastDate}|" class="pt-2"></div>
                             </div>
-                            <div>
-                                <span>누적급여</span>
-                                <div class="flex justify-end">
-                                    <span th:text="|${accTotalWage}원|"></span>
-                                </div>
-
+                            <div class="flex justify-between">
+                                <div><i class="fa-solid fa-coins"></i> 누적급여</div>
+                                <div th:text="|${accTotalWage}원|"></div>
                             </div>
                             <form th:action="@{/account/base/fixed-income}" th:object="${fixedIncomeForm}" method="POST">
                                 <div>
                                     <div>고정수입</div>
-                                    <select th:field="*{fixedIncomeType}" class="h-[25px]">
-                                        <option value="">--수입유형을 선택하세요--</option>
-                                        <option value="용돈">용돈</option>
-                                        <option value="기타">기타</option>
-                                    </select>
-                                    <input type="number" th:field="*{fixedIncome}" class="border border-gray-500 ml-2"> 원
+                                    <div class="flex justify-between">
+                                        <select th:field="*{fixedIncomeType}" class="h-[25px]">
+                                            <option value="">--수입유형을 선택하세요--</option>
+                                            <option value="용돈">용돈</option>
+                                            <option value="기타">기타</option>
+                                        </select>
+                                        <div>
+                                            <input type="number" th:field="*{fixedIncome}" class="border border-gray-500 ml-2"> 원
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <label for="fixedIncomeMemo">Memo:</label>
+                                <div class="mt-2"><label for="fixedIncomeMemo"><i class="fa-solid fa-file-pen"></i> Memo :</label></div>
                                 <textarea id="fixedIncomeMemo" th:field="*{fixedIncomeMemo}"
-                                          rows="10" cols="33"></textarea>
+                                          rows="10" cols="33" placeholder="메모할 사항" class="w-full pl-2 pt-2"></textarea>
                                 <div class="flex justify-end">
                                     <button type="submit"
                                             class="border-2 border-[#3c424d] rounded text-white bg-[#3c424d] hover:shadow-md px-4 pt-1 mt-3">
@@ -100,7 +101,7 @@
                                                                                   class="bg-[#4acaa8] text-white rounded font-bold hover: hover:shadow-md px-3 py-2 no-underline"><i
                                     class="fa-solid fa-greater-than"></i> 다음</a></div>
                         </div>
-                        <div class="card card-small card-post mb-2 flex rounded-2xl shadow-md p-5 mt-3 w-[400px] h-[500px] text-7xl font-bold">
+                        <div class="card card-small card-post flex rounded-2xl shadow-md p-5 w-[400px] h-[500px] text-7xl font-bold">
                             <div class="flex gap-5">
                                 <div>
                                     <div class="text-base">월급일로부터</div>
