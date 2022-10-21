@@ -84,6 +84,7 @@
                             <div class="text-center text-xl">하루 소비패턴 만들기 <i class="fa-solid fa-scroll"></i></div>
                             <div class="text-center text-sm"><i class="fa-solid fa-sort-down"></i> 소비유형별 가능한 최대금액을 적어주세요.</div>
                             <form th:action="@{/account/daily/pattern}" th:object="${dailyPatternForm}" method="POST">
+                                <div th:replace="form_errors :: formErrorsFragment"></div>
                                 <div class="mt-3 flex justify-between">
                                     <div class="bg-white p-1 px-4 rounded shadow-inner h-[26px]">
                                         <div><i class="fa-solid fa-tag"></i> 소비패턴명</div>
@@ -127,6 +128,25 @@
         </div>
     </div>
     <script>
+<!--    function WriteForm__submit(form) {-->
+<!--            form.dailyConsumptionTypes[].value = form.dailyConsumptionTypes[].value.trim();-->
+
+<!--            if(form.dailyConsumptionTypes[].value.length == 0) {-->
+<!--                alert('[소비유형]을 선택해주세요.');-->
+<!--                form.dailyConsumptionTypes[].focus();-->
+<!--                return;-->
+<!--            }-->
+
+<!--            form.dailyConsumptionPrices[].value = form.dailyConsumptionPrices[].value.trim();-->
+
+<!--            if(form.dailyConsumptionPrices[].value.length == 0) {-->
+<!--                alert('[소비가격]을 입력해주세요.');-->
+<!--                form.dailyConsumptionPrices[].focus();-->
+<!--                return;-->
+<!--            }-->
+<!--            form.submit();-->
+<!--    }-->
+
     $(".append-select").on("click", function() {
         if (document.querySelectorAll(".dailyConsumptionTypes").length > 6) {
             alert("추가가능한 소비유형은 최대 8개입니다.")

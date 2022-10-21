@@ -9,13 +9,17 @@ import cz.yeo.wage.WebApp0840.app.user.entity.SiteUser;
 import cz.yeo.wage.WebApp0840.app.user.work.WorkService;
 import cz.yeo.wage.WebApp0840.util.Util;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
@@ -136,32 +140,46 @@ public class AccountController {
         model.addAttribute("fixedSpendingSum", fixedSpendingSum);
         model.addAttribute("fixedIncomeSum", fixedIncomeSum);
         model.addAttribute("balance", workService.formatIntFloorTenth(balance));
-        return "accountBook/baseForm/daily_consumption_pattern";
+        return "accountBook/baseForm/daily_consumption_pattern_form";
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/daily/pattern")
-    public String dailyPattern(Principal principal, Model model, @Valid DailyPatternForm dailyPatternForm, BindingResult bindingResult) {
+    public String dailyPattern(HttpServletResponse response, Principal principal, Model model, @Valid DailyPatternForm dailyPatternForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "accountBook/baseForm/daily_consumption_pattern_form";
+        }
         SiteUser siteUser = userService.findByUsername(principal.getName());
         DailyPattern dailyPattern = dailyPatternService.create(siteUser, dailyPatternForm.getDailyPatternName());
-        Stream.of(dailyPatternForm.getDailyConsumptionTypes())
-                .forEach(type -> {
-                    dailyPatternItemService.createType(dailyPattern, String.valueOf(type));
-                });
-//        Stream.of(dailyPatternForm.getDailyConsumptionTypes())
-//                .forEach(type -> {
-//                    dailyPatternItemService.create(dailyPattern, String.valueOf(type));
-//                });
-        Stream.of(dailyPatternForm.getDailyConsumptionPrices())
-                .forEach(price -> {
-                    dailyPatternItemService.createPrice(dailyPattern, String.valueOf(price));
-                });
+        try {
+            Stream.of(dailyPatternForm.getDailyConsumptionTypes())
+                    .forEach(type -> {
+                        dailyPatternItemService.createType(dailyPattern, String.valueOf(type));
+                    });
+            Stream.of(dailyPatternForm.getDailyConsumptionPrices())
+                    .forEach(price -> {
+                        dailyPatternItemService.createPrice(dailyPattern, String.valueOf(price));
+                    });
+        } catch(NumberFormatException e) {
+            response.setContentType("text/html; charset=utf-8");
+            PrintWriter w = null;
+            try {
+                w = response.getWriter();
+            } catch (IOException ex) {
+                e.printStackTrace();
+//                throw new RuntimeException(ex);
+            }
+            w.write("<script>alert('모든항목을 입력해주세요.');history.go(-1);</script>");
+            w.flush();
+            w.close();
+            return "redirect:/daily/pattern";
+        }
         return "redirect:/account/result";
     }
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/result")
-    public String showResult(Principal principal, Model model, DailyPatternForm dailyPatternForm) {
+    public String showResult(Principal principal, Model model, @Valid DailyPatternForm dailyPatternForm, BindingResult bindingResult) {
         SiteUser siteUser = userService.findByUsername(principal.getName());
         String dateInfo = Util.date.getCurrentDateFormatted("yyyy MM dd");
         String[] dateInfoBits = dateInfo.split(" ");
