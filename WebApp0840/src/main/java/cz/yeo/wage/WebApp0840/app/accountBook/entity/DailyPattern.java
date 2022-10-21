@@ -6,6 +6,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.DynamicInsert;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -18,6 +19,7 @@ import javax.persistence.ManyToOne;
 @DynamicInsert
 @ToString(callSuper = true)
 public class DailyPattern extends BaseEntity {
+    @Column(unique = true)
     private String dailyPatternName;
     @ManyToOne
     private SiteUser siteUser;

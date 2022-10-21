@@ -9,6 +9,7 @@ import cz.yeo.wage.WebApp0840.app.user.entity.SiteUser;
 import cz.yeo.wage.WebApp0840.app.user.work.WorkService;
 import cz.yeo.wage.WebApp0840.util.Util;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -150,8 +151,8 @@ public class AccountController {
             return "accountBook/baseForm/daily_consumption_pattern_form";
         }
         SiteUser siteUser = userService.findByUsername(principal.getName());
-        DailyPattern dailyPattern = dailyPatternService.create(siteUser, dailyPatternForm.getDailyPatternName());
         try {
+            DailyPattern dailyPattern = dailyPatternService.create(siteUser, dailyPatternForm.getDailyPatternName());
             Stream.of(dailyPatternForm.getDailyConsumptionTypes())
                     .forEach(type -> {
                         dailyPatternItemService.createType(dailyPattern, String.valueOf(type));
@@ -160,6 +161,19 @@ public class AccountController {
                     .forEach(price -> {
                         dailyPatternItemService.createPrice(dailyPattern, String.valueOf(price));
                     });
+        } catch(DataIntegrityViolationException e) {
+            response.setContentType("text/html; charset=utf-8");
+            PrintWriter w = null;
+            try {
+                w = response.getWriter();
+            } catch (IOException ex) {
+                e.printStackTrace();
+//                throw new RuntimeException(ex);
+            }
+            w.write("<script>alert('이미 존재하는 [소비패턴명]입니다.');history.go(-1);</script>");
+            w.flush();
+            w.close();
+
         } catch(NumberFormatException e) {
             response.setContentType("text/html; charset=utf-8");
             PrintWriter w = null;
@@ -169,10 +183,9 @@ public class AccountController {
                 e.printStackTrace();
 //                throw new RuntimeException(ex);
             }
-            w.write("<script>alert('모든항목을 입력해주세요.');history.go(-1);</script>");
+            w.write("<script>alert('모든 항목을 입력해주세요.');history.go(-1);</script>");
             w.flush();
             w.close();
-            return "redirect:/daily/pattern";
         }
         return "redirect:/account/result";
     }
