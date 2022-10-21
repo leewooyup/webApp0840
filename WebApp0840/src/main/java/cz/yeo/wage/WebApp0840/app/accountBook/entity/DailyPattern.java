@@ -21,6 +21,7 @@ import javax.persistence.ManyToOne;
 public class DailyPattern extends BaseEntity {
     @Column(unique = true)
     private String dailyPatternName;
+    private Integer timesPerMonth;
     @ManyToOne
     private SiteUser siteUser;
 }

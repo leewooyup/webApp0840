@@ -63,7 +63,7 @@ public class FixedInfoService {
 
     }
 
-    public int getBalance(SiteUser siteUser) {
+    public int getBudget(SiteUser siteUser) {
         return (int)workService.getAccTotalWage(siteUser) + getFixedIncomeSum(siteUser) - getFixedSpendingSum(siteUser);
     }
 }

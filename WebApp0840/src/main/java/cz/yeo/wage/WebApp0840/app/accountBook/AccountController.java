@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
@@ -126,7 +127,7 @@ public class AccountController {
         int accTotalWage = (int)workService.getAccTotalWage(siteUser);
         int fixedSpendingSum = fixedInfoService.getFixedSpendingSum(siteUser);
         int fixedIncomeSum = fixedInfoService.getFixedIncomeSum(siteUser);
-        int balance = fixedInfoService.getBalance(siteUser);
+        int budget = fixedInfoService.getBudget(siteUser);
 
         model.addAttribute("accTotalWage", workService.formatIntFloorTenth(accTotalWage));
         model.addAttribute("siteUser", siteUser);
@@ -140,7 +141,7 @@ public class AccountController {
         model.addAttribute("fixedIncomes", fixedIncomes);
         model.addAttribute("fixedSpendingSum", fixedSpendingSum);
         model.addAttribute("fixedIncomeSum", fixedIncomeSum);
-        model.addAttribute("balance", workService.formatIntFloorTenth(balance));
+        model.addAttribute("budget", workService.formatIntFloorTenth(budget));
         return "accountBook/baseForm/daily_consumption_pattern_form";
     }
 
@@ -152,7 +153,7 @@ public class AccountController {
         }
         SiteUser siteUser = userService.findByUsername(principal.getName());
         try {
-            DailyPattern dailyPattern = dailyPatternService.create(siteUser, dailyPatternForm.getDailyPatternName());
+            DailyPattern dailyPattern = dailyPatternService.create(siteUser, dailyPatternForm.getDailyPatternName(), dailyPatternForm.getTimesPerMonth());
             Stream.of(dailyPatternForm.getDailyConsumptionTypes())
                     .forEach(type -> {
                         dailyPatternItemService.createType(dailyPattern, String.valueOf(type));
@@ -168,7 +169,6 @@ public class AccountController {
                 w = response.getWriter();
             } catch (IOException ex) {
                 e.printStackTrace();
-//                throw new RuntimeException(ex);
             }
             w.write("<script>alert('이미 존재하는 [소비패턴명]입니다.');history.go(-1);</script>");
             w.flush();
@@ -181,7 +181,6 @@ public class AccountController {
                 w = response.getWriter();
             } catch (IOException ex) {
                 e.printStackTrace();
-//                throw new RuntimeException(ex);
             }
             w.write("<script>alert('모든 항목을 입력해주세요.');history.go(-1);</script>");
             w.flush();
@@ -198,20 +197,25 @@ public class AccountController {
         String[] dateInfoBits = dateInfo.split(" ");
 
         List<DailyPattern> dailyPatterns = dailyPatternService.findBySiteUser(siteUser);
-        HashMap<String, List<DailyPatternItemType>> typesMap = new HashMap<>();
-        HashMap<String, List<DailyPatternItemPrice>> pricesMap = new HashMap<>();
-        for(DailyPattern dailyPattern : dailyPatterns) {
-            String dailyPatternName = dailyPattern.getDailyPatternName();
-            List<DailyPatternItemType> dailyPatternItemTypes = dailyPatternItemService.findTypesByDailyPattern(dailyPattern);
-            List<DailyPatternItemPrice> dailyPatternItemPrices = dailyPatternItemService.findPricesByDailyPattern(dailyPattern);
-            typesMap.put(dailyPatternName, dailyPatternItemTypes);
-            pricesMap.put(dailyPatternName, dailyPatternItemPrices);
-        }
-//
+
+        HashMap<String, List<DailyPatternItemType>> typesMap = accountService.getTypesMap(dailyPatterns);
+        HashMap<String, List<DailyPatternItemPrice>> pricesMap = accountService.getPricesMap(dailyPatterns);
+        HashMap<String, Integer> totalPriceMap = accountService.getTotalPriceMap(dailyPatterns);
+        HashMap<String, Integer> sumPriceMap = accountService.getSumPriceMap(dailyPatterns);
+        int monthTotalPrice = accountService.getMonthTotalPrice(dailyPatterns);
+
+        int budget = fixedInfoService.getBudget(siteUser);
+        int balance = accountService.getBalance(siteUser);
+
         model.addAttribute("nextMonth", Integer.parseInt(dateInfoBits[1])+1);
         model.addAttribute("dailyPatterns", dailyPatterns);
         model.addAttribute("typesMap", typesMap);
         model.addAttribute("pricesMap", pricesMap);
+        model.addAttribute("totalPriceMap", totalPriceMap);
+        model.addAttribute("sumPriceMap", sumPriceMap);
+        model.addAttribute("monthTotalPrice", monthTotalPrice);
+        model.addAttribute("budget", workService.formatIntFloorTenth(budget));
+        model.addAttribute("balance", balance);
         return "accountBook/daily_pattern_result";
     }
 }

@@ -15,10 +15,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class DailyPatternService {
     private final DailyPatternRepository dailyPatternRepository;
-    public DailyPattern create(SiteUser siteUser, String dailyPatternName) {
+    public DailyPattern create(SiteUser siteUser, String dailyPatternName, int timesPerMonth) {
         DailyPattern dailyPattern = DailyPattern.builder()
                 .siteUser(siteUser)
                 .dailyPatternName(dailyPatternName)
+                .timesPerMonth(timesPerMonth)
                 .build();
         return dailyPatternRepository.save(dailyPattern);
     }

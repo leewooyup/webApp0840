@@ -12,6 +12,9 @@ public class DailyPatternForm {
     @NotEmpty(message="[소비패턴명]을 입력해주세요.")
     private String dailyPatternName;
 
+    @NotNull(message="한달 소비패턴 [횟수]를 입력해주세요")
+    private Integer timesPerMonth;
+
     @NotEmpty(message="[소비유형]을 선택해주세요.")
     private String[] dailyConsumptionTypes;
 

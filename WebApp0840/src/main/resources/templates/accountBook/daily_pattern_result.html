@@ -8,6 +8,7 @@
         .wrapper {
             position: relative;
         }
+
     </style>
 </head>
 <th:block layout:fragment="content">
@@ -25,14 +26,20 @@
                            class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">고정수입입력</a>
                     </li>
                     <li><a href="/account/daily/pattern"
-                           class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">하루소비패턴</a>
+                           class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">하루소비패턴
+                        만들기</a>
+                    </li>
+                    <li><a href="/account/result"
+                           class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">나의 소비패턴</a>
                     </li>
                 </ul>
             </nav>
-            <div class="w-[100%] p-3">
+            <div class="w-full p-3">
                 <div th:each="dailyPattern : ${dailyPatterns}">
-                    <div class="w-[90%] bg-concrete mt-3 flex flex-col wrapper rounded p-3">
-                        <div th:text="|소비패턴('${dailyPattern.dailyPatternName}')|" class="border-b-4 border-[#3c424d]">
+                    <div class="w-[75%] bg-concrete mt-3 flex flex-col gap-2 wrapper rounded p-3">
+                        <div class="flex justify-between border-b-4 border-[#3c424d]">
+                            <div th:text="|소비패턴('${dailyPattern.dailyPatternName}')|"></div>
+                            <div th:text="|x ${dailyPattern.timesPerMonth}회|"></div>
                         </div>
                         <!--                            <div th:text="${typesMap.get(dailyPattern.dailyPatternName).dailyConsumptionType}"></div>-->
                         <div class="flex">
@@ -40,12 +47,45 @@
                                 <div th:each="dailyPatternItemType : ${typesMap.get(dailyPattern.dailyPatternName)}">
                                     <div class="flex flex-col">
                                         <div class="flex gap-2">
-                                            <div th:if="${dailyPatternItemType.dailyConsumptionType.equals('아침식비')}"><i
-                                                    class="fa-solid fa-bowl-rice"></i></div>
-                                            <div th:if="${dailyPatternItemType.dailyConsumptionType.equals('점심식비')}"><i
-                                                    class="fa-solid fa-bowl-rice"></i></div>
-                                            <div th:if="${dailyPatternItemType.dailyConsumptionType.equals('저녁식비')}"><i
-                                                    class="fa-solid fa-bowl-rice"></i></div>
+                                            <div th:if="${dailyPatternItemType.dailyConsumptionType.equals('아침식사')}">
+                                                <i class="fa-solid fa-bowl-rice"></i>
+                                            </div>
+                                            <div th:if="${dailyPatternItemType.dailyConsumptionType.equals('점심식사')}">
+                                                <i class="fa-solid fa-bowl-rice"></i>
+                                            </div>
+                                            <div th:if="${dailyPatternItemType.dailyConsumptionType.equals('저녁식사')}">
+                                                <i class="fa-solid fa-bowl-rice"></i>
+                                            </div>
+                                            <div th:if="${dailyPatternItemType.dailyConsumptionType.equals('카페')}">
+                                                <i class="fa-solid fa-mug-hot"></i>
+                                            </div>
+                                            <div th:if="${dailyPatternItemType.dailyConsumptionType.equals('의류')}">
+                                                <i class="fa-solid fa-shirt"></i>
+                                            </div>
+                                            <div th:if="${dailyPatternItemType.dailyConsumptionType.equals('식료품')}">
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                            </div>
+                                            <div th:if="${dailyPatternItemType.dailyConsumptionType.equals('관람')}">
+                                                <i class="fa-solid fa-binoculars"></i>
+                                            </div>
+                                            <div th:if="${dailyPatternItemType.dailyConsumptionType.equals('의료')}">
+                                                <i class="fa-solid fa-briefcase-medical"></i>
+                                            </div>
+                                            <div th:if="${dailyPatternItemType.dailyConsumptionType.equals('운동')}">
+                                                <i class="fa-solid fa-dumbbell"></i>
+                                            </div>
+                                            <div th:if="${dailyPatternItemType.dailyConsumptionType.equals('항공 및 숙박')}">
+                                                <i class="fa-solid fa-plane-departure"></i>
+                                            </div>
+                                            <div th:if="${dailyPatternItemType.dailyConsumptionType.equals('담배 및 기호식품')}">
+                                                <i class="fa-solid fa-smoking"></i>
+                                            </div>
+                                            <div th:if="${dailyPatternItemType.dailyConsumptionType.equals('주류 및 유흥')}">
+                                                <i class="fa-solid fa-beer-mug-empty"></i>
+                                            </div>
+                                            <div th:if="${dailyPatternItemType.dailyConsumptionType.equals('기타')}">
+                                                <i class="fa-regular fa-star"></i>
+                                            </div>
                                             <div th:text="${dailyPatternItemType.dailyConsumptionType}"></div>
                                         </div>
                                     </div>
@@ -53,19 +93,66 @@
                             </div>
                             <div class="w-[50%]">
                                 <div th:each="dailyPatternItemPrice : ${pricesMap.get(dailyPattern.dailyPatternName)}">
-                                    <div class="flex flex-col">
+                                    <div class="flex flex-col items-end">
                                         <div th:text="|${dailyPatternItemPrice.dailyConsumptionPrice} 원|"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <hr class="mb-0">
+                        <div class="flex flex-col items-end">
+                            <div th:text="|하루 ${sumPriceMap.get(dailyPattern.dailyPatternName)}원|"></div>
+                            <div th:text="|한 달 ${totalPriceMap.get(dailyPattern.dailyPatternName)}원|"
+                                 style="color: red; margin-top: 10px;"></div>
+                        </div>
                     </div>
+                </div>
+                <div class="w-[75%] bg-[#3c424c] mt-3 gap-2 wrapper rounded p-3 text-white">
+                    <div class="border-b-4 border-white">
+                        <div th:text="|${nextMonth}월 예상지출|"></div>
+                    </div>
+                    <div th:each="dailyPattern : ${dailyPatterns}" class="flex justify-between mt-2">
+                        <div><i class="fa-solid fa-book"></i> [[${dailyPattern.dailyPatternName}]]</div>
+                        <div>[[${totalPriceMap.get(dailyPattern.dailyPatternName)}]] 원</div>
+                    </div>
+                    <hr class="mb-0">
+                    <div th:text="|한 달 총 ${monthTotalPrice} 원|"
+                         style="display: flex; justify-content: end; margin-top: 5px;"></div>
+                </div>
+                <div th:if="${balance < 0}" class="w-[75%] bg-red-200 bg-opacity-50 mt-3 gap-2 wrapper rounded p-3 text-black">
+                    <div class="border-b-4 border-red-500">
+                        <div th:text="|${nextMonth}월 (예산액 - 예상지출)|"></div>
+                    </div>
+                    <div class="flex justify-between mt-2">
+                        <div><i class="fa-solid fa-sack-dollar"></i> 예산액</div>
+                        <div th:text="|${budget} 원|"></div>
+                    </div>
+                    <div class="flex justify-between mt-2">
+                        <div><i class="fa-solid fa-sack-dollar"></i> 예상지출액</div>
+                        <div th:text="|${monthTotalPrice} 원|"></div>
+                    </div>
+                    <hr class="mb-0">
+                    <div th:text="|잔고 ${balance} 원|"
+                         style="display: flex; justify-content: end; margin-top: 5px; color: red;"></div>
+                </div>
+                <div th:unless="${balance < 0}" class="w-[75%] bg-blue-200 bg-opacity-50 mt-3 gap-2 wrapper rounded p-3 text-black">
+                    <div class="border-b-4 border-blue-500">
+                        <div th:text="|${nextMonth}월 (예산액 - 예상지출)|"></div>
+                    </div>
+                    <div class="flex justify-between mt-2">
+                        <div><i class="fa-solid fa-sack-dollar"></i> 예산액</div>
+                        <div th:text="|${budget} 원|"></div>
+                    </div>
+                    <div class="flex justify-between mt-2">
+                        <div><i class="fa-solid fa-sack-dollar"></i> 예상지출액</div>
+                        <div th:text="|${monthTotalPrice} 원|"></div>
+                    </div>
+                    <hr class="mb-0">
+                    <div th:text="|잔고 ${balance} 원|"
+                         style="display: flex; justify-content: end; margin-top: 5px; color: blue;"></div>
                 </div>
             </div>
         </div>
-        <script>
-
-        </script>
     </div>
 </th:block>
 </html>
