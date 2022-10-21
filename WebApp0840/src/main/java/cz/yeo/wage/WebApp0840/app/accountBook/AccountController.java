@@ -1,8 +1,6 @@
 package cz.yeo.wage.WebApp0840.app.accountBook;
 
-import cz.yeo.wage.WebApp0840.app.accountBook.entity.DailyPattern;
-import cz.yeo.wage.WebApp0840.app.accountBook.entity.FixedIncome;
-import cz.yeo.wage.WebApp0840.app.accountBook.entity.FixedSpending;
+import cz.yeo.wage.WebApp0840.app.accountBook.entity.*;
 import cz.yeo.wage.WebApp0840.app.accountBook.form.DailyPatternForm;
 import cz.yeo.wage.WebApp0840.app.accountBook.form.FixedIncomeForm;
 import cz.yeo.wage.WebApp0840.app.accountBook.form.FixedSpendingForm;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -142,9 +141,9 @@ public class AccountController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/daily/pattern")
-    @ResponseBody
     public String dailyPattern(Principal principal, Model model, @Valid DailyPatternForm dailyPatternForm, BindingResult bindingResult) {
-        DailyPattern dailyPattern = dailyPatternService.create(dailyPatternForm.getDailyPatternName());
+        SiteUser siteUser = userService.findByUsername(principal.getName());
+        DailyPattern dailyPattern = dailyPatternService.create(siteUser, dailyPatternForm.getDailyPatternName());
         Stream.of(dailyPatternForm.getDailyConsumptionTypes())
                 .forEach(type -> {
                     dailyPatternItemService.createType(dailyPattern, String.valueOf(type));
@@ -157,6 +156,31 @@ public class AccountController {
                 .forEach(price -> {
                     dailyPatternItemService.createPrice(dailyPattern, String.valueOf(price));
                 });
-        return "작업중";
+        return "redirect:/account/result";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/result")
+    public String showResult(Principal principal, Model model, DailyPatternForm dailyPatternForm) {
+        SiteUser siteUser = userService.findByUsername(principal.getName());
+        String dateInfo = Util.date.getCurrentDateFormatted("yyyy MM dd");
+        String[] dateInfoBits = dateInfo.split(" ");
+
+        List<DailyPattern> dailyPatterns = dailyPatternService.findBySiteUser(siteUser);
+        HashMap<String, List<DailyPatternItemType>> typesMap = new HashMap<>();
+        HashMap<String, List<DailyPatternItemPrice>> pricesMap = new HashMap<>();
+        for(DailyPattern dailyPattern : dailyPatterns) {
+            String dailyPatternName = dailyPattern.getDailyPatternName();
+            List<DailyPatternItemType> dailyPatternItemTypes = dailyPatternItemService.findTypesByDailyPattern(dailyPattern);
+            List<DailyPatternItemPrice> dailyPatternItemPrices = dailyPatternItemService.findPricesByDailyPattern(dailyPattern);
+            typesMap.put(dailyPatternName, dailyPatternItemTypes);
+            pricesMap.put(dailyPatternName, dailyPatternItemPrices);
+        }
+//
+        model.addAttribute("nextMonth", Integer.parseInt(dateInfoBits[1])+1);
+        model.addAttribute("dailyPatterns", dailyPatterns);
+        model.addAttribute("typesMap", typesMap);
+        model.addAttribute("pricesMap", pricesMap);
+        return "accountBook/daily_pattern_result";
     }
 }

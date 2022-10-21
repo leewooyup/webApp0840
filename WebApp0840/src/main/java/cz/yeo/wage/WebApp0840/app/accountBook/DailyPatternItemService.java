@@ -6,6 +6,8 @@ import cz.yeo.wage.WebApp0840.app.accountBook.entity.DailyPatternItemType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class DailyPatternItemService {
@@ -26,5 +28,13 @@ public class DailyPatternItemService {
         dailyPatternItemPrice.setDailyConsumptionPrice(Integer.parseInt(price));
         dailyPatternItemPriceRepository.save(dailyPatternItemPrice);
         return dailyPatternItemPrice;
+    }
+
+    public List<DailyPatternItemType> findTypesByDailyPattern(DailyPattern dailyPattern) {
+        return dailyPatternItemTypeRepository.findTypesByDailyPattern(dailyPattern);
+    }
+
+    public List<DailyPatternItemPrice> findPricesByDailyPattern(DailyPattern dailyPattern) {
+        return dailyPatternItemPriceRepository.findPricesByDailyPattern(dailyPattern);
     }
 }

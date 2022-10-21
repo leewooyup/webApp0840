@@ -1,0 +1,73 @@
+<html
+        xmlns:th="http://thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}"
+>
+<head>
+    <style>
+        .wrapper {
+            position: relative;
+        }
+
+
+    </style>
+</head>
+<th:block layout:fragment="content">
+    <div class="h-full flex">
+        <div class="w-[20%] flex default-bgcolor-base">
+            <th:block th:replace="/accountBook/fixedInfo :: fixedInfoFragment"></th:block>
+        </div>
+        <div class="flex-grow flex flex-col">
+            <nav class="w-full h-[2%] default-bgcolor-base pt-2 text-white">
+                <ul class="flex gap-20">
+                    <li><a href="/account/base/fixed-spending"
+                           class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">고정지출입력</a>
+                    </li>
+                    <li><a href="/account/base/fixed-income"
+                           class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">고정수입입력</a>
+                    </li>
+                    <li><a href="/account/daily/pattern"
+                           class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">하루소비패턴</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="w-[100%] p-3">
+                <div th:each="dailyPattern : ${dailyPatterns}">
+                    <div class="w-[90%] bg-concrete mt-3 flex flex-col wrapper rounded p-3">
+                        <div th:text="|소비패턴('${dailyPattern.dailyPatternName}')|" class="border-b-4 border-[#3c424d]">
+                        </div>
+                        <!--                            <div th:text="${typesMap.get(dailyPattern.dailyPatternName).dailyConsumptionType}"></div>-->
+                        <div class="flex">
+                            <div class="w-[50%]">
+                                <div th:each="dailyPatternItemType : ${typesMap.get(dailyPattern.dailyPatternName)}">
+                                    <div class="flex flex-col">
+                                        <div class="flex gap-2">
+                                            <div th:if="${dailyPatternItemType.dailyConsumptionType.equals('아침식비')}"><i
+                                                    class="fa-solid fa-bowl-rice"></i></div>
+                                            <div th:if="${dailyPatternItemType.dailyConsumptionType.equals('점심식비')}"><i
+                                                    class="fa-solid fa-bowl-rice"></i></div>
+                                            <div th:if="${dailyPatternItemType.dailyConsumptionType.equals('저녁식비')}"><i
+                                                    class="fa-solid fa-bowl-rice"></i></div>
+                                            <div th:text="${dailyPatternItemType.dailyConsumptionType}"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-[50%]">
+                                <div th:each="dailyPatternItemPrice : ${pricesMap.get(dailyPattern.dailyPatternName)}">
+                                    <div class="flex flex-col">
+                                        <div th:text="|${dailyPatternItemPrice.dailyConsumptionPrice} 원|"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+
+        </script>
+    </div>
+</th:block>
+</html>

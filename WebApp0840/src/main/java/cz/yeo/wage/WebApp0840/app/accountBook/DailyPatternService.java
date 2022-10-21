@@ -9,15 +9,21 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class DailyPatternService {
     private final DailyPatternRepository dailyPatternRepository;
-    public DailyPattern create(String dailyPatternName) {
+    public DailyPattern create(SiteUser siteUser, String dailyPatternName) {
         DailyPattern dailyPattern = DailyPattern.builder()
+                .siteUser(siteUser)
                 .dailyPatternName(dailyPatternName)
                 .build();
         return dailyPatternRepository.save(dailyPattern);
+    }
+
+    public List<DailyPattern> findBySiteUser(SiteUser siteUser) {
+        return dailyPatternRepository.findBySiteUser(siteUser);
     }
 }

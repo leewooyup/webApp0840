@@ -1,6 +1,7 @@
 package cz.yeo.wage.WebApp0840.app.accountBook.entity;
 
 import cz.yeo.wage.WebApp0840.app.base.entity.BaseEntity;
+import cz.yeo.wage.WebApp0840.app.user.entity.SiteUser;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.DynamicInsert;
@@ -18,4 +19,6 @@ import javax.persistence.ManyToOne;
 @ToString(callSuper = true)
 public class DailyPattern extends BaseEntity {
     private String dailyPatternName;
+    @ManyToOne
+    private SiteUser siteUser;
 }
