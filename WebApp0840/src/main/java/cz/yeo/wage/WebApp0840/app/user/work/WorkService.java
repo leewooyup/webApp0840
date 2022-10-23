@@ -96,11 +96,11 @@ public class WorkService {
                 sumRegularHours += work.getWorkingHours();
                 sumRegularMinutes += work.getWorkingMinutes();
             } else {
-                sumHolidayHours += work.getWorkingHours();
-                sumHolidayMinutes += work.getWorkingMinutes();
+                sumHolidayHours += work.getExtendedHours();
+                sumHolidayMinutes += work.getExtendedMinutes();
             }
-            sumExtendedHours += work.getExtendedHours();
-            sumExtendedMinutes += work.getExtendedMinutes();
+            sumExtendedHours += work.getExtendedHours() - work.getWorkingHours();
+            sumExtendedMinutes += work.getExtendedMinutes() - work.getWorkingMinutes();
             sumNightHours += work.getNightHours();
             sumNightMinutes += work.getNightMinutes();
         }
@@ -116,8 +116,8 @@ public class WorkService {
         sumHolidayHours = convertHours(sumHolidayHours, sumHolidayMinutes);
         sumHolidayMinutes = convertMinutes(sumHolidayMinutes);
 
-        sumHours = sumRegularHours + sumExtendedHours + sumNightHours + sumHolidayHours;
-        sumMinutes = sumRegularMinutes + sumExtendedMinutes + sumNightMinutes + sumHolidayMinutes;
+        sumHours = sumRegularHours + sumExtendedHours + sumHolidayHours;
+        sumMinutes = sumRegularMinutes + sumExtendedMinutes + sumHolidayMinutes;
 
         sumHours = convertHours(sumHours, sumMinutes);
         sumMinutes = convertMinutes(sumMinutes);
@@ -151,8 +151,7 @@ public class WorkService {
     public double getNightHoursWage(SiteUser siteUser) {
         getAccWorks(siteUser);
         int accNightHours = map.get("accNightHours");
-        System.out.println("accNightHours: " + accNightHours);
-        return accNightHours * 1.5 * siteUser.getBaseWage();
+        return accNightHours * 0.5 * siteUser.getBaseWage();
     }
     public double getHolidayHoursWage(SiteUser siteUser) {
         getAccWorks(siteUser);
@@ -167,13 +166,11 @@ public class WorkService {
         int baseWage = siteUser.getBaseWage();
         double minutesToHours = 0.0;
         if (accRegularMinutes >= 30) {
-            System.out.println("30");
             minutesToHours += 0.5;
             accRegularMinutes -= 30;
         }
 
         while (accRegularMinutes >= 10) {
-            System.out.println("10");
             minutesToHours += 0.17;
             accRegularMinutes -= 10;
         }
@@ -208,13 +205,11 @@ public class WorkService {
         int baseWage = siteUser.getBaseWage();
         double minutesToHours = 0.0;
         if (accExtendedMinutes >= 30) {
-            System.out.println("30");
             minutesToHours += 0.5;
             accExtendedMinutes -= 30;
         }
 
         while (accExtendedMinutes >= 10) {
-            System.out.println("10");
             minutesToHours += 0.17;
             accExtendedMinutes -= 10;
         }
@@ -249,13 +244,11 @@ public class WorkService {
         int baseWage = siteUser.getBaseWage();
         double minutesToHours = 0.0;
         if (accNightMinutes >= 30) {
-            System.out.println("30");
             minutesToHours += 0.5;
             accNightMinutes -= 30;
         }
 
         while (accNightMinutes >= 10) {
-            System.out.println("10");
             minutesToHours += 0.17;
             accNightMinutes -= 10;
         }
@@ -279,30 +272,30 @@ public class WorkService {
                 break;
         }
         list.add(minutesToHours);
-        list.add(minutesToHours * 1.5 * baseWage);
+        list.add(minutesToHours * 0.5 * baseWage);
         return list;
     }
 
     public List<Double> getHolidayMinutesWage(SiteUser siteUser) {
         List<Double> list = new ArrayList<>();
-        int accRegularMinutes = map.get("accRegularMinutes");
-        accRegularMinutes = convertMinutes(accRegularMinutes);
+        int accHolidayMinutes = map.get("accHolidayMinutes");
+        accHolidayMinutes = convertMinutes(accHolidayMinutes);
         int baseWage = siteUser.getBaseWage();
         double minutesToHours = 0.0;
-        if (accRegularMinutes >= 30) {
+        if (accHolidayMinutes >= 30) {
             System.out.println("30");
             minutesToHours += 0.5;
-            accRegularMinutes -= 30;
+            accHolidayMinutes -= 30;
         }
 
-        while (accRegularMinutes >= 10) {
+        while (accHolidayMinutes >= 10) {
             System.out.println("10");
             minutesToHours += 0.17;
-            accRegularMinutes -= 10;
+            accHolidayMinutes -= 10;
         }
 
 
-        switch (accRegularMinutes) {
+        switch (accHolidayMinutes) {
             case 9:
                 minutesToHours += 0.15;
                 break;
@@ -320,7 +313,7 @@ public class WorkService {
                 break;
         }
         list.add(minutesToHours);
-        list.add(minutesToHours * 1.5 * baseWage);
+        list.add(minutesToHours * 0.5 * baseWage);
         return list;
     }
 

@@ -160,6 +160,7 @@ public class WageController {
         model.addAttribute("accNightWage", workService.formatFloorTenth(workService.getAccNightWage(siteUser)));
 
         model.addAttribute("accHolidayHoursWage", workService.formatFloorTenth(workService.getHolidayHoursWage(siteUser)));
+        model.addAttribute("minutesToHours_H", workService.formatSecondDecimalPoint(workService.getHolidayMinutesWage(siteUser).get(0)));
         model.addAttribute("accHolidayMinutesWage", workService.formatFloorTenth(workService.getHolidayMinutesWage(siteUser).get(1)));
         model.addAttribute("accHolidayWage", workService.formatFloorTenth(workService.getAccHolidayWage(siteUser)));
 
