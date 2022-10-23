@@ -41,7 +41,7 @@ public class WageController {
     @GetMapping("/base")
     public String showWageBase(Principal principal, Model model, WageBaseForm wageBaseForm) {
         SiteUser siteUser = userService.findByUsername(principal.getName());
-        String createDateFormat = siteUser.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+        String createDateFormat = siteUser.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
         model.addAttribute("siteUser", siteUser);
         model.addAttribute("createDateFormat", createDateFormat);
         return "wage/wage_base_form";
@@ -73,7 +73,7 @@ public class WageController {
     @GetMapping("/working-time")
     public String showWorkingTime(HttpServletResponse response, Principal principal, Model model, WorkingTimeForm workingTimeForm) {
         SiteUser siteUser = userService.findByUsername(principal.getName());
-        String createDateFormat = siteUser.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+        String createDateFormat = siteUser.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
         if(!siteUser.isRegistered()) {
             response.setContentType("text/html; charset=euc-kr");
             try {
@@ -108,7 +108,7 @@ public class WageController {
     @GetMapping("/result")
     public String showResult(Principal principal, Model model) {
         SiteUser siteUser = userService.findByUsername(principal.getName());
-        String createDateFormat = siteUser.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+        String createDateFormat = siteUser.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
         List<Work> works = workService.findBySiteUser(siteUser);
         HashMap<String, Integer> accWorksMap = workService.getAccWorks(siteUser);
 

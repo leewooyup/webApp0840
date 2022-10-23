@@ -21,6 +21,18 @@
         animation: appear-slide 2s ease-out;
     }
 
+    #profile-section {
+        position: fixed;
+        top: 90px;
+        right: 50px;
+        z-index: 2;
+        width: 300px;
+        height: 150px;
+        padding: 30px;
+        background-color: rgba(288, 288, 288, 0.7);
+        border-radius: 5px;
+    }
+
     .sub-section-1 {
         position: relative;
     }
@@ -46,16 +58,31 @@
     }
 
 
-    .photo {
+    .photo-rotate {
         background-color: white;
         padding: 10px;
         position: absolute;
         top: 270px;
-        right: 300px;
+        right: 410px;
         width: 250px;
         height: 280px;
         object-fit: cover;
         filter: contrast(80%);
+        transform: rotate(-10deg);
+        z-index: 1;
+    }
+    .photo {
+        background-color: white;
+        padding: 10px;
+        position: absolute;
+        opacity: 60%;
+        top: 270px;
+        right: 250px;
+        width: 250px;
+        height: 280px;
+        object-fit: cover;
+        filter: contrast(80%);
+        transform: rotate(+10deg);
     }
 
     .photo-wage {
@@ -159,10 +186,31 @@
     <!--                <span class="text-white"><i class="fa-solid fa-coins fa-10x pt-2"></i></span>-->
     <!--            </div>-->
     <!--        </div>-->
-    <body style="height: 3000px;">
+    <body style="height: 3000px; position: relative">
+    <section id="profile-section">
+        <div class="flex justify-between">
+            <div th:text="|${#authentication.principal.nickname}님|"></div>
+            <div class="border border-[#EEEEEE] bg-gray-50 text-sm px-3 pt-1 rounded h-[25px]">로그아웃</div>
+        </div>
+        <div class="flex justify-between mt-4">
+            <div class="text-center">
+                <i class="fa-regular fa-file-lines"></i>
+                <div>급여정보</div>
+            </div>
+            <div class="text-center">
+                <i class="fa-regular fa-file-lines"></i>
+                <div>가계정보</div>
+            </div>
+            <div class="text-center">
+                <i class="fa-regular fa-circle-user"></i>
+                <div>내정보</div>
+            </div>
+        </div>
+    </section>
     <section class="main-section">
         <h1 class="main-text">CHECK YOUR SALARY</h1>
-        <img class="photo rounded" src="https://i.imgur.com/hVTGIiu.png">
+        <img class="photo-rotate rounded" src="https://i.imgur.com/hVTGIiu.png">
+        <img class="photo rounded" src="https://i.imgur.com/peG7BrE.jpg">
     </section>
     <section class="sub-section-1 mt-8 flex flex-col items-center">
         <div class="typingText text-2xl mx-auto"></div>

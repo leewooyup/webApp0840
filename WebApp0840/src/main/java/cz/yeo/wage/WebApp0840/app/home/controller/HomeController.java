@@ -19,7 +19,6 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class HomeController {
 
-    // # 루트로 접근 (return: home/main)
     @PreAuthorize("isAuthenticated()")
     @RequestMapping("/")
     public String main(Model model) {

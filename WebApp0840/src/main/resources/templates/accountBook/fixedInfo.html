@@ -2,14 +2,14 @@
 
 <th:block th:fragment="fixedInfoFragment">
     <div class="flex flex-col gap-3 w-full pt-2">
-        <div class="border-2 rounded-full mx-auto">
+        <div class="border-2 rounded-full mx-auto mt-4">
             <img class="profileImg w-[150px]" th:src="@{${#authentication.principal.userImgUrl}}">
         </div>
-        <section class="text-white font-bold w-[80%] h-[400px] border rounded mx-auto">
+        <section class="text-white font-bold w-[80%] h-[420px] border rounded mx-auto">
             <div class="border-b pl-2 pt-1" th:text="|${nextMonth}월 고정지출|"></div>
             <div th:if="${fixedSpendings != null}" th:each="fixedSpending : ${fixedSpendings}" class="p-1 flex flex-col gap-1">
-                <div class="card text-black">
-                    <div class="card-body">
+                <div class="card text-black h-[40px]">
+                    <div class="card-body py-1 pt-2 px-2">
                         <div class="flex justify-between">
                             <div th:text="${fixedSpending.fixedSpendingType}"></div>
                             <div th:text="${fixedSpending.fixedSpending}"></div>
@@ -19,13 +19,15 @@
             </div>
         </section>
         <section class="text-white font-bold w-[80%] h-[200px] border rounded mx-auto">
-            <div class="border-b pl-2 pt-1" th:text="|${nextMonth}월 고정수입|"></div>
+            <div class="border-b pl-2 pt-1" th:text="|${nextMonth}월 고정소득|"></div>
             <div th:if="${fixedIncomes != null}" th:each="fixedIncome : ${fixedIncomes}" class="p-1 flex flex-col gap-1">
                 <div class="card text-black">
-                    <div class="card-body">
-                        <div class="flex justify-between">
-                            <div th:text="${fixedIncome.fixedIncomeType}"></div>
-                            <div th:text="${fixedIncome.fixedIncome}"></div>
+                    <div class="card text-black h-[40px]">
+                        <div class="card-body py-1 pt-2 px-2">
+                            <div class="flex justify-between">
+                                <div th:text="${fixedIncome.fixedIncomeType}"></div>
+                                <div th:text="${fixedIncome.fixedIncome}"></div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -9,33 +9,23 @@
             position: relative;
         }
 
-        .wage-text {
+        .fixed-text {
             position: absolute;
-            top: 40px;
-            left: 100px;
-            animation: wage-appear-slide 1s ease-out;
+            top: 10px;
+            left: 35px;
+            animation: fixed-appear-slide 2s ease-out;
         }
 
-        .wage-form {
-            position: absolute;
-            top: 40px;
-            right: 100px;
-        }
-
-        @keyframes wage-appear-slide {
+        @keyframes fixed-appear-slide {
             from {
                 left: -100px;
                 opacity: 0;
             }
             to {
-                left: 100px;
+                left: 35px;
                 opacity: 1;
             }
         }
-
-
-
-
     </style>
 </head>
 <th:block layout:fragment="content">
@@ -50,7 +40,7 @@
                            class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">고정지출입력</a>
                     </li>
                     <li><a href="/account/base/fixed-income"
-                           class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">고정수입입력</a>
+                           class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">고정소득입력</a>
                     </li>
                     <li><a href="/account/daily/pattern"
                            class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">하루소비패턴 만들기</a>
@@ -60,27 +50,25 @@
                     </li>
                 </ul>
             </nav>
-            <!--      <img class="w-[100%] h-[15%] object-cover contrast-50" src="https://i.imgur.com/hVTGIiu.png">-->
-            <div class="w-[100%] p-3">
-                <div class="w-[90%] bg-concrete mt-3 flex flex-col wrapper rounded p-3">
-                    <div th:text="|${nextMonth}월 예상소비계획|" class="border-b-4 border-[#3c424d]">
+            <img class="w-[100%] h-[15%] object-cover contrast-50" src="https://i.imgur.com/peG7BrE.jpg">
+            <div class="w-[100%] wrapper">
+                <div class="fixed-text text-2xl mt-2">1. 고정지출을 입력하세요.</div>
+                <div class="w-[95%] bg-concrete flex flex-col wrapper rounded p-3 mx-auto mt-16">
+                    <div class="flex gap-2 border-b-4 border-[#3c424d]">
+                        <div th:text="|${nextMonth}월 예상소비계획|"></div>
+                        <div th:text="|(${nextMonth}.01 ~ ${nextMonth}.${nextMonthLastDate})|"></div>
                     </div>
-                    <div class="flex justify-between items-end">
-                        <div class="flex flex-col gap-3 mt-3 w-[600px]">
-                            <div class="flex gap-2">
-                                <i class="fa-regular fa-calendar-days text-2xl"></i>
-                                <div th:text="|${nextMonth}.01 ~ ${nextMonth}.${nextMonthLastDate}|" class="pt-2"></div>
-                            </div>
+                    <div class="flex justify-between mt-2">
+                        <div class="flex flex-col gap-3 mt-2 w-[640px]">
                             <div class="flex justify-between">
-                                <div><i class="fa-solid fa-coins"></i> 누적급여</div>
+                                <div><i class="fa-solid fa-coins"></i> '[[${siteUser.workPlaceName}]]' 누적급여</div>
                                 <div th:text="|${accTotalWage}원|"></div>
                             </div>
                             <form th:action="@{/account/base/fixed-spending}" th:object="${fixedSpendingForm}"
                                   method="POST">
                                 <div>
-                                    <div>고정지출</div>
                                     <div class="flex justify-between">
-                                        <select th:field="*{fixedSpendingType}" class="h-[25px]">
+                                        <select th:field="*{fixedSpendingType}" class="h-[25px] rounded">
                                             <option value="">--지출유형을 선택하세요--</option>
                                             <option value="저축">저축</option>
                                             <option value="보험료">보험료</option>
@@ -93,14 +81,14 @@
                                         </select>
                                         <div>
                                             <input type="number" th:field="*{fixedSpending}"
-                                                   class="border border-gray-500"> 원
+                                                   class="border border-gray-500 rounded"> 원
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="mt-2"><label for="fixedSpendingMemo"><i class="fa-solid fa-file-pen"></i> Memo :</label></div>
+                                <div class="mt-4"><label for="fixedSpendingMemo"><i class="fa-solid fa-file-pen"></i> Memo :</label></div>
                                 <textarea id="fixedSpendingMemo" th:field="*{fixedSpendingMemo}"
-                                          rows="10" cols="33" placeholder="메모할 사항" class="w-full pl-2 pt-2"></textarea>
+                                          rows="10" cols="33" placeholder="메모할 사항" class="w-full pl-2 pt-2 mt-2 rounded"></textarea>
                                 <div class="flex justify-end">
                                     <input type="submit"
                                            value="고정지출추가"
@@ -113,8 +101,8 @@
                                     class="fa-solid fa-greater-than"></i> 다음</a>
                             </div>
                         </div>
-                        <div class="card card-small card-post flex rounded-2xl shadow-md p-5 w-[400px] h-[500px] text-7xl font-bold">
-                            <div class="flex gap-5">
+                        <div class="card card-small card-post rounded-2xl shadow-md w-[400px] h-[500px] text-7xl font-bold">
+                            <div class="flex justify-between p-5">
                                 <div>
                                     <div class="text-base">월급일로부터</div>
                                     <div class="text-base">D+[[${dDayFrom}]]</div>
@@ -128,9 +116,9 @@
                                     <div class="text-base">D-[[${dDayTo}]]</div>
                                 </div>
                             </div>
-                            <div th:if="${date == siteUser.payday}" class="text-red mt-5">[[${date}]]</div>
-                            <div th:unless="${date == siteUser.payday}" class="text-center text-9xl mt-5">[[${date}]]
-                            </div>
+                            <div th:if="${date == siteUser.payday}" class="text-red">[[${date}]]</div>
+                            <div th:unless="${date == siteUser.payday}" class="text-center text-9xl">[[${date}]]</div>
+                            <div class="pt-2"><img class="w-[100%] object-cover contrast-50" src="https://i.imgur.com/xZhdBs5.png"></div>
                         </div>
                     </div>
                 </div>

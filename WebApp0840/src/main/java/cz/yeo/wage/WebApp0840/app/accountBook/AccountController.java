@@ -193,6 +193,8 @@ public class AccountController {
     @GetMapping("/result")
     public String showResult(Principal principal, Model model, @Valid DailyPatternForm dailyPatternForm, BindingResult bindingResult) {
         SiteUser siteUser = userService.findByUsername(principal.getName());
+        List<FixedSpending> fixedSpendings = fixedInfoService.findFixedSpendingAll(siteUser);
+        List<FixedIncome> fixedIncomes = fixedInfoService.findFixedIncomeAll(siteUser);
         String dateInfo = Util.date.getCurrentDateFormatted("yyyy MM dd");
         String[] dateInfoBits = dateInfo.split(" ");
 
@@ -207,6 +209,8 @@ public class AccountController {
         int budget = fixedInfoService.getBudget(siteUser);
         int balance = accountService.getBalance(siteUser);
 
+        model.addAttribute("fixedSpendings", fixedSpendings);
+        model.addAttribute("fixedIncomes", fixedIncomes);
         model.addAttribute("nextMonth", Integer.parseInt(dateInfoBits[1])+1);
         model.addAttribute("dailyPatterns", dailyPatterns);
         model.addAttribute("typesMap", typesMap);

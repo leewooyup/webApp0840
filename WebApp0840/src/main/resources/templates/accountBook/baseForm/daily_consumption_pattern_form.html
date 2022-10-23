@@ -9,6 +9,24 @@
             position: relative;
         }
 
+        .fixed-text {
+            position: absolute;
+            top: 10px;
+            left: 35px;
+            animation: fixed-appear-slide 2s ease-out;
+        }
+
+        @keyframes fixed-appear-slide {
+            from {
+                left: -100px;
+                opacity: 0;
+            }
+            to {
+                left: 35px;
+                opacity: 1;
+            }
+        }
+
         .append-select-wrapper {
             position: relative;
         }
@@ -18,11 +36,6 @@
             top : 200px;
             right: 700px;
         }
-
-
-
-
-
     </style>
 </head>
 <th:block layout:fragment="content">
@@ -37,7 +50,7 @@
                            class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">고정지출입력</a>
                     </li>
                     <li><a href="/account/base/fixed-income"
-                           class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">고정수입입력</a>
+                           class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">고정소득입력</a>
                     </li>
                     <li><a href="/account/daily/pattern"
                            class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">하루소비패턴 만들기</a>
@@ -47,12 +60,14 @@
                     </li>
                 </ul>
             </nav>
-            <div class="w-[100%] p-3">
-                <div class="w-[90%] bg-concrete mt-3 flex flex-col wrapper rounded p-3">
+            <img class="w-[100%] h-[15%] object-cover contrast-50" src="https://i.imgur.com/peG7BrE.jpg">
+            <div class="w-[100%] wrapper">
+                <div class="fixed-text text-2xl mt-2">3. 하루 소비패턴을 만드세요.</div>
+                <div class="w-[95%] bg-concrete flex flex-col wrapper rounded p-3 mx-auto mt-16">
                     <div th:text="|${nextMonth}월 예상소비계획|" class="border-b-4 border-[#3c424d]">
                     </div>
-                    <div class="flex justify-between gap-10">
-                        <div class="flex flex-col gap-3 mt-2 mx-auto w-[390px]">
+                    <div class="flex justify-between">
+                        <div class="flex flex-col gap-3 mt-3 w-[440px]">
                             <div class="flex gap-2">
                                 <i class="fa-regular fa-calendar-days text-2xl"></i>
                                 <div th:text="|${nextMonth}.01 ~ ${nextMonth}.${nextMonthLastDate}|" class="pt-2"></div>
@@ -63,20 +78,46 @@
                                     <span th:text="|${accTotalWage}원|"></span>
                                 </div>
                                 <div class="flex justify-between">
-                                    <div><i class="fa-solid fa-minus"></i> 고정지출액</div>
-                                    <div>
-                                        <span th:text="|${fixedSpendingSum}원|"></span>
+                                    <div><i class="fa-solid fa-minus" style="color: red;"></i> 고정지출액</div>
+                                    <div> [[${fixedSpendingSum}]] 원</div>
+                                </div>
+                                <hr class="p-0">
+                                <div th:each="fixedSpending : ${fixedSpendings}" class="pl-3 flex flex-col gap-1">
+                                    <div class="card h-[40px]">
+                                        <div class="card-body py-1 pt-2 px-2">
+                                            <div class="flex justify-between">
+                                                <div th:text="${fixedSpending.fixedSpendingType}"></div>
+                                                <div th:text="${fixedSpending.fixedSpending}"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-end gap-1">
+                                        <div><i class="fa-solid fa-file-pen"></i></div>
+                                        <div th:text="${fixedSpending.fixedSpendingMemo}" class="text-end"></div>
                                     </div>
                                 </div>
-                                <div class="flex justify-between">
-                                    <div><i class="fa-solid fa-plus"></i> 고정수입액</div>
-                                    <div>
-                                        <span th:text="|${fixedIncomeSum}원|"></span>
+                                <div class="flex justify-between mt-2">
+                                    <div><i class="fa-solid fa-plus" style="color: blue;"></i> 고정소득액</div>
+                                    <div> [[${fixedIncomeSum}]] 원</div>
+                                </div>
+                                <hr class="p-0">
+                                <div th:each="fixedIncome : ${fixedIncomes}" class="pl-3 flex flex-col gap-1">
+                                    <div class="card h-[40px]">
+                                        <div class="card-body py-1 pt-2 px-2">
+                                            <div class="flex justify-between">
+                                                <div th:text="${fixedIncome.fixedIncomeType}"></div>
+                                                <div th:text="${fixedIncome.fixedIncome}"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-end gap-1">
+                                        <div><i class="fa-solid fa-file-pen"></i></div>
+                                        <div th:text="${fixedIncome.fixedIncomeMemo}" class="text-end"></div>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="flex justify-between">
-                                    <div th:text="|${nextMonth}월 예산|"></div>
+                                    <div><i class="fa-solid fa-sack-dollar"></i> [[${nextMonth}]]월 예산</div>
                                     <div>
                                         <span th:text="|${budget}원|"></span>
                                     </div>
@@ -86,6 +127,8 @@
                         <div class="card card-small card-post mb-2 rounded-2xl shadow-inner p-5 mt-3 w-[600px] h-[550px] font-bold" style="background-color: rgba(74, 202, 168, 0.3);">
                             <div class="text-center text-xl">하루 소비패턴 만들기 <i class="fa-solid fa-scroll"></i></div>
                             <div class="text-center text-sm"><i class="fa-solid fa-sort-down"></i> 소비유형별 가능한 최대금액을 적어주세요.</div>
+                            <div class="border-b-2 border-green-700 opacity-50 mt-3"></div>
+                            <div class="border-b-2 border-green-700 opacity-50 mt-1"></div>
                             <form th:action="@{/account/daily/pattern}" th:object="${dailyPatternForm}" method="POST">
                                 <div th:replace="form_errors :: formErrorsFragment"></div>
                                 <div class="mt-3 flex justify-between">
@@ -144,25 +187,6 @@
         </div>
     </div>
     <script>
-<!--    function WriteForm__submit(form) {-->
-<!--            form.dailyConsumptionTypes[].value = form.dailyConsumptionTypes[].value.trim();-->
-
-<!--            if(form.dailyConsumptionTypes[].value.length == 0) {-->
-<!--                alert('[소비유형]을 선택해주세요.');-->
-<!--                form.dailyConsumptionTypes[].focus();-->
-<!--                return;-->
-<!--            }-->
-
-<!--            form.dailyConsumptionPrices[].value = form.dailyConsumptionPrices[].value.trim();-->
-
-<!--            if(form.dailyConsumptionPrices[].value.length == 0) {-->
-<!--                alert('[소비가격]을 입력해주세요.');-->
-<!--                form.dailyConsumptionPrices[].focus();-->
-<!--                return;-->
-<!--            }-->
-<!--            form.submit();-->
-<!--    }-->
-
     $(".append-select").on("click", function() {
         if (document.querySelectorAll(".dailyConsumptionTypes").length > 6) {
             alert("추가가능한 소비유형은 최대 8개입니다.")
@@ -209,5 +233,6 @@
     }
 
     </script>
+
 </th:block>
 </html>

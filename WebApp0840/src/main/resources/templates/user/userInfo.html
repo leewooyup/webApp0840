@@ -1,31 +1,61 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <!-- 해당 부분을 fragment로 선언 -->
 <th:block th:fragment="userInfoFragment">
-    <div class="flex-grow p-5 border border-gray-50 m-3 rounded bg-concrete h-[800px] shadow-inner">
-        <div class="w-[100%] border-b border-gray-300"></div>
-        <div class="w-[100%] mt-1 border-b border-gray-300"></div>
-        <div class="pt-5">
-            <img class="profileImg" th:src="@{${#authentication.principal.userImgUrl}}">
+    <div class="flex flex-col gap-3 w-full pt-2 px-4">
+        <div class="border-2 rounded-full mx-auto mt-4">
+            <img class="profileImg w-[150px]" th:src="@{${#authentication.principal.userImgUrl}}">
         </div>
-        <div>
+        <div class="flex flex-col gap-2">
+            <div class="card h-[40px]">
+                <div class="card-body py-1 pt-2 px-2">
+                    <div class="flex justify-between">
+                        <div>닉네임</div>
+                        <div th:text="${#authentication.principal.nickname}"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card h-[40px]">
+                <div class="card-body py-1 pt-2 px-2">
+                    <div class="flex justify-between">
+                        <div>가입일자</div>
+                        <div th:text="${createDateFormat}"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card h-[40px]">
+                <div class="card-body py-1 pt-2 px-2">
+                    <div class="flex justify-between">
+                        <div>시급</div>
+                        <div th:if="${siteUser.isRegistered}" th:text="|${#authentication.principal.baseWage}원|"></div>
+                        <div th:unless="${siteUser.isRegistered}" th:text="미정"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card h-[40px]">
+                <div class="card-body py-1 pt-2 px-2">
+                    <div class="flex justify-between">
+                        <div>연차</div>
+                        <div th:if="${siteUser.isRegistered}" th:text="|${#authentication.principal.annual}일|"></div>
+                        <div th:unless="${siteUser.isRegistered}" th:text="미정" class="text-[13px] pt-2"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card h-[40px]">
+                <div class="card-body py-1 pt-2 px-2">
+                    <div class="flex justify-between">
+                        <div>월급일</div>
+                        <div th:if="${siteUser.isRegistered}" th:text="|매월 ${siteUser.payday}일|"></div>
+                        <div th:unless="${siteUser.isRegistered}" th:text="미정"></div>
+                    </div>
+                </div>
+            </div>
             <ul class="mt-5 p-0">
-                <li class="flex justify-between">
-                    <div class="text-[13px] pt-1">계정상태</div>
-                    <div class="bg-green-500 pt-1 px-2 rounded text-white text-[13px]">Active</div>
-                </li>
-                <li class="flex justify-between">
-                    <div class="text-[13px] pt-2">닉네임</div>
-                    <div class="text-[13px] pt-2" th:text="${#authentication.principal.nickname}"></div>
-                </li>
-                <li class="flex justify-between">
-                    <div class="text-[13px] pt-2">가입일자</div>
-                    <div class="text-[13px] pt-2" th:text="${createDateFormat}"></div>
-                </li>
-                <li class="flex justify-between">
-                    <div class="text-[13px] pt-2">시급</div>
-                    <div th:if="${siteUser.isRegistered}" class="text-[13px] pt-2" th:text="${#authentication.principal.baseWage}"></div>
-                    <div th:unless="${siteUser.isRegistered}" th:text="미정" class="text-[13px] pt-2"></div>
-                </li>
+<!--                <li class="flex justify-between">-->
+<!--                    <div class="text-[13px] pt-1">계정상태</div>-->
+<!--                    <div class="bg-green-500 pt-1 px-2 rounded text-white text-[13px]">Active</div>-->
+<!--                </li>-->
+
+
 <!--                <li class="flex justify-between">-->
 <!--                    <div class="text-[13px] pt-2">주 근무시간</div>-->
 <!--                    <div th:if="${siteUser.isRegistered}" class="text-[13px] pt-2">03:28</div>-->
@@ -36,19 +66,8 @@
 <!--                    <div th:if="${siteUser.isRegistered}" class="text-[13px] pt-2">09:24</div>-->
 <!--                    <div th:unless="${siteUser.isRegistered}" th:text="미정" class="text-[13px] pt-2"></div>-->
 <!--                </li>-->
-                <li class="flex justify-between">
-                    <div class="text-[13px] pt-2">연차</div>
-                    <div th:if="${siteUser.isRegistered}" class="text-[13px] pt-2" th:text="|${#authentication.principal.annual}일|"></div>
-                    <div th:unless="${siteUser.isRegistered}" th:text="미정" class="text-[13px] pt-2"></div>
-                </li>
-                <li class="flex justify-between">
-                    <div class="text-[13px] pt-2">월급일</div>
-                    <div th:if="${siteUser.isRegistered}" th:text="|매월 ${siteUser.payday}일|" class="text-[13px] pt-2"></div>
-                    <div th:unless="${siteUser.isRegistered}" th:text="미정" class="text-[13px] pt-2"></div>
-                </li>
             </ul>
         </div>
-        <div class="w-[100%] mt-24 border-b border-gray-300"></div>
     </div>
 </th:block>
 </html>
