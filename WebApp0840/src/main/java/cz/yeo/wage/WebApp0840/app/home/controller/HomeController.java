@@ -73,6 +73,38 @@ public class HomeController {
         return "redirect:/";
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/megazine/unemployment")
+    public String showMegazine1(Principal principal, Model model) {
+        SiteUser siteUser = userService.findByUsername(principal.getName());
+        model.addAttribute("siteUser", siteUser);
+        return "home/unemployment";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/megazine/annual")
+    public String showMegazine2(Principal principal, Model model) {
+        SiteUser siteUser = userService.findByUsername(principal.getName());
+        model.addAttribute("siteUser", siteUser);
+        return "home/annual";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/megazine/year-end-tax")
+    public String showMegazine3(Principal principal, Model model) {
+        SiteUser siteUser = userService.findByUsername(principal.getName());
+        model.addAttribute("siteUser", siteUser);
+        return "home/year_end";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/megazine/weekly-allowance")
+    public String showMegazine4(Principal principal, Model model) {
+        SiteUser siteUser = userService.findByUsername(principal.getName());
+        model.addAttribute("siteUser", siteUser);
+        return "home/weekly_allowance";
+    }
+
     @GetMapping("/currentUserOrigin")
     @ResponseBody
     public Principal currentUserOrigin(Principal principal) {

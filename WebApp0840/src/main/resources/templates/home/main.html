@@ -39,7 +39,7 @@
 
     #profile-section {
         position: fixed;
-        top: 90px;
+        top: 140px;
         right: 50px;
         z-index: 2;
         width: 300px;
@@ -184,7 +184,7 @@
     </style>
 </head>
 <th:block layout:fragment="content">
-    <body class="wrapper" style="height: 3000px; position: relative">
+    <body class="wrapper" style="position: relative">
     <div class="popup hidden bg-[#000000AA] w-full h-full z-10 flex justify-center">
         <div class="popup__content bg-white rounded mt-[100px] w-[450px] h-[500px]">
             <div class="popup__head flex justify-end">
@@ -392,39 +392,43 @@
     <div class="w-full h-[12px] text-2xl">
         <div class="bg-concrete h-full shadow-inner"></div>
     </div>
-    <section class="sub-section-3 flex flex-col justify-center pl-40 pt-4">
+    <section class="sub-section-3 flex flex-col justify-center pl-40 pt-4 pb-5">
         <div class="py-3 font-bold text-2xl">자주 물어보는 근로 정책</div>
         <div class="flex gap-3">
             <div class="card w-[300px]">
                 <img src="/images/unemployment.png" class="card-img-top" alt="card-img-top">
                 <div class="card-body">
-                    <h5 class="card-title">실업급여란?</h5>
-                    <p class="card-text">직장을 잃게된 경우, 피보험자의 구직활동 및 재교육을 지원하는 사회보험을 말한다</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <a href="/megazine/unemployment" class="no-underline text-black hover:text-black">
+                        <h5 class="card-title">실업급여란?</h5>
+                        <p class="card-text">직장을 잃게된 경우, 피보험자의 구직활동 및 재교육을 지원하는 사회보험을 말한다</p>
+                    </a>
                 </div>
             </div>
             <div class="card w-[300px]">
                 <img src="/images/annual-holiday.png" class="card-img-top" alt="card-img-top">
                 <div class="card-body">
-                    <h5 class="card-title">연차란?</h5>
-                    <p class="card-text">직장을 잃게된 경우, 피보험자의 구직활동 및 재교육을 지원하는 사회보험을 말한다</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <a href="/megazine/annual" class="no-underline text-black hover:text-black">
+                        <h5 class="card-title">연차란?</h5>
+                        <p class="card-text">1년동안 80% 이상 출근한 근로자에게 15일의 유급휴가를 주는 것을 말한다</p>
+                    </a>
                 </div>
             </div>
             <div class="card w-[300px]">
-                <img src="/images/annual-holiday.png" class="card-img-top" alt="card-img-top">
+                <img src="/images/year-end-tax.jpg" class="card-img-top" alt="card-img-top">
                 <div class="card-body">
-                    <h5 class="card-title">연차란?</h5>
-                    <p class="card-text">직장을 잃게된 경우, 피보험자의 구직활동 및 재교육을 지원하는 사회보험을 말한다</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <a href="/megazine/year-end-tax" class="no-underline text-black hover:text-black">
+                        <h5 class="card-title">연말정산이란?</h5>
+                        <p class="card-text">직장인이 매달 월급에서 떼인(원천징수) 세금을 정산하는 일이다. </p>
+                    </a>
                 </div>
             </div>
             <div class="card w-[300px]">
-                <img src="/images/annual-holiday.png" class="card-img-top" alt="card-img-top">
+                <img src="/images/weekly-allowance.jpg" class="card-img-top" alt="card-img-top">
                 <div class="card-body">
-                    <h5 class="card-title">연차란?</h5>
-                    <p class="card-text">직장을 잃게된 경우, 피보험자의 구직활동 및 재교육을 지원하는 사회보험을 말한다</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <a href="/megazine/weekly-allowance" class="no-underline text-black hover:text-black">
+                        <h5 class="card-title">주휴수당이란?</h5>
+                        <p class="card-text">사업장 규모에 관계없이, 주 15시간 이상으로 근무하는 근로자에게 제공하는 임금이다.</p>
+                    </a>
                 </div>
             </div>
         </div>

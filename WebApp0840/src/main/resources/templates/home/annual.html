@@ -1,0 +1,44 @@
+<html
+        xmlns:th="http://thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}"
+>
+<th:block layout:fragment="content">
+    <div class="container p-5 mt-3">
+        <div>
+            <div class="text-base text-gray-500">근로기준법 제 60조</div>
+            <div class="text-xl">연차란?</div>
+            <div class="flex gap-2 mt-3">
+                <div class="border border-gray-50 rounded-full"><img src="/images/0840-svg.svg" class="w-[90px]"></div>
+                <div class="flex items-start text-sm text-gray-500 pt-3"><0840> 알기쉬운 근로매거진 <i class="fa-solid fa-head-side-cough" style="margin-left: 5px;"></i></div>
+            </div>
+        </div>
+        <img src="/images/annual-holiday.png" class="w-[550px] h-[280px] object-fit contrast-70 mt-3">
+        <div class="mt-3">
+            <div>1년동안 80% 이상 출근한 근로자에게 15일의 유급휴가를 주는 것을 말한다</div>
+            <div class="bg-concrete rounded p-3 mt-3">
+                <div class="border-b-2 border-gray-500">[근로기준법 제 60조]에 따르면,</div>
+                <div>
+                    5명 이상의 사업장에서는 1년간 80% 이상 출근한 근로자에 한해서 15일의 유급휴가를 주어야함<br>
+                    1년 미만의 근로자의 경우 1개월 개근시 1일의 유급휴가를 지급받음
+                </div>
+            </div>
+        </div>
+        <div class="mt-5">
+            <div class="w-full bg-gray-50 rounded p-1"><i class="fa-solid fa-triangle-exclamation"></i> 유의사항</div>
+            <div class="mt-2">1년동안 사용하지 않으면 자동소멸<br>사용하지 못한 연차(유급휴가)를 연차 수당으로 대신 보상받을 수 있다</div>
+        </div>
+        <div class="mt-5">
+            <div class="w-full bg-gray-50 rounded p-1"><i class="fa-solid fa-sack-dollar"></i> 연차수당</div>
+            <div class="mt-2">
+                연차 휴가 수당: 연차 휴가 사용일에 유급으로 지급해야하는 임금<br>
+                연차 휴가 미사용 수당: 연차 휴가를 사용하지 않고 연차 사용기간이 만료되었을 때, 미사용 연차에 대해 보상하는 임금<br>
+                ('휴가 청구권이 있는 마지막 달의 임금 지급일 임금을 기준으로 산정한다')<br><br>
+                <span class="ml-5 text-red-500">1일 통상임금 = 1시간 통상시급 x 1일 근로시간</span><br>
+                <span class="ml-5">만약, 미사용연차일 수가 10일이라면 1일 통상임금 x 10일</span>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+</html>

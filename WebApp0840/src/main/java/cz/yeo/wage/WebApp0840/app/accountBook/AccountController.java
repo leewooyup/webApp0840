@@ -251,6 +251,7 @@ public class AccountController {
         int budget = fixedInfoService.getBudget(siteUser);
         int balance = accountService.getBalance(siteUser);
 
+        model.addAttribute("siteUser", siteUser);
         model.addAttribute("fixedSpendings", fixedSpendings);
         model.addAttribute("fixedIncomes", fixedIncomes);
         model.addAttribute("nextMonth", Integer.parseInt(dateInfoBits[1])+1);
