@@ -17,6 +17,7 @@ public class FixedInfoService {
     private final WorkService workService;
 
     public void createFixedSpending(SiteUser siteUser, String fixedSpendingType, Integer fixedSpending, String fixedSpendingMemo) {
+        siteUser.setRegisteredFixedSpending(true);
         FixedSpending fixedInfo = FixedSpending.builder()
                 .siteUser(siteUser)
                 .fixedSpendingType(fixedSpendingType)
@@ -27,6 +28,7 @@ public class FixedInfoService {
     }
 
     public void createFixedIncome(SiteUser siteUser, String fixedIncomeType, Integer fixedIncome, String fixedIncomeMemo) {
+        siteUser.setRegisteredFixedIncome(true);
         FixedIncome fixedInfo = FixedIncome.builder()
                 .siteUser(siteUser)
                 .fixedIncomeType(fixedIncomeType)
@@ -65,5 +67,18 @@ public class FixedInfoService {
 
     public int getBudget(SiteUser siteUser) {
         return (int)workService.getAccTotalWage(siteUser) + getFixedIncomeSum(siteUser) - getFixedSpendingSum(siteUser);
+    }
+
+    public List<FixedSpending> findFixedSpendingBySiteUser(SiteUser siteUser) {
+        return fixedSpendingRepository.findBySiteUser(siteUser);
+    }
+
+    public List<FixedIncome> findFixedIncomeBySiteUser(SiteUser siteUser) {
+        return fixedIncomeRepository.findBySiteUser(siteUser);
+    }
+
+    public void deleteAll(SiteUser siteUser) {
+        fixedSpendingRepository.deleteBySiteUser(siteUser);
+        fixedIncomeRepository.deleteBySiteUser(siteUser);
     }
 }

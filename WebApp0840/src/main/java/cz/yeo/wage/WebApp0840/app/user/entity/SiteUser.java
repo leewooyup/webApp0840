@@ -49,6 +49,14 @@ public class SiteUser extends BaseEntity {
     private boolean isRegistered;
 
     @Column
+    @ColumnDefault("false")
+    private boolean isRegisteredFixedSpending;
+
+    @Column
+    @ColumnDefault("false")
+    private boolean isRegisteredFixedIncome;
+
+    @Column
     private Integer annual;
 
     @Column

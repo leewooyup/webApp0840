@@ -5,6 +5,22 @@
 >
 <head>
     <style>
+    .wrapper {
+        position: relative;
+    }
+
+    .popup {
+        position: absolute;
+    }
+
+    .popup2 {
+        position: absolute;
+    }
+
+    .popup3 {
+        position: absolute;
+    }
+
     .main-section {
         height: 660px;
         background: url(https://i.imgur.com/ez8FkY4.jpg);
@@ -75,7 +91,6 @@
         background-color: white;
         padding: 10px;
         position: absolute;
-        opacity: 60%;
         top: 270px;
         right: 250px;
         width: 250px;
@@ -169,41 +184,142 @@
     </style>
 </head>
 <th:block layout:fragment="content">
-    <!--    <div class="flex flex-col">-->
-    <!--        <div class="py-2">-->
-    <!--            <div class="w-[300px] flex mx-auto h-[38px] text-center text-gray-400 pt-2">-->
-    <!--                <i class="fa-solid fa-magnifying-glass w-[60px] h-[30px] pt-1"></i><input type="text" id="kw" name="kw" placeholder="궁금한 용어를 입력해주세요" class="form-control-sm h-[30px] w-full">-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--        <div class="bg-[#3c424d] h-[45%] p-10 flex justify-around px-20 bg-opacity-95">-->
-    <!--            <div class="pt-10">-->
-    <!--                <label><span class="text-4xl text-center font-bold text-white">내가 일한만큼 받는걸까?</span></label>-->
-    <!--                <div class="text-center mt-7">-->
-    <!--                    <a th:href="@{/wage/base}" class="border-2 border-[#4acaa8] text-black font-bold bg-[#4acaa8] no-underline rounded hover:text-white hover:shadow-md w-[100%] mx-auto p-3 text-base cursor-pointer">확인해보기</a>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--            <div>-->
-    <!--                <span class="text-white"><i class="fa-solid fa-coins fa-10x pt-2"></i></span>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <body style="height: 3000px; position: relative">
+    <body class="wrapper" style="height: 3000px; position: relative">
+    <div class="popup hidden bg-[#000000AA] w-full h-full z-10 flex justify-center">
+        <div class="popup__content bg-white rounded mt-[100px] w-[450px] h-[500px]">
+            <div class="popup__head flex justify-end">
+                <button class="btn-close p-3">
+                </button>
+            </div>
+            <div class="popup__body px-5 py-3">
+                <div class="text-center text-xl">내 급여정보</div>
+                <form th:action="@{/modify/wageInfo}" method="POST">
+                    <div class="flex justify-between mt-5">
+                        <div>근무지명</div>
+                        <input th:if="${siteUser.isRegistered}" type="text" name="workPlaceName" th:value="${siteUser.workPlaceName}" class="border border-gray-50 rounded">
+                        <div th:unless="${siteUser.isRegistered}">미정</div>
+                    </div>
+                    <div class="flex justify-between mt-2">
+                        <div>시급</div>
+                        <input th:if="${siteUser.isRegistered}" type="text" name="baseWage" th:value="${siteUser.baseWage}" class="border border-gray-50 rounded">
+                        <div th:unless="${siteUser.isRegistered}">미정</div>
+                    </div>
+                    <div class="flex justify-between mt-2">
+                        <div>연차</div>
+                        <input th:if="${siteUser.isRegistered}" type="text" name="annual" th:value="${siteUser.annual}" class="border border-gray-50 rounded">
+                        <div th:unless="${siteUser.isRegistered}">미정</div>
+                    </div>
+                    <div class="flex justify-between mt-2">
+                        <div>근무시작일</div>
+                        <input th:if="${siteUser.isRegistered}" type="text" name="workStartDate" th:value="${#dates.format(siteUser.workStartDate, 'yyyy-MM-dd')}" class="datepicker border border-gray-50 rounded">
+                        <div th:unless="${siteUser.isRegistered}">미정</div>
+                    </div>
+                    <div class="flex justify-between mt-2">
+                        <div>월급일</div>
+                        <input th:if="${siteUser.isRegistered}" type="text" name="payday" th:value="${siteUser.payday}" class="border border-gray-50 rounded">
+                        <div th:unless="${siteUser.isRegistered}">미정</div>
+                    </div>
+                    <div class="flex justify-end mt-2">
+                        <input th:if="${siteUser.isRegistered}" type="submit" value="수정" class="border-2 border-[#4acaa8] text-white bg-[#4acaa8] rounded hover:shadow-md px-4 pt-1 mt-3">
+                    </div>
+                </form>
+                <div class="w-[100px] check border-2 border-[#3c424d] text-center text-white bg-[#3c424d] rounded hover:shadow-md px-4 pt-1 mt-3 cursor-pointer mx-auto">확인</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup2 hidden bg-[#000000AA] w-full h-full z-10 flex justify-center">
+        <div class="popup2__content bg-white rounded mt-[100px] w-[450px] h-[500px]">
+            <div class="popup2__head flex justify-end">
+                <button class="btn-close2 p-3">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="popup2__body px-5 py-3">
+                <form th:action="@{/reset/fixedInfo}" method="POST">
+                    <div class="mt-5">
+                        <div><i class="fa-solid fa-circle-minus" style="color: red;"></i> 고정지출</div>
+                        <div th:if="${siteUser.isRegisteredFixedSpending}" th:each="fixedSpending : ${fixedSpendings}">
+                            <div class="flex justify-between">
+                                <div th:text="${fixedSpending.fixedSpendingType}"></div>
+                                <input type="number" name="fixedSpendingType" class="border border-gray-50 rounded" th:value="${fixedSpending.fixedSpending}">
+                            </div>
+                        </div>
+                        <div th:unless="${siteUser.isRegisteredFixedSpending}">미정</div>
+                    </div>
+                    <div class="mt-2">
+                        <div><i class="fa-solid fa-circle-plus" style="color: blue;"></i> 고정소득</div>
+                        <div th:if="${siteUser.isRegisteredFixedIncome}" th:each="fixedIncome : ${fixedIncomes}">
+                            <div class="flex justify-between">
+                                <div th:text="${fixedIncome.fixedIncomeType}"></div>
+                                <input type="number" name="fixedIncomeType" class="border border-gray-50 rounded" th:value="${fixedIncome.fixedIncome}">
+                            </div>
+                        </div>
+                        <div th:unless="${siteUser.isRegisteredFixedSpending}">미정</div>
+                    </div>
+                    <div class="mt-2 flex justify-end">
+                        <input type="submit" value="초기화" class="border-2 border-[#4acaa8] text-white bg-[#4acaa8] rounded hover:shadow-md px-4 pt-1 mt-3">
+                    </div>
+                </form>
+                <div class="w-[100px] check border-2 border-[#3c424d] text-center text-white bg-[#3c424d] rounded hover:shadow-md px-4 pt-1 mt-3 cursor-pointer mx-auto">확인</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup3 hidden bg-[#000000AA] w-full h-full z-10 flex justify-center">
+        <div class="popup3__content bg-white rounded mt-[100px] w-[450px] h-[500px]">
+            <div class="popup3__head flex justify-end">
+                <button class="btn-close3 p-3">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="popup3__body px-5 py-3">
+                <div class="text-center text-xl">내 정보</div>
+                <form th:action="@{/modify/userInfo}" method="POST">
+<!--                    <div th:replace="form_errors :: formErrorsFragment"></div>-->
+                    <div class="flex justify-between mt-5">
+                        <div>아이디</div>
+                        <input type="text" name="username" th:value="${siteUser.username}" class="border border-gray-50 rounded bg-gray-50" readonly>
+                    </div>
+                    <div class="flex justify-between mt-2">
+                        <div>닉네임</div>
+                        <input type="text" name="nickname" th:value="${siteUser.nickname}" class="border border-gray-50 rounded">
+                    </div>
+                    <div class="flex justify-between mt-2">
+                        <div>이메일</div>
+                        <input type="text" name="email" th:value="${siteUser.email}" class="border border-gray-50 rounded">
+                    </div>
+                    <div class="flex justify-end mt-2">
+                        <input type="submit" value="수정" class="border-2 border-[#4acaa8] text-white bg-[#4acaa8] rounded hover:shadow-md px-4 pt-1 mt-3">
+                    </div>
+                </form>
+                <div class="w-[100px] check border-2 border-[#3c424d] text-center text-white bg-[#3c424d] rounded hover:shadow-md px-4 pt-1 mt-3 cursor-pointer mx-auto">확인</div>
+            </div>
+        </div>
+    </div>
     <section id="profile-section">
         <div class="flex justify-between">
-            <div th:text="|${#authentication.principal.nickname}님|"></div>
-            <div class="border border-[#EEEEEE] bg-gray-50 text-sm px-3 pt-1 rounded h-[25px]">로그아웃</div>
+            <div th:text="|${siteUser.nickname}님|"></div>
+            <div class="border border-[#EEEEEE] bg-gray-50 text-sm px-3 pt-1 rounded h-[25px] hover:shadow-md"><a th:href="@{/user/logout}" class="no-underline text-black hover:text-black">로그아웃</a></div>
         </div>
         <div class="flex justify-between mt-4">
             <div class="text-center">
-                <i class="fa-regular fa-file-lines"></i>
-                <div>급여정보</div>
+                <button class="btn-show-popup">
+                    <i class="fa-regular fa-file-lines"></i>
+                    <div>급여정보</div>
+                </button>
             </div>
             <div class="text-center">
-                <i class="fa-regular fa-file-lines"></i>
-                <div>가계정보</div>
+                <button class="btn-show-popup2">
+                    <i class="fa-regular fa-file-lines"></i>
+                    <div>가계정보</div>
+                </button>
             </div>
             <div class="text-center">
-                <i class="fa-regular fa-circle-user"></i>
-                <div>내정보</div>
+                <button class="btn-show-popup3">
+                    <i class="fa-regular fa-circle-user"></i>
+                    <div>내정보</div>
+                </button>
             </div>
         </div>
     </section>
@@ -314,6 +430,35 @@
         </div>
     </section>
     <script>
+        $(".btn-close").click(function() {
+            $(".popup").addClass("hidden");
+        });
+        $(".btn-show-popup").click(function() {
+            $(".popup").removeClass("hidden");
+        });
+        $(".check").click(function() {
+            $(".popup").addClass("hidden");
+        });
+
+        $(".btn-close2").click(function() {
+            $(".popup2").addClass("hidden");
+        });
+        $(".btn-show-popup2").click(function() {
+            $(".popup2").removeClass("hidden");
+        });
+        $(".check").click(function() {
+            $(".popup2").addClass("hidden");
+        });
+
+        $(".btn-close3").click(function() {
+            $(".popup3").addClass("hidden");
+        });
+        $(".btn-show-popup3").click(function() {
+            $(".popup3").removeClass("hidden");
+        });
+        $(".check").click(function() {
+            $(".popup3").addClass("hidden");
+        });
         const content = "법정근로시간 : 법률이 정하는 기준 근로시간.";
         const text = document.querySelector(".typingText");
         let index=0;

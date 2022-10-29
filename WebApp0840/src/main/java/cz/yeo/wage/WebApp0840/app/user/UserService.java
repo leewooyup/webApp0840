@@ -13,6 +13,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -55,5 +58,31 @@ public class UserService {
 
     private String getCurrentProfileImgDirName() {
         return "user/" + Util.date.getCurrentDateFormatted("yyyy_MM_dd");
+    }
+
+    public void modify(SiteUser siteUser, String workPlaceName, Integer baseWage, Integer annual, String workStartDate, Integer payday) {
+        try {
+            Date formatDate = new SimpleDateFormat("yyyy-MM-dd").parse(workStartDate);
+            siteUser.setWorkPlaceName(workPlaceName);
+            siteUser.setBaseWage(baseWage);
+            siteUser.setAnnual(annual);
+            siteUser.setWorkStartDate(formatDate);
+            siteUser.setPayday(payday);
+            userRepository.save(siteUser);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void clearRegisteredFixedInfo(SiteUser siteUser) {
+        siteUser.setRegisteredFixedSpending(false);
+        siteUser.setRegisteredFixedIncome(false);
+        userRepository.save(siteUser);
+    }
+
+    public void modifyUserInfo(SiteUser siteUser, String nickname, String email) {
+        siteUser.setNickname(nickname);
+        siteUser.setEmail(email);
+        userRepository.save(siteUser);
     }
 }

@@ -114,8 +114,29 @@ public class AccountController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/daily/pattern")
-    public String showDailyPatternForm(Principal principal, Model model, DailyPatternForm dailyPatternForm) {
+    public String showDailyPatternForm(HttpServletResponse response, Principal principal, Model model, DailyPatternForm dailyPatternForm) {
         SiteUser siteUser = userService.findByUsername(principal.getName());
+        if(!siteUser.isRegisteredFixedIncome()) {
+            response.setContentType("text/html; charset=euc-kr");
+            try {
+                PrintWriter out = response.getWriter();
+                out.println("<script>alert('고정 지출/소득을 입력해주세요'); location.href='/account/base/fixed-income';</script>");
+                out.flush();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        if(!siteUser.isRegisteredFixedSpending()) {
+            response.setContentType("text/html; charset=euc-kr");
+            try {
+                PrintWriter out = response.getWriter();
+                out.println("<script>alert('고정 지출/소득을 입력해주세요'); location.href='/account/base/fixed-spending';</script>");
+                out.flush();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         String dateInfo = Util.date.getCurrentDateFormatted("yyyy MM dd");
         String[] dateInfoBits = dateInfo.split(" ");
         List<FixedSpending> fixedSpendings = fixedInfoService.findFixedSpendingAll(siteUser);
@@ -191,8 +212,29 @@ public class AccountController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/result")
-    public String showResult(Principal principal, Model model, @Valid DailyPatternForm dailyPatternForm, BindingResult bindingResult) {
+    public String showResult(HttpServletResponse response, Principal principal, Model model, @Valid DailyPatternForm dailyPatternForm, BindingResult bindingResult) {
         SiteUser siteUser = userService.findByUsername(principal.getName());
+        if(!siteUser.isRegisteredFixedIncome()) {
+            response.setContentType("text/html; charset=euc-kr");
+            try {
+                PrintWriter out = response.getWriter();
+                out.println("<script>alert('고정 지출/소득을 입력해주세요'); location.href='/account/base/fixed-income';</script>");
+                out.flush();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        if(!siteUser.isRegisteredFixedSpending()) {
+            response.setContentType("text/html; charset=euc-kr");
+            try {
+                PrintWriter out = response.getWriter();
+                out.println("<script>alert('고정 지출/소득을 입력해주세요'); location.href='/account/base/fixed-spending';</script>");
+                out.flush();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         List<FixedSpending> fixedSpendings = fixedInfoService.findFixedSpendingAll(siteUser);
         List<FixedIncome> fixedIncomes = fixedInfoService.findFixedIncomeAll(siteUser);
         String dateInfo = Util.date.getCurrentDateFormatted("yyyy MM dd");
