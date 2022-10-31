@@ -13,9 +13,10 @@
 <!--</div>-->
 <body class="bg-concrete">
 <div class="container mx-auto w-[500px]">
+    <div class="flex justify-center"><a href="/user/login"><img src="/images/0840-svg.svg" class="w-[150px]"></a></div>
     <form th:action="@{/user/join}" th:object="${userCreateForm}" method="POST"
           class="flex flex-col">
-        <div class="mt-20 p-10 flex flex-col rounded-2xl bg-concrete border-2 border-gray-50">
+        <div class="mt-[-35px] p-10 flex flex-col rounded-2xl bg-concrete border-2 border-gray-50">
             <span>회원정보를 입력해주세요.</span>
             <hr class="border border-gray-50">
             <div class="flex flex-grow mb-3 mt-3 h-[50px]">

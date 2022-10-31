@@ -347,4 +347,8 @@ public class WorkService {
     public String formatIntFloorTenth(Integer i) {
         return Integer.toString((int)Math.floor(i/10.0) * 10);
     }
+
+    public void deleteAll(SiteUser siteUser) {
+        workRepository.deleteBySiteUser(siteUser);
+    }
 }

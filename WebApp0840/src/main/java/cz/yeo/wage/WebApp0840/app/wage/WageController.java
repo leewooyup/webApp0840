@@ -7,6 +7,7 @@ import cz.yeo.wage.WebApp0840.app.user.work.WorkService;
 import cz.yeo.wage.WebApp0840.app.user.work.entity.Work;
 import cz.yeo.wage.WebApp0840.app.wage.form.WageBaseForm;
 import cz.yeo.wage.WebApp0840.app.wage.form.WorkingTimeForm;
+import cz.yeo.wage.WebApp0840.util.Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -105,9 +107,20 @@ public class WageController {
     }
 
     @PreAuthorize("isAuthenticated()")
+    @RequestMapping("/delete/works")
+    @Transactional
+    public String delete(Principal principal) {
+        SiteUser siteUser = userService.findByUsername(principal.getName());
+        workService.deleteAll(siteUser);
+        return "redirect:/wage/working-time";
+    }
+
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/result")
     public String showResult(Principal principal, Model model) {
         SiteUser siteUser = userService.findByUsername(principal.getName());
+        String dateInfo = Util.date.getCurrentDateFormatted("yyyy MM dd");
+        String[] dateInfoBits = dateInfo.split(" ");
         String createDateFormat = siteUser.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
         List<Work> works = workService.findBySiteUser(siteUser);
         HashMap<String, Integer> accWorksMap = workService.getAccWorks(siteUser);
@@ -128,6 +141,7 @@ public class WageController {
 
         model.addAttribute("accTotalWage", workService.formatFloorTenth(accTotalWage));
         model.addAttribute("siteUser", siteUser);
+        model.addAttribute("currentMonth", Integer.parseInt(dateInfoBits[1]));
         model.addAttribute("works", works);
         model.addAttribute("createDateFormat", createDateFormat);
         model.addAttribute("workCounts", workCounts);

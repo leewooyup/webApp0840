@@ -18,7 +18,7 @@
         </div>
         <nav class="navbar navbar-expand-xl navbar-fixed-top bg-white navbar-light p-0 flex-grow pt-2 object-fit shadow-md">
             <div class="container-fluid pl-8 h-[100%]">
-                <a class="navbar-brand py-0" th:href="@{/}"><img src="/images/0840-svg.svg" class="w-[100px] h-[80px]"></a>
+                <a class="navbar-brand py-0" th:href="@{/}"><img src="/images/0840-svg.svg" class="w-[110px] h-[90px] mt-[-10px]"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarWithDropdown"
                         aria-controls="navbarWithDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,9 +48,9 @@
                                     <span th:text="|${siteUser.nickname}님|" class="text-[16px]"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li><a class="nav-link text-[14px]" sec:authorize="isAuthenticated()"
+                                    <li><a class="dropdown-item" href="/wage/base">급여정보 입력</a></li>
+                                    <li><a class="dropdown-item" href="/account/base/fixed-spending">고정지출/소득 입력</a></li>
+                                    <li><a class="dropdown-item" sec:authorize="isAuthenticated()"
                                            th:href="@{/user/logout}"
                                            tabindex="-1" aria-disabled="true">로그아웃</a></li>
                                 </ul>
