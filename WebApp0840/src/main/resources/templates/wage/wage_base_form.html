@@ -5,6 +5,7 @@
 >
 <head>
     <style>
+
         .wrapper {
             position: relative;
         }
@@ -12,14 +13,14 @@
         .wage-text {
             position: absolute;
             top: 40px;
-            left: 100px;
+            left: 122px;
             animation: wage-appear-slide 1s ease-out;
         }
 
         .wage-form {
             position: absolute;
             top: 40px;
-            right: 100px;
+            right: 95px;
         }
 
         @keyframes wage-appear-slide {
@@ -28,27 +29,20 @@
                 opacity: 0;
             }
             to {
-                left: 100px;
+                left: 122px;
                 opacity: 1;
             }
         }
     </style>
 </head>
 <th:block layout:fragment="content">
-    <div class="h-full flex">
-        <div class="w-[20%] pt-12 flex default-bgcolor-base">
-            <th:block th:replace="/user/userInfo :: userInfoFragment"></th:block>
-        </div>
-        <div class="flex-grow flex flex-col pt-9">
-            <nav class="w-full h-[2%] default-bgcolor-base pt-2 text-white">
-                <ul class="flex gap-20">
-                    <li><a href="/wage/base" class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">기본급여정보</a></li>
-                    <li><a href="/wage/working-time" class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">근무시간입력</a></li>
-                    <li><a href="/wage/result" class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">누적급여계산</a></li>
-                </ul>
-            </nav>
-            <img class="w-[100%] h-[15%] object-cover contrast-50" src="https://i.imgur.com/hVTGIiu.png">
-            <div class="w-[100%]">
+    <img class="w-[100%] h-[17%] object-cover contrast-50" src="https://i.imgur.com/hVTGIiu.png">
+    <div class="h-full flex container">
+<!--        <div class="test w-[20%] pt-12 flex default-bgcolor-base">-->
+<!--            <th:block th:replace="/user/userInfo :: userInfoFragment"></th:block>-->
+<!--        </div>-->
+        <div class="flex-grow container">
+            <div class="w-full">
                 <div class="flex wrapper">
                     <div class="wage-text p-4 max-w-xs text-2xl mt-8">
                         <div class="border bg-[#3c424d] w-[60px] h-[60px] rounded-full text-center text-xl pt-2"><i class="fa-solid fa-money-check-dollar fa-2x" style="color: rgba(74, 202, 168, 0.6);"></i></div>

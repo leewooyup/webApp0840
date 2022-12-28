@@ -1,6 +1,7 @@
 package cz.yeo.wage.WebApp0840.app.base;
 
 import cz.yeo.wage.WebApp0840.app.user.security.UserSecurityService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-// # SpringSecurty 사용을 위한 설정
+// # SpringSecurity 사용을 위한 설정
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor

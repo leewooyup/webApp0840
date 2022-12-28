@@ -41,8 +41,18 @@ public class AccountController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/base/fixed-spending")
-    public String showBaseForm(Principal principal, Model model, FixedSpendingForm fixedSpendingForm) {
+    public String showBaseForm(HttpServletResponse response, Principal principal, Model model, FixedSpendingForm fixedSpendingForm) {
         SiteUser siteUser = userService.findByUsername(principal.getName());
+        if(!siteUser.isRegistered()) {
+            response.setContentType("text/html; charset=euc-kr");
+            try {
+                PrintWriter out = response.getWriter();
+                out.println("<script>alert('[ 급여계산기 ]의 기본 급여정보를 입력해주세요'); location.href='/wage/base';</script>");
+                out.flush();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         String dateInfo = Util.date.getCurrentDateFormatted("yyyy MM dd");
         String[] dateInfoBits = dateInfo.split(" ");
         List<FixedSpending> fixedSpendings = fixedInfoService.findFixedSpendingAll(siteUser);

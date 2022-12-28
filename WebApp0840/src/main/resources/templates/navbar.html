@@ -24,16 +24,30 @@
                         aria-controls="navbarWithDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse pl-16" id="navbarWithDropdown">
-                    <ul class="navbar-nav flex-grow flex">
-                        <div class="flex-grow flex gap-20">
-                            <li class="nav-item">
-                                <a class="nav-link text-[14px]" href="/wage/base">급여계산기</a>
+                <div class="navbar-collapse pl-20 w-full h-full" id="navbarWithDropdown">
+                    <ul class="navbar-nav inline-block w-full">
+                            <li class="nav-item w-[200px] h-full inline-block group relative text-center">
+                                <div class="h-full">
+                                  <a class="nav-link text-[14px] h-full" href="/wage/base">급여계산기</a>
+                                </div>
+                                <ul class="group-hover:block pl-0 hidden absolute border border-[#d3d3d3] bg-white rounded">
+                                    <li class="w-[200px]"><a href="/wage/base" class="text-[14px] p-[5px_20px] hover:bg-[#3c424d] hover:text-white whitespace-nowrap block text-[#808080] no-underline">기본급여정보</a></li>
+                                    <li class="w-[200px]"><a href="/wage/working-time" class="text-[14px] p-[5px_20px] hover:bg-[#3c424d] hover:text-white whitespace-nowrap block text-[#808080] no-underline">근무시간입력</a></li>
+                                    <li class="w-[200px]"><a href="/wage/result" class="text-[14px] p-[5px_20px] hover:bg-[#3c424d] hover:text-white whitespace-nowrap block text-[#808080] no-underline">누적급여계산</a></li>
+                                </ul>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-[14px]" href="/account/base/fixed-spending">가계부</a>
+                        <li class="nav-item w-[200px] h-full inline-block group relative text-center">
+                                <div class="h-full">
+                                    <a class="nav-link text-[14px]" href="/account/base/fixed-spending">가계부</a>
+                                </div>
+                                <ul class="group-hover:block pl-0 hidden absolute border border-[#d3d3d3] bg-white rounded">
+                                    <li class="w-[200px]"><a href="/account/base/fixed-spending" class="text-[14px] p-[5px_20px] hover:bg-[#3c424d] hover:text-white whitespace-nowrap block text-[#808080] no-underline">고정지출입력</a></li>
+                                    <li class="w-[200px]"><a href="/account/base/fixed-income" class="text-[14px] p-[5px_20px] hover:bg-[#3c424d] hover:text-white whitespace-nowrap block text-[#808080] no-underline">고정소득입력</a></li>
+                                    <li class="w-[200px]"><a href="/account/daily/pattern" class="text-[14px] p-[5px_20px] hover:bg-[#3c424d] hover:text-white whitespace-nowrap block text-[#808080] no-underline">하루소비패턴</a></li>
+                                    <li class="w-[200px]"><a href="/account/result" class="text-[14px] p-[5px_20px] hover:bg-[#3c424d] hover:text-white whitespace-nowrap block text-[#808080] no-underline">나의소비현황</a></li>
+                                </ul>
                             </li>
-                        </div>
+
                         <div class="w-[150px]">
                             <li class="nav-item" sec:authorize="isAnonymous()">
                                 <a class="nav-link text-center" th:href="@{/user/login}" tabindex="-1"

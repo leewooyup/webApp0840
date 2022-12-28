@@ -12,7 +12,7 @@
         .fixed-text {
             position: absolute;
             top: 10px;
-            left: 35px;
+            left: 70px;
             animation: fixed-appear-slide 2s ease-out;
         }
 
@@ -22,7 +22,7 @@
                 opacity: 0;
             }
             to {
-                left: 35px;
+                left: 70px;
                 opacity: 1;
             }
         }
@@ -61,12 +61,12 @@
                 </ul>
             </nav>
             <img class="w-[100%] h-[15%] object-cover contrast-50" src="https://i.imgur.com/peG7BrE.jpg">
-            <div class="w-[100%] wrapper">
+            <div class="w-[100%] wrapper px-5">
                 <div class="fixed-text text-2xl mt-2">3. 하루 소비패턴을 만드세요.</div>
                 <div class="w-[95%] bg-concrete flex flex-col wrapper rounded p-3 mx-auto mt-16">
                     <div th:text="|${nextMonth}월 예상소비계획|" class="border-b-4 border-[#3c424d]">
                     </div>
-                    <div class="flex justify-between">
+                    <div class="flex justify-between gap-5">
                         <div class="flex flex-col gap-3 mt-3 w-[440px]">
                             <div class="flex gap-2">
                                 <i class="fa-regular fa-calendar-days text-2xl"></i>

@@ -12,7 +12,7 @@
         .fixed-text {
             position: absolute;
             top: 10px;
-            left: 35px;
+            left: 70px;
             animation: fixed-appear-slide 2s ease-out;
         }
 
@@ -22,7 +22,7 @@
                 opacity: 0;
             }
             to {
-                left: 35px;
+                left: 70px;
                 opacity: 1;
             }
         }
@@ -52,11 +52,11 @@
                 </ul>
             </nav>
             <img class="w-[100%] h-[15%] object-cover contrast-50" src="https://i.imgur.com/peG7BrE.jpg">
-            <div class="w-full wrapper">
+            <div class="w-full wrapper px-5">
                 <div class="fixed-text text-2xl mt-2">4. 나의 한 달 소비계획을 확인하세요.</div>
                 <div class="mt-16">
                 <div th:each="dailyPattern : ${dailyPatterns}" class="pl-[35px]">
-                    <div class="w-[75%] bg-concrete flex flex-col gap-2 wrapper rounded p-3 mt-2">
+                    <div class="w-[75%] bg-concrete flex flex-col gap-2 wrapper rounded shadow-md p-3 mt-2">
                         <div class="flex justify-between border-b-4 border-[#3c424d]">
                             <div th:text="|소비패턴('${dailyPattern.dailyPatternName}')|"></div>
                             <div th:text="|x ${dailyPattern.timesPerMonth}회/달|"></div>
@@ -129,7 +129,7 @@
                 </div>
                 </div>
                 <div class="pl-[35px]">
-                    <div class="w-[75%] bg-[#3c424c] mt-3 gap-2 wrapper rounded p-3 text-white">
+                    <div class="w-[75%] bg-[#3c424c] mt-3 gap-2 wrapper rounded shadow-md p-3 text-white">
                         <div class="border-b-4 border-white">
                             <div th:text="|${nextMonth}월 예상지출|"></div>
                         </div>
@@ -143,7 +143,7 @@
                     </div>
                 </div>
                 <div class="pl-[35px]">
-                    <div th:if="${balance < 0}" class="w-[75%] bg-red-200 bg-opacity-50 mt-3 gap-2 wrapper rounded p-3 text-black">
+                    <div th:if="${balance < 0}" class="w-[75%] bg-red-200 bg-opacity-50 mt-3 gap-2 wrapper rounded shadow-md p-3 text-black">
                         <div class="border-b-4 border-red-500">
                             <div th:text="|${nextMonth}월 (예산액 - 예상지출)|"></div>
                         </div>
@@ -161,7 +161,7 @@
                     </div>
                 </div>
                 <div class="pl-[35px]">
-                    <div th:unless="${balance < 0}" class="w-[75%] bg-blue-200 bg-opacity-50 mt-3 gap-2 wrapper rounded p-3 text-black">
+                    <div th:unless="${balance < 0}" class="w-[75%] bg-blue-200 bg-opacity-50 mt-3 gap-2 wrapper rounded shadow-md p-3 text-black">
                         <div class="border-b-4 border-blue-500">
                             <div th:text="|${nextMonth}월 (예산액 - 예상지출)|"></div>
                         </div>

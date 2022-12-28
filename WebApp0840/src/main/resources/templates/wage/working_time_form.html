@@ -16,14 +16,20 @@
         .wage-text {
             position: absolute;
             top: 40px;
-            left: 100px;
+            left: 122px;
             animation: wage-appear-slide 1s ease-out;
         }
 
         .wage-form {
             position: absolute;
             top: 40px;
-            right: 100px;
+            right: 95px;
+        }
+
+        .caution {
+            position: absolute;
+            top: 440px;
+            right: 122px;
         }
 
         .acc-works-text {
@@ -43,35 +49,29 @@
                 opacity: 0;
             }
             to {
-                left: 100px;
+                left: 122px;
                 opacity: 1;
             }
         }
+
     </style>
 </head>
 <th:block layout:fragment="content">
+    <img class="w-[100%] h-[17%] object-cover contrast-50" src="https://i.imgur.com/hVTGIiu.png">
     <div class="h-full flex">
-        <div class="w-[20%] flex default-bgcolor-base pt-12">
-            <th:block th:replace="/user/userInfo :: userInfoFragment"></th:block>
-        </div>
-        <div class="flex-grow flex flex-col content-wrapper pt-9">
-            <nav class="w-full h-[2%] default-bgcolor-base pt-2 text-white">
-                <ul class="flex gap-20">
-                    <li><a href="/wage/base" class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">기본급여정보</a></li>
-                    <li><a href="/wage/working-time"
-                           class="no-underline text-white hover:text-white text-[13px] hover:cursor-pointer">근무시간입력</a></li>
-                    <li><a href="/wage/result" class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">누적급여계산</a></li>
-                </ul>
-            </nav>
-            <img class="w-[100%] h-[15%] object-cover contrast-50" src="https://i.imgur.com/hVTGIiu.png">
+        <!--        <div class="w-[20%] flex default-bgcolor-base pt-12">-->
+        <!--            <th:block th:replace="/user/userInfo :: userInfoFragment"></th:block>-->
+        <!--        </div>-->
+        <div class="flex-grow container content-wrapper">
             <div class="w-[100%]">
                 <div class="flex wrapper">
-                    <div class="wage-text p-3 pt-4 max-w-xs text-2xl mt-8">
-                        <div class="border bg-[#3c424d] w-[60px] h-[60px] rounded-full text-center text-xl pt-2"><i class="fa-solid fa-clock fa-2x" style="color: rgba(74, 202, 168, 0.6);"></i></div>
+                    <div class="wage-text px-3 max-w-xs text-2xl mt-2">
+                        <div class="border bg-[#3c424d] w-[60px] h-[60px] rounded-full text-center text-xl pt-2"><i
+                                class="fa-solid fa-clock fa-2x" style="color: rgba(74, 202, 168, 0.6);"></i></div>
                         <span class="ml-2 text-3xl">2. 근무 날짜/시간을<br><span class="pl-12">입력하세요.</span></span>
                     </div>
 
-                    <div class="wage-form p-5 flex-grow flex flex-col mt-1">
+                    <div class="wage-form px-5 flex-grow flex flex-col mt-1">
                         <div class="card card-small card-post mb-2 flex rounded-2xl shadow-md p-5 w-[530px]">
                             <form th:action="@{/wage/working-time}" th:object="${workingTimeForm}" method="POST">
                                 <div class="flex gap-2">
@@ -115,7 +115,7 @@
                                 <div class="flex gap-2 justify-end mt-2">
                                     <input type="radio" th:field="*{workType}" value="regular" checked/>
                                     근무일
-                                    <input type="radio" th:field="*{workType}" value="holiday" />
+                                    <input type="radio" th:field="*{workType}" value="holiday"/>
                                     휴일
                                 </div>
                                 <div class="flex justify-end">
@@ -126,33 +126,45 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="flex justify-end hover:cursor-pointer"><a href="/wage/result" class="bg-[#4acaa8] text-white rounded font-bold hover: hover:shadow-md px-3 py-2 no-underline"><i class="fa-solid fa-calculator"></i> 급여계산하기</a></div>
+                        <div class="flex justify-end hover:cursor-pointer"><a href="/wage/result"
+                                                                              class="bg-[#4acaa8] text-white rounded font-bold hover: hover:shadow-md px-3 py-2 no-underline"><i
+                                class="fa-solid fa-calculator"></i> 급여계산하기</a></div>
                     </div>
                 </div>
             </div>
-            <div class="w-full h-[4%] acc-works-text text-2xl">
-                <div class="bg-concrete h-[30%] shadow-inner"></div>
+            <div class="caution mx-auto">
+                <div><i class="fa-solid fa-triangle-exclamation" style="color: tomato; margin-right: 10px;"></i>
+                    '예정근무시간'과 '실제근무시간'이 같으면 똑같이 입력해주세요.
+                </div>
+                <div><i class="fa-solid fa-triangle-exclamation" style="color: tomato; margin-right: 10px;"></i>
+                    '예정근무시간'/'실제근무시간'은 '야간근무시간'을 포함하는 시간을 의미합니다.
+                </div>
+            </div>
+        </div>
+        <div class="w-full h-[4%] acc-works-text text-2xl mt-3">
+            <div class="bg-concrete h-[30%] shadow-inner"></div>
+            <div class="container">
                 <div class="flex gap-16">
-                    <div class="pl-14 pt-3">근무이력 <i class="fa-regular fa-file-lines"></i></div>
+                    <div class="pl-36 pt-3">근무이력 <i class="fa-regular fa-file-lines"></i></div>
                     <div class="text-base pt-4">
-                        <a href="/wage/delete/works" class="bg-[#4acaa8] text-white rounded font-bold hover: hover:shadow-md px-3 py-2 no-underline">
+                        <a href="/wage/delete/works"
+                           class="bg-[#4acaa8] text-white rounded font-bold hover: hover:shadow-md px-3 py-2 no-underline">
                             <i class="fa-solid fa-arrow-rotate-left"></i> 초기화
                         </a>
                     </div>
                 </div>
-            </div>
-
-            <div class="w-[95%] row row-cols-4 gy-3 acc-works-section">
-                <div th:each="work : ${works}">
-                    <div class="card border-danger text-black">
-                        <div class="card-header border-danger">
-                            <i class="fa-solid fa-stopwatch"></i> |
-                            <label th:text="|근무날짜: ${#dates.format(work.workingDate, 'yyyy-MM-dd')}|"></label>
-                        </div>
-                        <div class="card-body flex flex-col">
-                            <label th:text="|예정근무시간: ${work.workingHours}시간 ${work.workingMinutes}분|"></label>
-                            <label th:text="|실제근무시간: ${work.extendedHours}시간 ${work.extendedMinutes}분|"></label>
-                            <label th:text="|야간근무시간: ${work.nightHours}시간 ${work.nightMinutes}분|"></label>
+                <div class="w-[95%] row row-cols-4 gy-3 acc-works-section">
+                    <div th:each="work : ${works}">
+                        <div class="card border-danger text-black">
+                            <div class="card-header border-danger">
+                                <i class="fa-solid fa-stopwatch"></i> |
+                                <label th:text="|근무날짜: ${#dates.format(work.workingDate, 'yyyy-MM-dd')}|"></label>
+                            </div>
+                            <div class="card-body flex flex-col">
+                                <label th:text="|예정근무시간: ${work.workingHours}시간 ${work.workingMinutes}분|"></label>
+                                <label th:text="|실제근무시간: ${work.extendedHours}시간 ${work.extendedMinutes}분|"></label>
+                                <label th:text="|야간근무시간: ${work.nightHours}시간 ${work.nightMinutes}분|"></label>
+                            </div>
                         </div>
                     </div>
                 </div>

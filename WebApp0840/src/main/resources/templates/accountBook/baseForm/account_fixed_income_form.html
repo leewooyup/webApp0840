@@ -12,7 +12,7 @@
         .fixed-text {
             position: absolute;
             top: 10px;
-            left: 35px;
+            left: 70px;
             animation: fixed-appear-slide 2s ease-out;
         }
 
@@ -22,7 +22,7 @@
                 opacity: 0;
             }
             to {
-                left: 35px;
+                left: 70px;
                 opacity: 1;
             }
         }
@@ -51,14 +51,14 @@
                 </ul>
             </nav>
             <img class="w-[100%] h-[15%] object-cover contrast-50" src="https://i.imgur.com/peG7BrE.jpg">
-            <div class="w-[100%] wrapper">
+            <div class="w-[100%] wrapper px-5">
                 <div class="fixed-text text-2xl mt-2">2. 고정소득을 입력하세요. (월급 제외)</div>
                 <div class="w-[95%] bg-concrete flex flex-col wrapper rounded p-3 mx-auto mt-16">
                     <div class="flex gap-2 border-b-4 border-[#3c424d]">
                         <div th:text="|${nextMonth}월 예상소비계획|"></div>
                         <div th:text="|(${nextMonth}.01 ~ ${nextMonth}.${nextMonthLastDate})|"></div>
                     </div>
-                    <div class="flex justify-between mt-2">
+                    <div class="flex justify-between mt-2 gap-5">
                         <div class="flex flex-col gap-3 mt-2 w-[640px]">
                             <div class="flex justify-between">
                                 <div><i class="fa-solid fa-coins"></i> '[[${siteUser.workPlaceName}]]' 누적급여</div>

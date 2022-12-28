@@ -41,7 +41,7 @@ public class AccountService {
     }
 
     public int getLastDateByMonth(int monthIndex) {
-        int[] lastDates = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        int[] lastDates = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 30};
         return lastDates[monthIndex];
     }
     public int getDdayCalFrom(SiteUser siteUser) {
