@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.lang.reflect.Member;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -44,6 +45,17 @@ public class UserService {
               throw new SignupEmailDuplicatedException("이미 사용중인 이메일 입니다.");
           }
         }
+    }
+
+    public SiteUser join(String username, String password, String email) {
+        SiteUser siteUser = SiteUser.builder()
+                .username(username)
+                .password(password)
+                .email(email)
+                .build();
+        userRepository.save(siteUser);
+
+        return siteUser;
     }
 
     public SiteUser findByUsername(String name) {
@@ -84,5 +96,9 @@ public class UserService {
         siteUser.setNickname(nickname);
         siteUser.setEmail(email);
         userRepository.save(siteUser);
+    }
+
+    public long count() {
+        return userRepository.count();
     }
 }
