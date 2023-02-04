@@ -47,6 +47,32 @@ public class UserService {
         }
     }
 
+    // 개발용 샘플데이터
+    public SiteUser join(String username, String password, String nickname,
+                         String email, String workPlaceName, int baseWage,
+                         boolean isRegistered, boolean isRegisteredFixedSpending, boolean isRegisteredFixedIncome,
+                         int annual, int payday, Date workStartDate) {
+        SiteUser siteUser = SiteUser.builder()
+                .username(username)
+                .password(password)
+                .nickname(nickname)
+                .email(email)
+                .workPlaceName(workPlaceName)
+                .baseWage(baseWage)
+                .isRegistered(isRegistered)
+                .isRegisteredFixedSpending(isRegisteredFixedSpending)
+                .isRegisteredFixedIncome(isRegisteredFixedIncome)
+                .annual(annual)
+                .payday(payday)
+                .workStartDate(workStartDate)
+                .build();
+
+        userRepository.save(siteUser);
+
+        return siteUser;
+    }
+
+    // 테스트용 샘플데이터
     public SiteUser join(String username, String password, String email) {
         SiteUser siteUser = SiteUser.builder()
                 .username(username)
