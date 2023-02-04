@@ -1,26 +1,43 @@
 package cz.yeo.wage.WebApp0840.app.base;
 
+import cz.yeo.wage.WebApp0840.app.accountBook.FixedInfoService;
 import cz.yeo.wage.WebApp0840.app.user.UserService;
 import cz.yeo.wage.WebApp0840.app.user.entity.SiteUser;
+import cz.yeo.wage.WebApp0840.app.user.work.WorkService;
+import cz.yeo.wage.WebApp0840.app.user.work.entity.Work;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Configuration
 @Profile("dev")
 public class DevInitData {
     @Bean
-    CommandLineRunner init(UserService userService, PasswordEncoder passwordEncoder) {
+    CommandLineRunner init(UserService userService, WorkService workService, FixedInfoService fixedInfoService, PasswordEncoder passwordEncoder) {
         return args -> {
             String password = passwordEncoder.encode("1234");
+
             SiteUser siteUser1 = userService.join("user1", password, "peter", "user1@test.com",
                     "아웃백", 11200, true, true, true, 23, 5, new Date(2019,7,18));
+
+            Work work1 = workService.create(siteUser1, "2022-12-03", 5, 30, 5, 31, 0, 31, "근무일");
+            Work work2 = workService.create(siteUser1, "2022-12-17", 5, 30, 5, 31, 0, 31, "근무일");
+            Work work3 = workService.create(siteUser1, "2022-12-18", 5, 30, 5, 38, 0, 38, "근무일");
+            Work work4 = workService.create(siteUser1, "2022-12-25", 6, 0, 6, 49, 0, 49, "근무일");
+            Work work5 = workService.create(siteUser1, "2022-12-31", 6, 0, 6, 41, 0, 41, "근무일");
+
+            fixedInfoService.createFixedSpending(siteUser1, "보험료", 7700, "자동차보험료");
+            fixedInfoService.createFixedSpending(siteUser1, "통신비", 88000, "다음달 요금제 변경 필요");
+
+            fixedInfoService.createFixedIncome(siteUser1, "용돈", 300000, "취업할때까지만");
             SiteUser siteUser2 = userService.join("user2", password, "nick", "user2@test.com",
                     "카페", 9620, true, true, true, 0, 7, new Date(2023,1,2));
         };
     }
+
 }
