@@ -33,80 +33,80 @@
                 opacity: 1;
             }
         }
+
     </style>
 </head>
 <th:block layout:fragment="content">
-    <img class="w-[100%] h-[17%] object-cover contrast-50" src="https://i.imgur.com/hVTGIiu.png">
+    <img class="w-[100%] h-[15%] object-none contrast-50" src="https://i.imgur.com/vjGmrL6.jpg">
     <div class="h-full flex container">
-<!--        <div class="test w-[20%] pt-12 flex default-bgcolor-base">-->
-<!--            <th:block th:replace="/user/userInfo :: userInfoFragment"></th:block>-->
-<!--        </div>-->
+        <!--        <div class="test w-[20%] pt-12 flex default-bgcolor-base">-->
+        <!--            <th:block th:replace="/user/userInfo :: userInfoFragment"></th:block>-->
+        <!--        </div>-->
         <div class="flex-grow container">
-            <div class="w-full">
-                <div class="flex wrapper">
-                    <div class="wage-text p-4 max-w-xs text-2xl mt-8">
-                        <div class="border bg-[#3c424d] w-[60px] h-[60px] rounded-full text-center text-xl pt-2"><i class="fa-solid fa-money-check-dollar fa-2x" style="color: rgba(74, 202, 168, 0.6);"></i></div>
-                        <span class="ml-2 text-3xl">1. 급여정보를<br><span class="pl-8">입력하세요.</span></span>
+            <div class="flex justify-around mt-8 p-4">
+                <div class="max-w-xs text-2xl">
+                    <div><i class="fa-solid fa-money-check-dollar fa-2x" style="color: rgba(74, 202, 168, 0.6);"></i>
                     </div>
+                    <span class="ml-2 text-3xl">1. 급여정보를<br><span class="pl-8">입력하세요.</span></span>
+                </div>
 
-                    <div class="wage-form p-5 flex-grow flex flex-col mt-1">
-                        <div class="card card-small card-post mb-2 flex rounded-2xl shadow-md p-5 w-[530px]">
-                            <form th:action="@{/wage/base}" th:object="${wageBaseForm}" method="POST">
-                                <div class="flex gap-2">
-                                    <label class="w-[100px] mt-2">근무지명</label>
-                                    <div class="flex flex-grow justify-end mt-2">
-                                        <div>
-                                            <input type="text" th:field="*{workPlaceName}"
-                                                           class="ml-auto ml-2 border form-control-sm w-[100px] text-right">
-                                        </div>
+                <div class="px-5 flex flex-col mt-1">
+                    <div class="card card-small card-post mb-2 flex rounded-2xl shadow-md p-5 w-[530px]">
+                        <form th:action="@{/wage/base}" th:object="${wageBaseForm}" method="POST">
+                            <div class="flex gap-2">
+                                <label class="w-[120px] mt-2"><i class="fa-solid fa-house"></i> 근무지명</label>
+                                <div class="flex flex-grow justify-end mt-2">
+                                    <div>
+                                        <input type="text" th:field="*{workPlaceName}"
+                                               class="ml-auto ml-2 border form-control-sm w-[100px] text-right">
                                     </div>
                                 </div>
-                                <div class="flex gap-2">
-                                    <label class="w-[100px] mt-2">시급</label>
-                                    <div class="flex flex-grow justify-end mt-2">
-                                        <div>
-                                            &#8361; <input type="text" th:field="*{baseWage}"
-                                                           class="kr-price ml-auto ml-2 border form-control-sm w-[100px] text-right">
-                                        </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <label class="w-[120px] mt-2"><i class="fa-solid fa-sack-dollar"></i> 시급</label>
+                                <div class="flex flex-grow justify-end mt-2">
+                                    <div>
+                                        &#8361; <input type="text" th:field="*{baseWage}"
+                                                       class="kr-price ml-auto ml-2 border form-control-sm w-[100px] text-right">
                                     </div>
                                 </div>
-                                <div class="flex gap-2">
-                                    <label class="w-[100px] mt-2">연차</label>
-                                    <div class="flex flex-grow justify-end mt-2">
-                                        <div>
-                                            <input type="number" th:field="*{annual}" min="0"
-                                                   class="ml-auto ml-2 border form-control-sm w-[60px]">
-                                            <span class="ml-1">일</span>
-                                        </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <label class="w-[120px] mt-2"><i class="fa-solid fa-person-walking-luggage"></i> 연차</label>
+                                <div class="flex flex-grow justify-end mt-2">
+                                    <div>
+                                        <input type="number" th:field="*{annual}" min="0"
+                                               class="ml-auto ml-2 border form-control-sm w-[60px]">
+                                        <span class="ml-1">일</span>
                                     </div>
                                 </div>
-                                <div class="flex gap-2">
-                                    <label class="w-[100px] mt-2">월급일</label>
-                                    <div class="flex flex-grow justify-end mt-2">
-                                        <div>
-                                            <span>매달</span>
-                                            <input type="number" th:field="*{payday}" min="1" max="31"
-                                                   class="ml-auto ml-2 border form-control-sm w-[60px]">
-                                            <span class="ml-1">일</span>
-                                        </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <label class="w-[120px] mt-2"><i class="fa-solid fa-calendar-check"></i> 월급일</label>
+                                <div class="flex flex-grow justify-end mt-2">
+                                    <div>
+                                        <span>매달</span>
+                                        <input type="number" th:field="*{payday}" min="1" max="31"
+                                               class="ml-auto ml-2 border form-control-sm w-[60px]">
+                                        <span class="ml-1">일</span>
                                     </div>
                                 </div>
-                                <div class="flex gap-2">
-                                    <label class="w-[100px] mt-2">근무 시작일</label>
-                                    <div class="flex gap-2 ml-auto mt-2">
-                                        <i class="fa-regular fa-calendar-days text-2xl"></i>
-                                        <input type="text" th:field="*{workStartDate}"
-                                               class="datepicker border w-[120px] text-right">
-                                    </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <label class="w-[120px] mt-2"><i class="fa-solid fa-calendar"></i> 근무 시작일</label>
+                                <div class="flex gap-2 ml-auto mt-2">
+                                    <i class="fa-regular fa-calendar-days text-2xl"></i>
+                                    <input type="text" th:field="*{workStartDate}"
+                                           class="datepicker border w-[120px] text-right">
                                 </div>
-                                <div class="flex justify-end">
-                                    <button type="submit"
-                                            class="border-2 border-[#3c424d] text-white bg-[#3c424d] rounded hover:shadow-md px-4 pt-1 mt-3">
-                                        다음
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                            <div class="flex justify-end">
+                                <button type="submit"
+                                        class="border-2 border-[#3c424d] text-white bg-[#3c424d] rounded hover:shadow-md px-4 pt-1 mt-3">
+                                    다음
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -124,6 +124,7 @@
 <!--                input.value = formatValue;-->
 <!--            }-->
 <!--        })-->
+
     </script>
 </th:block>
 </html>

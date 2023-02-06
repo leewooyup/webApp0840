@@ -57,25 +57,21 @@
     </style>
 </head>
 <th:block layout:fragment="content">
-    <img class="w-[100%] h-[17%] object-cover contrast-50" src="https://i.imgur.com/hVTGIiu.png">
-    <div class="h-full flex">
-        <!--        <div class="w-[20%] flex default-bgcolor-base pt-12">-->
-        <!--            <th:block th:replace="/user/userInfo :: userInfoFragment"></th:block>-->
-        <!--        </div>-->
-        <div class="flex-grow container content-wrapper">
+    <img class="w-[100%] h-[15%] object-none contrast-50" src="https://i.imgur.com/vjGmrL6.jpg">
+    <div class="h-full flex flex-col mx-auto">
+        <div class="container content-wrapper">
             <div class="w-[100%]">
-                <div class="flex wrapper">
-                    <div class="wage-text px-3 max-w-xs text-2xl mt-2">
-                        <div class="border bg-[#3c424d] w-[60px] h-[60px] rounded-full text-center text-xl pt-2"><i
-                                class="fa-solid fa-clock fa-2x" style="color: rgba(74, 202, 168, 0.6);"></i></div>
+                <div class="flex justify-around mt-8 p-4">
+                    <div class="max-w-xs text-2xl mt-2">
+                        <div><i class="fa-solid fa-clock fa-2x" style="color: rgba(74, 202, 168, 0.6);"></i></div>
                         <span class="ml-2 text-3xl">2. 근무 날짜/시간을<br><span class="pl-12">입력하세요.</span></span>
                     </div>
 
-                    <div class="wage-form px-5 flex-grow flex flex-col mt-1">
+                    <div class="px-5 flex flex-col mt-1">
                         <div class="card card-small card-post mb-2 flex rounded-2xl shadow-md p-5 w-[530px]">
                             <form th:action="@{/wage/working-time}" th:object="${workingTimeForm}" method="POST">
                                 <div class="flex gap-2">
-                                    <label class="w-[100px] mt-2">근무날짜</label>
+                                    <label class="w-[120px] mt-2"><i class="fa-solid fa-calendar"></i> 근무날짜</label>
                                     <div class="flex gap-2 ml-auto">
                                         <i class="fa-regular fa-calendar-days text-2xl"></i>
                                         <input type="text" th:field="*{workingDate}"
@@ -83,7 +79,7 @@
                                     </div>
                                 </div>
                                 <div class="flex gap-2">
-                                    <label class="w-[100px] mt-2">예정 근무시간</label>
+                                    <label class="w-[120px] mt-2"><i class="fa-solid fa-clock"></i> 예정 근무시간</label>
                                     <div class="flex flex-grow justify-end mt-2">
                                         <input type="number" th:field="*{workingHours}" min="0" max="12"
                                                class="ml-auto border mr-2 form-control-sm w-[60px]"/>
@@ -93,7 +89,7 @@
                                     </div>
                                 </div>
                                 <div class="flex gap-2">
-                                    <span class="w-[100px] mt-2">실제 근무시간</span>
+                                    <span class="w-[120px] mt-2"><i class="fa-solid fa-clock"></i> 실제 근무시간</span>
                                     <div class="flex flex-grow justify-end mt-2">
                                         <input type="number" th:field="*{extendedHours}" min="0" max="12"
                                                class="ml-auto mr-2 border form-control-sm w-[60px]"/>
@@ -103,7 +99,7 @@
                                     </div>
                                 </div>
                                 <div class="flex gap-2">
-                                    <span class="w-[100px] mt-2">야간 근무시간</span>
+                                    <span class="w-[120px] mt-2"><i class="fa-solid fa-moon"></i> 야간 근무시간</span>
                                     <div class="flex flex-grow justify-end mt-2">
                                         <input type="number" th:field="*{nightHours}" min="0" max="12"
                                                class="ml-auto mr-2 border form-control-sm w-[60px]"/>
@@ -126,36 +122,36 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="flex justify-end hover:cursor-pointer"><a href="/wage/result"
+                        <div class="mx-auto mt-2">
+                            <div><i class="fa-solid fa-triangle-exclamation" style="color: tomato; margin-right: 10px;"></i>
+                                '예정근무시간'과 '실제근무시간'이 같으면 똑같이 입력해주세요.
+                            </div>
+                            <div><i class="fa-solid fa-triangle-exclamation" style="color: tomato; margin-right: 10px;"></i>
+                                '예정근무시간'/'실제근무시간'은 '야간근무시간'을 포함하는 시간을 의미합니다.
+                            </div>
+                        </div>
+                        <div class="flex justify-end hover:cursor-pointer mt-3"><a href="/wage/result"
                                                                               class="bg-[#4acaa8] text-white rounded font-bold hover: hover:shadow-md px-3 py-2 no-underline"><i
                                 class="fa-solid fa-calculator"></i> 급여계산하기</a></div>
                     </div>
                 </div>
             </div>
-            <div class="caution mx-auto">
-                <div><i class="fa-solid fa-triangle-exclamation" style="color: tomato; margin-right: 10px;"></i>
-                    '예정근무시간'과 '실제근무시간'이 같으면 똑같이 입력해주세요.
-                </div>
-                <div><i class="fa-solid fa-triangle-exclamation" style="color: tomato; margin-right: 10px;"></i>
-                    '예정근무시간'/'실제근무시간'은 '야간근무시간'을 포함하는 시간을 의미합니다.
-                </div>
-            </div>
         </div>
-        <div class="w-full h-[4%] acc-works-text text-2xl mt-3">
+        <div class="w-[85%] h-[4%] text-2xl mt-3 flex flex-col mx-auto">
             <div class="bg-concrete h-[30%] shadow-inner"></div>
-            <div class="container">
+            <div class="container mt-3">
                 <div class="flex gap-16">
-                    <div class="pl-36 pt-3">근무이력 <i class="fa-regular fa-file-lines"></i></div>
-                    <div class="text-base pt-4">
+                    <div class="pt-3">근무이력 <i class="fa-regular fa-file-lines"></i></div>
+                    <div class="text-base pt-3">
                         <a href="/wage/delete/works"
                            class="bg-[#4acaa8] text-white rounded font-bold hover: hover:shadow-md px-3 py-2 no-underline">
                             <i class="fa-solid fa-arrow-rotate-left"></i> 초기화
                         </a>
                     </div>
                 </div>
-                <div class="w-[95%] row row-cols-4 gy-3 acc-works-section">
+                <div class="w-[95%] row row-cols-4 gy-3 mt-3">
                     <div th:each="work : ${works}">
-                        <div class="card border-danger text-black">
+                        <div class="card border-danger text-black text-[17px]">
                             <div class="card-header border-danger">
                                 <i class="fa-solid fa-stopwatch"></i> |
                                 <label th:text="|근무날짜: ${#dates.format(work.workingDate, 'yyyy-MM-dd')}|"></label>

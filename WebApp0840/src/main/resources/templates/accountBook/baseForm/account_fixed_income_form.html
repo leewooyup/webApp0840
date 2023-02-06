@@ -30,37 +30,23 @@
 </head>
 <th:block layout:fragment="content">
     <div class="h-full flex">
-        <div class="w-[20%] flex default-bgcolor-base pt-12">
-            <th:block th:replace="/accountBook/fixedInfo :: fixedInfoFragment"></th:block>
-        </div>
         <div class="flex-grow flex flex-col pt-9">
-            <nav class="w-full h-[2%] default-bgcolor-base pt-2 text-white">
-                <ul class="flex gap-20">
-                    <li><a href="/account/base/fixed-spending"
-                           class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">고정지출입력</a>
-                    </li>
-                    <li><a href="/account/base/fixed-income"
-                           class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">고정소득입력</a>
-                    </li>
-                    <li><a href="/account/daily/pattern"
-                           class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">하루소비패턴 만들기</a>
-                    </li>
-                    <li><a href="/account/result"
-                           class="no-underline text-white text-[13px] hover:text-white hover:cursor-pointer">나의 소비패턴</a>
-                    </li>
-                </ul>
-            </nav>
-            <img class="w-[100%] h-[15%] object-cover contrast-50" src="https://i.imgur.com/peG7BrE.jpg">
+            <img class="w-[100%] h-[15%] object-none contrast-50" src="https://i.imgur.com/peG7BrE.jpg">
             <div class="w-[100%] wrapper px-5">
-                <div class="fixed-text text-2xl mt-2">2. 고정소득을 입력하세요. (월급 제외)</div>
-                <div class="w-[95%] bg-concrete flex flex-col wrapper rounded p-3 mx-auto mt-16">
-                    <div class="flex gap-2 border-b-4 border-[#3c424d]">
-                        <div th:text="|${nextMonth}월 예상소비계획|"></div>
-                        <div th:text="|(${nextMonth}.01 ~ ${nextMonth}.${nextMonthLastDate})|"></div>
+                <div class="text-center text-2xl mt-4"><i class="fa-solid fa-piggy-bank"></i></div>
+                <div class="text-center text-2xl mt-2">2. 고정소득 입력 (월급 제외)</div>
+                <hr class="w-[85%] mx-auto border-4 border-gray-50">
+                <div class="w-[85%] bg-concrete flex flex-col wrapper rounded p-9 pt-0 mx-auto mt-3">
+                    <div class="flex justify-between border-b-4 border-[#3c424d]">
+                        <div class="flex mt-8">
+                            <div th:text="|${nextMonth}월 예상소득|" class="text-2xl mr-2"></div>
+                            <div th:text="|(${nextMonth}.01 ~ ${nextMonth}.${nextMonthLastDate})|" class="text-2xl"></div>
+                        </div>
+                        <img src="/images/0840-svg.svg" class="w-[80px]">
                     </div>
                     <div class="flex justify-between mt-2 gap-5">
-                        <div class="flex flex-col gap-3 mt-2 w-[640px]">
-                            <div class="flex justify-between">
+                        <div class="flex flex-col gap-3 mt-2 w-[60%]">
+                            <div class="flex justify-between border-4 border-gray-50 p-2">
                                 <div><i class="fa-solid fa-coins"></i> '[[${siteUser.workPlaceName}]]' 누적급여</div>
                                 <div th:text="|${accTotalWage}원|"></div>
                             </div>
@@ -83,7 +69,7 @@
                                           rows="10" cols="33" placeholder="메모할 사항" class="w-full pl-2 pt-2 mt-2 rounded"></textarea>
                                 <div class="flex justify-end">
                                     <button type="submit"
-                                            class="border-2 border-[#3c424d] rounded text-white bg-[#3c424d] hover:shadow-md px-4 pt-1 mt-3">
+                                            class="border-2 border-[#3c424d] rounded text-white bg-[#3c424d] hover:shadow-md px-4 pt-1">
                                         고정수입추가
                                     </button>
                                 </div>
@@ -93,24 +79,37 @@
                                                                                   class="bg-[#4acaa8] text-white rounded font-bold hover: hover:shadow-md px-3 py-2 no-underline"><i
                                     class="fa-solid fa-greater-than"></i> 다음</a></div>
                         </div>
-                        <div class="card card-small card-post rounded-2xl shadow-md w-[400px] h-[500px] text-7xl font-bold">
-                            <div class="flex justify-between p-5">
-                                <div>
-                                    <div class="text-base">월급일로부터</div>
-                                    <div class="text-base">D+[[${dDayFrom}]]</div>
+                        <div class="card card-small card-post rounded-2xl shadow-md w-[400px] h-[500px] p-3">
+                            <div class="text-center text-[20px] mt-4">[영수증]</div>
+                            <div class="flex mt-3 pl-3">
+                                <div class="mr-4">[분류]</div>
+                                <div>고정소득</div>
+                            </div>
+                            <div class="flex pl-3">
+                                <div class="mr-4">[기간]</div>
+                                <div th:text="|${nextMonth}.01 ~ ${nextMonth}.${nextMonthLastDate}|"></div>
+                            </div>
+                            <div class="text-center">===================================</div>
+                            <div class="flex justify-between px-8">
+                                <div>소득유형</div>
+                                <div>금액</div>
+                            </div>
+                            <div class="text-center">---------------------------------------------</div>
+                            <div th:if="${fixedIncomes != null}" th:each="fixedIncome : ${fixedIncomes}" class="p-1 flex flex-col gap-1">
+                                <div class="flex justify-between px-4">
+                                    <div th:text="${fixedIncome.fixedIncomeType}"></div>
+                                    <div th:text="|${fixedIncome.fixedIncome}원|"></div>
                                 </div>
-                                <div>
-                                    <div class="text-base">[[${month}]]</div>
-                                    <div class="text-base">月</div>
-                                </div>
-                                <div>
-                                    <div class="text-base">월급일까지</div>
-                                    <div class="text-base">D-[[${dDayTo}]]</div>
+                                <div class="flex pl-4 gap-1 text-[14px] text-red-500">
+                                    <div>└ <i class="fa-solid fa-file-pen"></i></div>
+                                    <div th:text="${fixedIncome.fixedIncomeMemo}"></div>
                                 </div>
                             </div>
-                            <div th:if="${date == siteUser.payday}" class="text-red">[[${date}]]</div>
-                            <div th:unless="${date == siteUser.payday}" class="text-center text-9xl">[[${date}]]</div>
-                            <div class="pt-2"><img class="w-[100%] object-cover contrast-50" src="https://i.imgur.com/xZhdBs5.png"></div>
+                            <div class="text-center">---------------------------------------------</div>
+                            <div class="flex justify-between pt-2 px-4">
+                                <div>예상소득</div>
+                                <div>1234원</div>
+                            </div>
                         </div>
                     </div>
                 </div>
