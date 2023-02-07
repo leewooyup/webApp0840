@@ -34,7 +34,7 @@ public class ArticleService {
         if(oa.isPresent()) {
             return oa.get();
         } else {
-            throw new DataNotFoundException("question not found");
+            throw new DataNotFoundException("article not found");
         }
     }
 }
