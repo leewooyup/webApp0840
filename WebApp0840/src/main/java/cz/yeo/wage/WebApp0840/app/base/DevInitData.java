@@ -1,6 +1,8 @@
 package cz.yeo.wage.WebApp0840.app.base;
 
 import cz.yeo.wage.WebApp0840.app.accountBook.FixedInfoService;
+import cz.yeo.wage.WebApp0840.app.article.entity.Article;
+import cz.yeo.wage.WebApp0840.app.article.service.ArticleService;
 import cz.yeo.wage.WebApp0840.app.user.UserService;
 import cz.yeo.wage.WebApp0840.app.user.entity.SiteUser;
 import cz.yeo.wage.WebApp0840.app.user.work.WorkService;
@@ -18,11 +20,12 @@ import java.util.Date;
 @Profile("dev")
 public class DevInitData {
     @Bean
-    CommandLineRunner init(UserService userService, WorkService workService, FixedInfoService fixedInfoService, PasswordEncoder passwordEncoder) {
+    CommandLineRunner init(UserService userService, WorkService workService, FixedInfoService fixedInfoService,
+                           ArticleService articleService, PasswordEncoder passwordEncoder) {
         return args -> {
             String password = passwordEncoder.encode("1234");
 
-            SiteUser siteUser1 = userService.join("user1", password, "peter", "user1@test.com",
+            SiteUser siteUser1 = userService.join("user1", password, "admin", "user1@test.com",
                     "아웃백", 11200, true, true, true, 23, 5, new Date(2019,7,18));
 
             Work work1 = workService.create(siteUser1, "2022-12-03", 5, 30, 5, 31, 0, 31, "근무일");
@@ -37,6 +40,11 @@ public class DevInitData {
             fixedInfoService.createFixedIncome(siteUser1, "용돈", 300000, "취업할때까지만");
             SiteUser siteUser2 = userService.join("user2", password, "nick", "user2@test.com",
                     "카페", 9620, true, true, true, 0, 7, new Date(2023,1,2));
+
+            Article article1 = articleService.create(siteUser1, "실업급여란?", "직장을 잃게된 경우...");
+            Article article2 = articleService.create(siteUser1, "연차란?", "1년동안 80%이상을...");
+            Article article3 = articleService.create(siteUser1, "연말정산이란?", "직장인이 매달 월급애서 떼인...");
+            Article article4 = articleService.create(siteUser1, "주휴수당이란?", "사업장 규모에 관계없이....");
         };
     }
 
