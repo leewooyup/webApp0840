@@ -10,15 +10,94 @@
     }
 
     .popup {
-        position: absolute;
+        position:fixed;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        background-color:rgba(0,0,0,0.5);
+        align-items:center;
+        justify-content:center;
+        display:flex;
+        visibility:hidden;
+        transition: opacity .3s, visibility .3s;
     }
 
-    .popup2 {
-        position: absolute;
+    .popup-2 {
+        position:fixed;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        background-color:rgba(0,0,0,0.5);
+        align-items:center;
+        justify-content:center;
+        display:flex;
+        visibility:hidden;
+        transition: opacity .3s, visibility .3s;
     }
 
-    .popup3 {
-        position: absolute;
+    .popup-3 {
+        position:fixed;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        background-color:rgba(0,0,0,0.5);
+        align-items:center;
+        justify-content:center;
+        display:flex;
+        visibility:hidden;
+        transition: opacity .3s, visibility .3s;
+    }
+
+    .popup.active {
+        opacity:1;
+        visibility:visible;
+    }
+
+    .popup-2.active {
+        opacity:1;
+        visibility:visible;
+    }
+
+    .popup-3.active {
+        opacity:1;
+        visibility:visible;
+    }
+
+    .popup.active .popup__content {
+        transform:translateY(10%);
+    }
+
+    .popup-2.active .popup__content {
+        transform:translateY(10%);
+    }
+
+    .popup-3.active .popup__content {
+        transform:translateY(10%);
+    }
+
+    .popup__content {
+        width:200px;
+        height:200px;
+        background-color:white;
+        border:2px solid black;
+        transform:translateY(-100%);
+        transition: transform .3s;
+    }
+
+    .popup__head {
+        padding:10px;
+    }
+
+    .popup__btn-close {
+        width:30px;
+        height:30px;
+        margin-left:auto;
+        position:relative;
+        cursor:pointer;
+        transition:transform 0.3s;
     }
 
     .main-section {
@@ -179,14 +258,12 @@
         border-right: .05em solid black;
         animation: cursor 0.2s ease infinite;
     }
-
-
     </style>
 </head>
 <th:block layout:fragment="content">
     <body class="wrapper" style="position: relative">
-    <div class="popup hidden bg-[#000000AA] w-full h-[2200px] z-10 flex justify-center">
-        <div class="popup__content bg-white rounded mt-[100px] w-[450px] h-[500px]">
+    <div class="popup z-10">
+        <div class="popup__content rounded w-[450px] h-[500px]">
             <div class="popup__head flex justify-end">
                 <button class="btn-close p-3">
                 </button>
@@ -228,14 +305,13 @@
         </div>
     </div>
 
-    <div class="popup2 hidden bg-[#000000AA] w-full h-[2200px] z-10 flex justify-center">
-        <div class="popup2__content bg-white rounded mt-[100px] w-[450px] h-[500px]">
-            <div class="popup2__head flex justify-end">
-                <button class="btn-close2 p-3">
-                    <i class="fa-solid fa-xmark"></i>
+    <div class="popup-2 z-10">
+        <div class="popup__content rounded w-[450px] h-[500px]">
+            <div class="popup__head flex justify-end">
+                <button class="btn-close p-3">
                 </button>
             </div>
-            <div class="popup2__body px-5 py-3">
+            <div class="popup__body px-5 py-3">
                 <div class="text-center text-xl">내 고정지출/소득 정보</div>
                 <form th:action="@{/reset/fixedInfo}" method="POST">
                     <div class="mt-5">
@@ -267,14 +343,13 @@
         </div>
     </div>
 
-    <div class="popup3 hidden bg-[#000000AA] w-full h-[2200px] z-10 flex justify-center">
-        <div class="popup3__content bg-white rounded mt-[100px] w-[450px] h-[500px]">
-            <div class="popup3__head flex justify-end">
-                <button class="btn-close3 p-3">
-                    <i class="fa-solid fa-xmark"></i>
+    <div class="popup-3 z-10 flex justify-center">
+        <div class="popup__content rounded w-[450px] h-[500px]">
+            <div class="popup__head flex justify-end">
+                <button class="btn-close p-3">
                 </button>
             </div>
-            <div class="popup3__body px-5 py-3">
+            <div class="popup__body px-5 py-3">
                 <div class="text-center text-xl">내 정보</div>
                 <form th:action="@{/modify/userInfo}" method="POST">
 <!--                    <div th:replace="form_errors :: formErrorsFragment"></div>-->
@@ -311,13 +386,13 @@
                 </button>
             </div>
             <div class="text-center">
-                <button class="btn-show-popup2">
+                <button class="btn-show-popup-2">
                     <i class="fa-regular fa-file-lines"></i>
                     <div>가계정보</div>
                 </button>
             </div>
             <div class="text-center">
-                <button class="btn-show-popup3">
+                <button class="btn-show-popup-3">
                     <i class="fa-regular fa-circle-user"></i>
                     <div>내정보</div>
                 </button>
@@ -436,34 +511,36 @@
     </section>
     <script>
         $(".btn-close").click(function() {
-            $(".popup").addClass("hidden");
+            $(".popup").removeClass("active");
         });
         $(".btn-show-popup").click(function() {
-            $(".popup").removeClass("hidden");
+            $(".popup").addClass("active");
         });
         $(".check").click(function() {
-            $(".popup").addClass("hidden");
+            $(".popup").removeClass("active");
         });
 
-        $(".btn-close2").click(function() {
-            $(".popup2").addClass("hidden");
+        $(".btn-close").click(function() {
+            $(".popup-2").removeClass("active");
         });
-        $(".btn-show-popup2").click(function() {
-            $(".popup2").removeClass("hidden");
+        $(".btn-show-popup-2").click(function() {
+            $(".popup-2").addClass("active");
         });
         $(".check").click(function() {
-            $(".popup2").addClass("hidden");
+            $(".popup-2").removeClass("active");
         });
 
-        $(".btn-close3").click(function() {
-            $(".popup3").addClass("hidden");
+        $(".btn-close").click(function() {
+            $(".popup-3").removeClass("active");
         });
-        $(".btn-show-popup3").click(function() {
-            $(".popup3").removeClass("hidden");
+        $(".btn-show-popup-3").click(function() {
+            $(".popup-3").addClass("active");
         });
         $(".check").click(function() {
-            $(".popup3").addClass("hidden");
+            $(".popup-3").removeClass("active");
         });
+
+
         const content = "법정근로시간 : 법률이 정하는 기준 근로시간.";
         const text = document.querySelector(".typingText");
         let index=0;
