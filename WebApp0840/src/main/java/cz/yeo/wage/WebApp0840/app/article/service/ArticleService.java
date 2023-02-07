@@ -15,9 +15,10 @@ import java.util.Optional;
 public class ArticleService {
     private final ArticleRepository articleRepository;
 
-    public Article create(SiteUser siteUser1, String subject, String content) {
+    public Article create(SiteUser siteUser1, String subject, String subSubject, String content) {
         Article article = Article.builder()
                 .subject(subject)
+                .subSubject(subSubject)
                 .content(content)
                 .author(siteUser1)
                 .build();

@@ -22,6 +22,9 @@ public class Article extends BaseEntity {
     @Column(length = 200)
     private String subject;
 
+    @Column(length = 30)
+    private String subSubject;
+
     @Column(columnDefinition = "TEXT")
     private String content;
 

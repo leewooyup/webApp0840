@@ -41,10 +41,10 @@ public class DevInitData {
             SiteUser siteUser2 = userService.join("user2", password, "nick", "user2@test.com",
                     "카페", 9620, true, true, true, 0, 7, new Date(2023,1,2));
 
-            Article article1 = articleService.create(siteUser1, "실업급여란?", "직장을 잃게된 경우...");
-            Article article2 = articleService.create(siteUser1, "연차란?", "1년동안 80%이상을...");
-            Article article3 = articleService.create(siteUser1, "연말정산이란?", "직장인이 매달 월급애서 떼인...");
-            Article article4 = articleService.create(siteUser1, "주휴수당이란?", "사업장 규모에 관계없이....");
+            Article article1 = articleService.create(siteUser1, "실업급여란?", "대한민국 4대 보험 中 1","직장을 잃게된 경우...");
+            Article article2 = articleService.create(siteUser1, "연차란?", "근로기준법 제 60조", "1년동안 80%이상을...");
+            Article article3 = articleService.create(siteUser1, "연말정산이란?", "13월의 월급", "직장인이 매달 월급애서 떼인...");
+            Article article4 = articleService.create(siteUser1, "주휴수당이란?", "근로기준법 제 55조", "사업장 규모에 관계없이....");
         };
     }
 

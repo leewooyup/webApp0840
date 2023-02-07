@@ -1,0 +1,26 @@
+<html
+        xmlns:th="http://thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}"
+>
+<th:block layout:fragment="content">
+    <div class="container p-5 mt-16">
+        <div class="my-2 border-bottom text-2xl">근로매거진 쓰기<i class="fa-solid fa-head-side-cough" style="margin-left: 5px;"></i></div>
+        <form th:action="@{/article/create}" method="POST">
+            <div class="mb-3">
+                <label for="subject" class="form-label">제목</label>
+                <input type="text" name="subject" id="subject" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="subSubject" class="form-label">부제</label>
+                <input type="text" name="subSubject" id="subSubject" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label">내용</label>
+                <textarea name="content" row="10" id="content" class="form-control"></textarea>
+            </div>
+            <input type="submit" value="발행" class="bg-red-500 no-underline text-white p-1 px-4 rounded">
+        </form>
+    </div>
+</th:block>
+</html>

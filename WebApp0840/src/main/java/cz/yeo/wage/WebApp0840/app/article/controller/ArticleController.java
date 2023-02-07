@@ -9,10 +9,7 @@ import cz.yeo.wage.WebApp0840.app.user.entity.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.text.ParseException;
@@ -49,5 +46,20 @@ public class ArticleController {
         model.addAttribute("article", article);
         model.addAttribute("createDateFormat", createDateFormat);
         return "article/detail";
+    }
+
+    @GetMapping("/create")
+    public String articleCreate(Principal principal, Model model) {
+        SiteUser siteUser = userService.findByUsername(principal.getName());
+        model.addAttribute("siteUser", siteUser);
+        return "article/create";
+    }
+
+    @PostMapping("/create")
+    public String articleCreate(Principal principal, Model model, @RequestParam String subject, @RequestParam String subSubject, @RequestParam String content) {
+        SiteUser siteUser = userService.findByUsername(principal.getName());
+        articleService.create(siteUser, subject, subSubject, content);
+        model.addAttribute("siteUser", siteUser);
+        return "redirect:/article/list";
     }
 }
