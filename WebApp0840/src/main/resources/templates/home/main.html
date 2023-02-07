@@ -87,6 +87,10 @@
         transition: transform .3s;
     }
 
+    #profile-section.inactive {
+        visibility: hidden;
+    }
+
     .popup__head {
         padding:10px;
     }
@@ -123,9 +127,33 @@
         z-index: 2;
         width: 300px;
         height: 150px;
-        padding: 30px;
+        padding-top: 5px;
         background-color: rgba(288, 288, 288, 0.7);
         border-radius: 5px;
+        visibility: visible;
+    }
+
+    #profile-icon {
+        position: fixed;
+        top: 140px;
+        right: 50px;
+        z-index: 2;
+        width: 40px;
+        height: 40px;
+        padding: 3px;
+        border: 1px solid black;
+        border-radius: 50%;
+        background-color: white;
+        visibility: hidden;
+    }
+
+    #profile-icon:hover {
+        cursor: pointer;
+    }
+
+
+    #profile-icon.icon-active {
+        visibility: visible;
     }
 
     .sub-section-1 {
@@ -373,12 +401,22 @@
             </div>
         </div>
     </div>
+
+    <section id="profile-icon" class="flex justify-center items-center">
+        <i class="fa-regular fa-user"></i>
+    </section>
+
     <section id="profile-section">
-        <div class="flex justify-between">
+        <div class="flex justify-end pr-3">
+            <button class="btn-close-profile">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="flex justify-between px-4">
             <div th:text="|${siteUser.nickname}님|"></div>
             <div class="border border-[#EEEEEE] bg-gray-50 text-sm px-3 pt-1 rounded h-[25px] hover:shadow-md"><a th:href="@{/user/logout}" class="no-underline text-black hover:text-black">로그아웃</a></div>
         </div>
-        <div class="flex justify-between mt-4">
+        <div class="flex justify-between mt-4 px-4">
             <div class="text-center">
                 <button class="btn-show-popup">
                     <i class="fa-regular fa-file-lines"></i>
@@ -510,6 +548,16 @@
         </div>
     </section>
     <script>
+        $(".btn-close-profile").click(function() {
+            $("#profile-section").addClass("inactive");
+            $("#profile-icon").addClass("icon-active");
+        });
+
+        $("#profile-icon").click(function() {
+            $("#profile-section").removeClass("inactive");
+            $("#profile-icon").removeClass("icon-active");
+        });
+
         $(".btn-close").click(function() {
             $(".popup").removeClass("active");
         });

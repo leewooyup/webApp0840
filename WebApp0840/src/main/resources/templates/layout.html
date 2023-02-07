@@ -5,21 +5,7 @@
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 >
 <th:block th:replace="/head :: headFragment"></th:block>
-<head>
-    <style>
-        #profile-section {
-            position: fixed;
-            top: 140px;
-            right: 50px;
-            z-index: 2;
-            width: 300px;
-            height: 150px;
-            padding: 30px;
-            background-color: rgba(288, 288, 288, 0.7);
-            border-radius: 5px;
-        }
-    </style>
-</head>
+
 <body class="flex flex-col h-[2000px]">
     <!-- JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -36,33 +22,6 @@
     <div class="h-[80px] flex flex-col">
         <th:block th:replace="/navbar :: navbarFragment"></th:block>
     </div>
-
-    <section id="profile-section">
-        <div class="flex justify-between">
-            <div th:text="|${siteUser.nickname}님|"></div>
-            <div class="border border-[#EEEEEE] bg-gray-50 text-sm px-3 pt-1 rounded h-[25px] hover:shadow-md"><a th:href="@{/user/logout}" class="no-underline text-black hover:text-black">로그아웃</a></div>
-        </div>
-        <div class="flex justify-between mt-4">
-            <div class="text-center">
-                <button class="btn-show-popup">
-                    <i class="fa-regular fa-file-lines"></i>
-                    <div>급여정보</div>
-                </button>
-            </div>
-            <div class="text-center">
-                <button class="btn-show-popup2">
-                    <i class="fa-regular fa-file-lines"></i>
-                    <div>가계정보</div>
-                </button>
-            </div>
-            <div class="text-center">
-                <button class="btn-show-popup3">
-                    <i class="fa-regular fa-circle-user"></i>
-                    <div>내정보</div>
-                </button>
-            </div>
-        </div>
-    </section>
 
     <!-- 기본 템플릿 안에 삽입될 내용 Start -->
     <div class="h-[100vh] flex-grow">
