@@ -8,10 +8,12 @@ import cz.yeo.wage.WebApp0840.app.article.service.ArticleService;
 import cz.yeo.wage.WebApp0840.app.user.UserService;
 import cz.yeo.wage.WebApp0840.app.user.entity.SiteUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -70,5 +72,35 @@ public class ArticleController {
         articleService.create(siteUser, articleForm.getSubject(), articleForm.getSubSubject(), articleForm.getContent());
         model.addAttribute("siteUser", siteUser);
         return "redirect:/article/list";
+    }
+
+    @GetMapping("/modify/{id}")
+    public String articleModify(ArticleForm articleForm, @PathVariable("id") Integer id, Principal principal, Model model) {
+        SiteUser siteUser = userService.findByUsername(principal.getName());
+        Article article = articleService.getArticle(id);
+        if(!article.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        articleForm.setSubject(article.getSubject());
+        articleForm.setSubSubject(article.getSubSubject());
+        articleForm.setContent(article.getContent());
+        model.addAttribute("siteUser", siteUser);
+        return "article/create";
+    }
+
+    @PostMapping("/modify/{id}")
+    public String articleModify(@Valid ArticleForm articleForm, BindingResult bindingResult, Principal principal, Model model, @PathVariable("id") Integer id) {
+        SiteUser siteUser = userService.findByUsername(principal.getName());
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("siteUser", siteUser);
+            return "article/create";
+        }
+        Article article = articleService.getArticle(id);
+        if(!article.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        articleService.modify(article, articleForm.getSubject(), articleForm.getSubSubject(), articleForm.getContent());
+        return String.format("redirect:/article/detail/%s", id);
+
     }
 }
