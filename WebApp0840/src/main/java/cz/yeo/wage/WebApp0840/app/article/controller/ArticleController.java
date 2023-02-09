@@ -3,14 +3,17 @@ package cz.yeo.wage.WebApp0840.app.article.controller;
 import cz.yeo.wage.WebApp0840.app.accountBook.entity.FixedIncome;
 import cz.yeo.wage.WebApp0840.app.accountBook.entity.FixedSpending;
 import cz.yeo.wage.WebApp0840.app.article.entity.Article;
+import cz.yeo.wage.WebApp0840.app.article.form.ArticleForm;
 import cz.yeo.wage.WebApp0840.app.article.service.ArticleService;
 import cz.yeo.wage.WebApp0840.app.user.UserService;
 import cz.yeo.wage.WebApp0840.app.user.entity.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -49,16 +52,22 @@ public class ArticleController {
     }
 
     @GetMapping("/create")
-    public String articleCreate(Principal principal, Model model) {
+    public String articleCreateForm(ArticleForm articleForm, Principal principal, Model model) {
         SiteUser siteUser = userService.findByUsername(principal.getName());
         model.addAttribute("siteUser", siteUser);
         return "article/create";
     }
 
     @PostMapping("/create")
-    public String articleCreate(Principal principal, Model model, @RequestParam String subject, @RequestParam String subSubject, @RequestParam String content) {
+    public String articleCreate(@Valid ArticleForm articleForm, BindingResult bindingResult, Principal principal, Model model,
+                                @RequestParam String subject, @RequestParam String subSubject, @RequestParam String content) {
+        if(bindingResult.hasErrors()) {
+            SiteUser siteUser = userService.findByUsername(principal.getName());
+            model.addAttribute("siteUser", siteUser);
+            return "article/create";
+        }
         SiteUser siteUser = userService.findByUsername(principal.getName());
-        articleService.create(siteUser, subject, subSubject, content);
+        articleService.create(siteUser, articleForm.getSubject(), articleForm.getSubSubject(), articleForm.getContent());
         model.addAttribute("siteUser", siteUser);
         return "redirect:/article/list";
     }

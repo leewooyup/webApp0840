@@ -6,7 +6,8 @@
 <th:block layout:fragment="content">
     <div class="container p-5 mt-16">
         <div>
-            <div class="text-base text-gray-500">[[${article.subSubject}]]</div>
+            <div class="text-base text-gray-500" th:if="${#strings.isEmpty(article.subSubject)}"  th:text="|${article.id}번째 매거진|"></div>
+            <div class="text-base text-gray-500" th:if="${not #strings.isEmpty(article.subSubject)}">[[${article.subSubject}]]</div>
             <div th:text="${article.subject}" class="text-2xl"></div>
             <div class="flex gap-2 mt-3">
                 <div class="border border-gray-50 rounded-full"><img src="/images/0840-svg.svg" class="w-[90px]"></div>
