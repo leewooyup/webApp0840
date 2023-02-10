@@ -2,6 +2,7 @@ package cz.yeo.wage.WebApp0840.app.article.Answer.entity;
 
 import cz.yeo.wage.WebApp0840.app.article.entity.Article;
 import cz.yeo.wage.WebApp0840.app.base.entity.BaseEntity;
+import cz.yeo.wage.WebApp0840.app.user.entity.SiteUser;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.DynamicInsert;

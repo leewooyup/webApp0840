@@ -2,6 +2,7 @@ package cz.yeo.wage.WebApp0840.app.article.controller;
 
 import cz.yeo.wage.WebApp0840.app.accountBook.entity.FixedIncome;
 import cz.yeo.wage.WebApp0840.app.accountBook.entity.FixedSpending;
+import cz.yeo.wage.WebApp0840.app.article.Answer.entity.Answer;
 import cz.yeo.wage.WebApp0840.app.article.entity.Article;
 import cz.yeo.wage.WebApp0840.app.article.form.ArticleForm;
 import cz.yeo.wage.WebApp0840.app.article.service.ArticleService;
@@ -102,5 +103,17 @@ public class ArticleController {
         articleService.modify(article, articleForm.getSubject(), articleForm.getSubSubject(), articleForm.getContent());
         return String.format("redirect:/article/detail/%s", id);
 
+    }
+
+    @GetMapping("/delete/{id}")
+    public String articleDelete(@PathVariable("id") Integer id, Principal principal, Model model) {
+        SiteUser siteUser = userService.findByUsername(principal.getName());
+        Article article = articleService.getArticle(id);
+        if(!article.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        articleService.delete(article);
+        model.addAttribute("siteUser", siteUser);
+        return "redirect:/article/list";
     }
 }

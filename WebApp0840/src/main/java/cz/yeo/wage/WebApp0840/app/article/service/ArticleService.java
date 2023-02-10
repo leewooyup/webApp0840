@@ -1,5 +1,6 @@
 package cz.yeo.wage.WebApp0840.app.article.service;
 
+import cz.yeo.wage.WebApp0840.app.article.Answer.entity.Answer;
 import cz.yeo.wage.WebApp0840.app.article.entity.Article;
 import cz.yeo.wage.WebApp0840.app.article.repository.ArticleRepository;
 import cz.yeo.wage.WebApp0840.app.exception.DataNotFoundException;
@@ -44,5 +45,9 @@ public class ArticleService {
         article.setSubSubject(subSubject);
         article.setContent(content);
         articleRepository.save(article);
+    }
+
+    public void delete(Article article) {
+        articleRepository.delete(article);
     }
 }

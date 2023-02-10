@@ -1,15 +1,17 @@
 package cz.yeo.wage.WebApp0840.app.article.Answer.controller;
 
+import cz.yeo.wage.WebApp0840.app.article.Answer.entity.Answer;
 import cz.yeo.wage.WebApp0840.app.article.Answer.service.AnswerService;
 import cz.yeo.wage.WebApp0840.app.article.entity.Article;
 import cz.yeo.wage.WebApp0840.app.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/answer")

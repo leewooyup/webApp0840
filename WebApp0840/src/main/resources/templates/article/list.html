@@ -31,7 +31,7 @@
                 <th scope="row"><a th:href="@{|/article/detail/${article.id}|}" class="no-underline text-black hover:text-[#3c424d]">[[${article.id}]]</a></th>
                 <td><a th:href="@{|/article/detail/${article.id}|}" class="no-underline text-black hover:text-[#3c424d]">[[${article.subject}]]</a></td>
                 <td><a th:href="@{|/article/detail/${article.id}|}" class="no-underline text-black hover:text-[#3c424d]">[[${article.content}]]</a></td>
-                <td><a th:href="@{|/article/detail/${article.id}|}" class="no-underline text-black hover:text-[#3c424d]">[[${siteUser.nickname}]]</a></td>
+                <td><a th:href="@{|/article/detail/${article.id}|}" class="no-underline text-black hover:text-[#3c424d]">[[${article.author.nickname}]]</a></td>
             </tr>
             </tbody>
         </table>
