@@ -20,6 +20,7 @@
             <label style="color:rgb(5, 153, 217);">[[${siteUser.nickname}]]</label>
             <label> | </label>
             <label>작성일: [[${createDateFormat}]]</label>
+            <label class="ml-2">수정일: [[${ModifyDateFormat}]]</label>
         </div>
         <hr class="mt-0">
 
@@ -76,6 +77,7 @@
             </a>
         </div>
     </div>
+
     <script layout:fragment="script" type="text/javascript">
         const delete_elements = document.getElementsByClassName("delete");
         Array.from(delete_elements).forEach(function(element) {

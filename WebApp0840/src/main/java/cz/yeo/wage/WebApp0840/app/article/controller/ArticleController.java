@@ -48,9 +48,11 @@ public class ArticleController {
         SiteUser siteUser = userService.findByUsername(principal.getName());
         Article article = articleService.getArticle(id);
         String createDateFormat = article.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        String ModifyDateFormat = article.getModifyDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         model.addAttribute("siteUser", siteUser);
         model.addAttribute("article", article);
         model.addAttribute("createDateFormat", createDateFormat);
+        model.addAttribute("ModifyDateFormat", ModifyDateFormat);
         return "article/detail";
     }
 
