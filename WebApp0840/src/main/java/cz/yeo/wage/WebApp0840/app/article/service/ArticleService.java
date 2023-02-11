@@ -66,6 +66,7 @@ public class ArticleService {
                 .subSubject(subSubject)
                 .content(content)
                 .author(siteUser1)
+                .proposedImg("article/default.jpg")
                 .build();
         articleRepository.save(article);
         return article;

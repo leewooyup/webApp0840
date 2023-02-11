@@ -3,6 +3,8 @@ package cz.yeo.wage.WebApp0840.app.home.controller;
 import cz.yeo.wage.WebApp0840.app.accountBook.FixedInfoService;
 import cz.yeo.wage.WebApp0840.app.accountBook.entity.FixedIncome;
 import cz.yeo.wage.WebApp0840.app.accountBook.entity.FixedSpending;
+import cz.yeo.wage.WebApp0840.app.article.entity.Article;
+import cz.yeo.wage.WebApp0840.app.article.service.ArticleService;
 import cz.yeo.wage.WebApp0840.app.user.UserService;
 import cz.yeo.wage.WebApp0840.app.user.dto.UserContext;
 import cz.yeo.wage.WebApp0840.app.user.entity.SiteUser;
@@ -32,6 +34,7 @@ import java.util.List;
 public class HomeController {
     private final UserService userService;
     private final FixedInfoService fixedInfoService;
+    private final ArticleService articleService;
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping("/")
@@ -39,10 +42,12 @@ public class HomeController {
         SiteUser siteUser = userService.findByUsername(principal.getName());
         List<FixedSpending> fixedSpendings = fixedInfoService.findFixedSpendingBySiteUser(siteUser);
         List<FixedIncome> fixedIncomes =  fixedInfoService.findFixedIncomeBySiteUser(siteUser);
+        List<Article> articles = articleService.findAll();
         model.addAttribute("siteUser", siteUser);
         model.addAttribute("fixedSpendings", fixedSpendings);
         model.addAttribute("fixedIncomes", fixedIncomes);
         model.addAttribute("now", Util.date.getCurrentDateFormatted("yyyy.MM.dd"));
+        model.addAttribute("articles", articles);
         return "home/main";
     }
 
