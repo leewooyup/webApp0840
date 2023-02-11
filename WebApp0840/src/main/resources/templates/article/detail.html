@@ -4,6 +4,7 @@
         xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
         layout:decorate="~{layout}"
 >
+
 <th:block layout:fragment="content">
     <div class="container p-5 mt-16">
         <div>
@@ -27,6 +28,7 @@
         <div class="mt-3">
             [[${article.content}]]
         </div>
+
         <div class="mt-3 flex justify-end text-sm">
             <a th:href="@{|/article/modify/${article.id}|}"
                sec:authorize="isAuthenticated()"
