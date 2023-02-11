@@ -28,6 +28,8 @@ public class Article extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String content;
 
+    private String proposedImg;
+
     @ManyToOne
     private SiteUser author;
 

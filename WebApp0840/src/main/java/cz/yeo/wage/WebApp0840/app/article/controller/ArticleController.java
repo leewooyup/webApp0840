@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
@@ -64,7 +65,7 @@ public class ArticleController {
     }
 
     @PostMapping("/create")
-    public String articleCreate(@Valid ArticleForm articleForm, BindingResult bindingResult, Principal principal, Model model,
+    public String articleCreate(@Valid ArticleForm articleForm, MultipartFile proposedImg, BindingResult bindingResult, Principal principal, Model model,
                                 @RequestParam String subject, @RequestParam String subSubject, @RequestParam String content) {
         if(bindingResult.hasErrors()) {
             SiteUser siteUser = userService.findByUsername(principal.getName());
@@ -72,7 +73,7 @@ public class ArticleController {
             return "article/create";
         }
         SiteUser siteUser = userService.findByUsername(principal.getName());
-        articleService.create(siteUser, articleForm.getSubject(), articleForm.getSubSubject(), articleForm.getContent());
+        articleService.create(siteUser, articleForm.getSubject(), articleForm.getSubSubject(), articleForm.getContent(), proposedImg);
         model.addAttribute("siteUser", siteUser);
         return "redirect:/article/list";
     }

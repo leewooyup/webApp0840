@@ -86,7 +86,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.8/purify.min.js"></script>
         <!-- 토스트 UI 에디터 의존성 끝 -->
         <div class="my-2 border-bottom text-2xl">근로매거진 쓰기<i class="fa-solid fa-head-side-cough" style="margin-left: 5px;"></i></div>
-        <form method="post"  onsubmit="ArticleSave__submit(this); return false;" id="form_article" th:object="${articleForm}">
+        <form method="post"  onsubmit="ArticleSave__submit(this); return false;" id="form_article" th:object="${articleForm}" enctype="multipart/form-data">
 <!--            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
             <div th:replace="form_errors :: formErrorsFragment"></div>
             <div class="mb-3">
@@ -101,6 +101,10 @@
                 <label for="content" class="form-label">내용</label>
                 <input type="hidden" name="content" th:field="*{content}" id="content"/>
                 <div class="toast-ui-editor" toast-ui-editor--height="400px"></div>
+            </div>
+            <div class="mb-3">
+                <label for="proposedImg" class="form-label">대표이미지</label>
+                <input type="file" name="proposedImg" id="proposedImg" accept="image/jpeg, image/gif, image/png">
             </div>
             <input type="submit" value="발행" class="bg-red-500 no-underline text-white p-1 px-4 rounded">
         </form>
