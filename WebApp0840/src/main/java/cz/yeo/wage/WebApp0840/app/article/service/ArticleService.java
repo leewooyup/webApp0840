@@ -39,10 +39,11 @@ public class ArticleService {
     }
 
     private String saveProposedImg(MultipartFile proposedImg) {
-        if (proposedImg == null || proposedImg.isEmpty()) {
-            return null;
-        }
         String proposedImgDirName = "article";
+        if (proposedImg.isEmpty()) {
+            return proposedImgDirName + "/default.jpg";
+        }
+
         String ext = Util.file.getExt(proposedImg.getOriginalFilename());
         String fileName= UUID.randomUUID() + "." + ext;
         String proposedImgDirPath = genFileDirPath + "/" + proposedImgDirName;

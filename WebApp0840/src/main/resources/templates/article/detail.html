@@ -24,7 +24,9 @@
             <label class="ml-2">수정일: [[${ModifyDateFormat}]]</label>
         </div>
         <hr class="mt-0">
-
+        <div class="mt-3">
+            <img th:src="@{|/article/img/${article.id}|}" alt="">
+        </div>
         <div class="mt-3">
             [[${article.content}]]
         </div>

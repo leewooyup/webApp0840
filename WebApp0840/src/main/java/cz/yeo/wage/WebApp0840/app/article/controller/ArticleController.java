@@ -34,7 +34,6 @@ public class ArticleController {
     private final ArticleService articleService;
     private final UserService userService;
 
-
     @GetMapping("/list")
     public String list(Principal principal, Model model) {
         SiteUser siteUser = userService.findByUsername(principal.getName());
@@ -65,7 +64,7 @@ public class ArticleController {
     }
 
     @PostMapping("/create")
-    public String articleCreate(@Valid ArticleForm articleForm, MultipartFile proposedImg, BindingResult bindingResult, Principal principal, Model model,
+    public String articleCreate(@Valid ArticleForm articleForm, @RequestParam MultipartFile proposedImg, BindingResult bindingResult, Principal principal, Model model,
                                 @RequestParam String subject, @RequestParam String subSubject, @RequestParam String content) {
         if(bindingResult.hasErrors()) {
             SiteUser siteUser = userService.findByUsername(principal.getName());
@@ -76,6 +75,11 @@ public class ArticleController {
         articleService.create(siteUser, articleForm.getSubject(), articleForm.getSubSubject(), articleForm.getContent(), proposedImg);
         model.addAttribute("siteUser", siteUser);
         return "redirect:/article/list";
+    }
+
+    @GetMapping("/img/{id}")
+    public String showProposedImg(@PathVariable("id") Integer id) {
+        return "redirect:/gen/" + articleService.getArticle(id).getProposedImg();
     }
 
     @GetMapping("/modify/{id}")
