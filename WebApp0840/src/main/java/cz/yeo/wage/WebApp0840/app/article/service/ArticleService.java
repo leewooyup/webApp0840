@@ -8,11 +8,16 @@ import cz.yeo.wage.WebApp0840.app.user.entity.SiteUser;
 import cz.yeo.wage.WebApp0840.util.Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -94,5 +99,12 @@ public class ArticleService {
 
     public void delete(Article article) {
         articleRepository.delete(article);
+    }
+
+    public Page<Article> getList(int page) {
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("createDate"));
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+        return articleRepository.findAll(pageable);
     }
 }

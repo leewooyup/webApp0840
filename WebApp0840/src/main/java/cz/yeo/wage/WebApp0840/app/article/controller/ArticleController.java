@@ -9,6 +9,7 @@ import cz.yeo.wage.WebApp0840.app.article.service.ArticleService;
 import cz.yeo.wage.WebApp0840.app.user.UserService;
 import cz.yeo.wage.WebApp0840.app.user.entity.SiteUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,9 +36,11 @@ public class ArticleController {
     private final UserService userService;
 
     @GetMapping("/list")
-    public String list(Principal principal, Model model) {
+    public String list(Principal principal, Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
         SiteUser siteUser = userService.findByUsername(principal.getName());
         List<Article> articles = articleService.findAll();
+        Page<Article> paging = articleService.getList(page);
+        model.addAttribute("paging", paging);
         model.addAttribute("siteUser", siteUser);
         model.addAttribute("articles", articles);
         return "article/list";

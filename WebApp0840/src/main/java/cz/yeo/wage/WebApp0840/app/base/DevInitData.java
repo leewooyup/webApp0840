@@ -45,6 +45,14 @@ public class DevInitData {
             Article article2 = articleService.create(siteUser1, "연차란?", "근로기준법 제 60조", "1년동안 80%이상을...");
             Article article3 = articleService.create(siteUser1, "연말정산이란?", "13월의 월급", "직장인이 매달 월급애서 떼인...");
             Article article4 = articleService.create(siteUser1, "주휴수당이란?", "근로기준법 제 55조", "사업장 규모에 관계없이....");
+            Article article5 = articleService.create(siteUser1, "주휴수당이란?", "근로기준법 제 55조", "사업장 규모에 관계없이....");
+            Article article6 = articleService.create(siteUser1, "주휴수당이란?", "근로기준법 제 55조", "사업장 규모에 관계없이....");
+            Article article7 = articleService.create(siteUser1, "주휴수당이란?", "근로기준법 제 55조", "사업장 규모에 관계없이....");
+            Article article8 = articleService.create(siteUser1, "주휴수당이란?", "근로기준법 제 55조", "사업장 규모에 관계없이....");
+            Article article9 = articleService.create(siteUser1, "주휴수당이란?", "근로기준법 제 55조", "사업장 규모에 관계없이....");
+            Article article10 = articleService.create(siteUser1, "주휴수당이란?", "근로기준법 제 55조", "사업장 규모에 관계없이....");
+            Article article11 = articleService.create(siteUser1, "주휴수당이란?", "근로기준법 제 55조", "사업장 규모에 관계없이....");
+            Article article12 = articleService.create(siteUser1, "주휴수당이란?", "근로기준법 제 55조", "사업장 규모에 관계없이....");
         };
     }
 
