@@ -540,7 +540,7 @@
             </div>
         </div>
         <div class="flex gap-3">
-            <div th:each="article : ${articles}" class="card w-[300px]">
+            <div th:each="article : ${articlesTop4}" class="card w-[300px]">
                 <a th:href="@{|/article/detail/${article.id}|}" class="no-underline text-black hover:text-black">
                     <img th:src="@{|/article/img/${article.id}|}" class="card-img-top" alt="card-img-top">
                     <div class="card-body">

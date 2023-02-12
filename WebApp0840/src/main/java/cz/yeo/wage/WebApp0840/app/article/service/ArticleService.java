@@ -107,4 +107,8 @@ public class ArticleService {
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
         return articleRepository.findAll(pageable);
     }
+
+    public List<Article> getArticleTop4() {
+        return articleRepository.findFirst4ByOrderByIdDesc();
+    }
 }

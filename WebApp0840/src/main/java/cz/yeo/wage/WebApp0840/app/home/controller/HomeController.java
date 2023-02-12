@@ -43,11 +43,13 @@ public class HomeController {
         List<FixedSpending> fixedSpendings = fixedInfoService.findFixedSpendingBySiteUser(siteUser);
         List<FixedIncome> fixedIncomes =  fixedInfoService.findFixedIncomeBySiteUser(siteUser);
         List<Article> articles = articleService.findAll();
+        List<Article> articlesTop4 = articleService.getArticleTop4();
         model.addAttribute("siteUser", siteUser);
         model.addAttribute("fixedSpendings", fixedSpendings);
         model.addAttribute("fixedIncomes", fixedIncomes);
         model.addAttribute("now", Util.date.getCurrentDateFormatted("yyyy.MM.dd"));
         model.addAttribute("articles", articles);
+        model.addAttribute("articlesTop4", articlesTop4);
         return "home/main";
     }
 
